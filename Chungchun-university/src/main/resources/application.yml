@@ -13,3 +13,13 @@ spring:
     properties:
       hibernate:
         '[format_sql]': true
+
+        jpa:
+          hibernate:
+            ddl-auto: create-drop
+          defer-datasource-initialization: true
+        sql:
+          init:
+            data-locations: classpath*:db/data.sql
+            mode: always
+            platform: h2
