@@ -1,5 +1,6 @@
 package com.chungchun.website.post.common;
 
+import com.chungchun.website.myclass.common.MyClass;
 import com.chungchun.website.user.common.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Getter
 @ToString
 @Builder
-public class post {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
