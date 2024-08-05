@@ -1,4 +1,4 @@
 package com.chungchun.website.notice.controller;
 
-public class Controller {
+public class NoticeController {
 }

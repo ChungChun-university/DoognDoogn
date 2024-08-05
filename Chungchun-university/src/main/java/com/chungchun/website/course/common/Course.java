@@ -5,34 +5,40 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@jakarta.persistence.Entity
-@Table(name="class")
+@Entity
+@Table(name="course")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Entity {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cl_no")
+    @Column(name = "cl_no", nullable = false)
     private int cl_no;
 
-    @Column(name = "cl_name")
+    @Column(name = "cl_name", nullable = false)
     private String cl_name;
 
-    @Column(name = "open_date")
+    @Column(name = "open_date", nullable = false)
     private LocalDate open_date;
 
-    @Column(name = "close_date")
+    @Column(name = "close_date", nullable = false)
     private LocalDate close_date;
 
-    @Column(name = "cl_intro")
+    @Column(name = "cl_intro", nullable = false)
     private String cl_intro;
 
-    @Column(name = "cl_prof")
+    @Column(name = "cl_prof", nullable = false)
     private String cl_prof;
+
+    @ManyToOne
+    @JoinColumn(name = "user_no", nullable = false)
+    private User user;
+
+
 
 
 
