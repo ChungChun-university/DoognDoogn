@@ -1,6 +1,6 @@
 package com.chungchun.website.post.common;
 
-import com.chungchun.website.myclass.common.MyClass;
+import com.chungchun.website.course.common.Course;
 import com.chungchun.website.user.common.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,8 +37,8 @@ public class Post {
     private Integer postLikes;
 
     @ManyToOne
-    @JoinColumn(name = "mc_no")
-    private MyClass mcNo;
+    @JoinColumn(name = "cls_no")
+    private Course clsNo;
 
     @ManyToOne
     @JoinColumn(name = "user_no")
