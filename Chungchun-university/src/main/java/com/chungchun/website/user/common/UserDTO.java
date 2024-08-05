@@ -1,4 +1,4 @@
 package com.chungchun.website.user.common;
 
-public class DTO {
+public class UserDTO {
 }

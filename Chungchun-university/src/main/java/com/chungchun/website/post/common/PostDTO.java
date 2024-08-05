@@ -1,4 +1,4 @@
 package com.chungchun.website.post.common;
 
-public class Entity {
+public class PostDTO {
 }
