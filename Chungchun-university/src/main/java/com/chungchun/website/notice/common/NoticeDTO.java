@@ -1,5 +1,6 @@
 package com.chungchun.website.notice.common;
 
+import com.chungchun.website.user.common.User;
 import lombok.*;
 
 import java.time.LocalDate;

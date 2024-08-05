@@ -1,5 +1,7 @@
 package com.chungchun.website.comment.common;
 
+import com.chungchun.website.post.common.Post;
+import com.chungchun.website.user.common.User;
 import jakarta.persistence.*;
 import lombok.*;
 
