@@ -8,7 +8,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="like")
+@Table(name="cc_like")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -19,14 +19,14 @@ public class Like {
     @Id
     @Column(name = "like_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int like_no;
+    private int likeNo;
 
-    @Column(name = "c_date")
+    @Column(name = "create_date")
     // 생성일자
-    private LocalDate c_date;
+    private LocalDate createDate;
 
-    @Column(name = "d_date")
-    private LocalDate d_date;
+    @Column(name = "delete_date")
+    private LocalDate dDate;
 
     @ManyToOne
     @JoinColumn(name = "user_no", nullable = false)

@@ -1,10 +1,12 @@
 package com.chungchun.website.comment.common;
 
+import com.chungchun.website.post.common.Post;
+import com.chungchun.website.user.common.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity(name = "comment")
-@Table(name = "comment")
+@Table(name = "cc_comment")
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -15,10 +17,10 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cmt_no")
-    private int cmt_no;
+    private int cmtNo;
 
     @Column(name = "cmt_content", nullable = false)
-    private int cmt_content;
+    private int cmtContent;
 
     @ManyToOne
     @JoinColumn(name = "user_no")
@@ -28,11 +30,11 @@ public class Comment {
     @JoinColumn(name = "post_no")
     private Post post;
 
-    @Column(name = "cmt_cdate", nullable = false)
-    private int cmt_cdate;
+    @Column(name = "cmt_create_date", nullable = false)
+    private int cmtCreateDate;
 
-    @Column(name = "cmt_udate", nullable = false)
-    private int cmt_udate;
+    @Column(name = "cmt_up_date", nullable = false)
+    private int cmtUpDate;
 
 
 
