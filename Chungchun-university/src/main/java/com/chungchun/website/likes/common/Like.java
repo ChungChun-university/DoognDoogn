@@ -8,12 +8,11 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="like")
+@Table(name="tbl_like")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Like {
 
     @Id
@@ -35,7 +34,5 @@ public class Like {
     @ManyToOne
     @JoinColumn(name = "post_no", nullable = false)
     private Post post;
-
-
 
 }
