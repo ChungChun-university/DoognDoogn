@@ -16,6 +16,11 @@ import java.time.LocalDate;
 @ToString
 public class Like {
 
+    @Id
+    @Column(name = "like_no")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int like_no;
+
     @Column(name = "c_date")
     // 생성일자
     private LocalDate c_date;
