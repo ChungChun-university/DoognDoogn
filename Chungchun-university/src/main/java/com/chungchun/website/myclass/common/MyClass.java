@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name="cc_myClass")
+@Table(name="cc_my_class")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

@@ -5,6 +5,8 @@ import com.chungchun.website.user.common.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity(name = "comment")
 @Table(name = "cc_comment")
 @NoArgsConstructor
@@ -20,7 +22,7 @@ public class Comment {
     private int cmtNo;
 
     @Column(name = "cmt_content", nullable = false)
-    private int cmtContent;
+    private String cmtContent;
 
     @ManyToOne
     @JoinColumn(name = "user_no")
@@ -31,10 +33,10 @@ public class Comment {
     private Post post;
 
     @Column(name = "cmt_create_date", nullable = false)
-    private int cmtCreateDate;
+    private Date cmtCreateDate;
 
     @Column(name = "cmt_up_date", nullable = false)
-    private int cmtUpDate;
+    private Date cmtUpDate;
 
 
 
