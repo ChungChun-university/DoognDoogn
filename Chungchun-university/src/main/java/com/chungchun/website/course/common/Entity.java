@@ -28,6 +28,12 @@ public class Entity {
     @Column(name = "close_date")
     private LocalDate close_date;
 
+    @Column(name = "cl_intro")
+    private String cl_intro;
+
+    @Column(name = "cl_prof")
+    private String cl_prof;
+
 
 
 
