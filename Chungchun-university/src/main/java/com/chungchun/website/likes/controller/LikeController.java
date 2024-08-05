@@ -1,4 +1,4 @@
 package com.chungchun.website.likes.controller;
 
-public class Controller {
+public class LikeController {
 }

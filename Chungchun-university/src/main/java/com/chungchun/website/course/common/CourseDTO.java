@@ -1,6 +1,5 @@
 package com.chungchun.website.course.common;
 
-import jakarta.persistence.Column;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -10,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @ToString
-public class DTO {
+public class CourseDTO {
 
     private int cl_no;
 
@@ -23,4 +22,6 @@ public class DTO {
     private String cl_intro;
 
     private String cl_prof;
+
+
 }
