@@ -19,4 +19,8 @@ public class DTO {
     private LocalDate open_date;
 
     private LocalDate close_date;
+
+    private String cl_intro;
+
+    private String cl_prof;
 }
