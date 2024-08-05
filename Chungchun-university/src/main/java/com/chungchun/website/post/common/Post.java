@@ -1,6 +1,6 @@
 package com.chungchun.website.post.common;
 
-import com.chungchun.website.course.common.Course;
+import com.chungchun.website.myclass.common.MyClass;
 import com.chungchun.website.user.common.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "post")
+@Table(name = "cc_post")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -19,25 +19,28 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_no")
-    private int post_no;
+    private int postNo;
 
-    @Column(name = "ctg_code", nullable = false)
-    private String ctg_code;
+    @Column(name = "category_code")
+    private String categoryCode;
 
-    @ManyToOne
-    @JoinColumn(name = "cl_no")
-    private Course course;
-
-    @Column(name = "post_title", nullable = false)
-    private String post_title;
+    @Column(name = "post_title")
+    private String postTitle;
 
     @Column(name = "post_content")
-    private String post_content;
+    private String postContent;
 
-    @Column(name = "post_cdate",nullable = false)
-    private Date post_cdate;
+    @Column(name = "post_create_date")
+    private Date postCreateDate;
+
+    @Column(name = "post_likes")
+    private Integer postLikes;
 
     @ManyToOne
-    @JoinColumn(name = "user_no", nullable = false)
-    private User user_no;
+    @JoinColumn(name = "mc_no")
+    private MyClass mcNo;
+
+    @ManyToOne
+    @JoinColumn(name = "user_no")
+    private User userNo;
 }

@@ -7,7 +7,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="course")
+@Table(name="cc_course")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -17,23 +17,23 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cl_no", nullable = false)
-    private int cl_no;
+    @Column(name = "cls_no", nullable = false)
+    private int clsNo;
 
-    @Column(name = "cl_name", nullable = false)
-    private String cl_name;
+    @Column(name = "cls_name", nullable = false)
+    private String clsName;
 
     @Column(name = "open_date", nullable = false)
-    private LocalDate open_date;
+    private LocalDate openDate;
 
     @Column(name = "close_date", nullable = false)
-    private LocalDate close_date;
+    private LocalDate closeDate;
 
-    @Column(name = "cl_intro", nullable = false)
-    private String cl_intro;
+    @Column(name = "cls_intro", nullable = false)
+    private String clsIntro;
 
-    @Column(name = "cl_prof", nullable = false)
-    private String cl_prof;
+    @Column(name = "cls_prof", nullable = false)
+    private String clsProf;
 
     @ManyToOne
     @JoinColumn(name = "user_no", nullable = false)
