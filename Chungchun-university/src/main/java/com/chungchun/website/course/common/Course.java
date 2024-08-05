@@ -35,11 +35,6 @@ public class Course {
     @Column(name = "cls_prof", nullable = false)
     private String clsProf;
 
-    @ManyToOne
-    @JoinColumn(name = "user_no", nullable = false)
-    private User user;
-
-
 
 
 
