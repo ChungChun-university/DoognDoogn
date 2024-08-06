@@ -1,6 +1,7 @@
 package com.chungchun.website.user.controller;
 
 import com.chungchun.website.user.model.UserDTO;
+import com.chungchun.website.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class UserController {
 
+    private final UserService userService;
+
     @GetMapping("/register")
     public String register() {return "user/signUp";}
 
@@ -22,6 +25,7 @@ public class UserController {
 
         log.info("signup : {}", userDTO);
 
-        return "/";
+        userService.register(userDTO);
+        return "/auth/login";
     }
 }
