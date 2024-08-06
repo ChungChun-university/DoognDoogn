@@ -1,6 +1,5 @@
-package com.chungchun.website.likes.common;
+package com.chungchun.website.likes.model;
 
-import jakarta.persistence.Column;
 import lombok.*;
 
 import java.time.LocalDate;

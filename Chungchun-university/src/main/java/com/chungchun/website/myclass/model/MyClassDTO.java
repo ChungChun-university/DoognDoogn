@@ -1,6 +1,5 @@
-package com.chungchun.website.myclass.common;
+package com.chungchun.website.myclass.model;
 
-import jakarta.persistence.Column;
 import lombok.*;
 
 @NoArgsConstructor

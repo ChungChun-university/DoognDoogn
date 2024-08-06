@@ -1,12 +1,12 @@
-package com.chungchun.website.myclass.common;
+package com.chungchun.website.myclass.model;
 
-import com.chungchun.website.course.common.Course;
-import com.chungchun.website.user.common.User;
+import com.chungchun.website.course.model.Course;
+import com.chungchun.website.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name="myClass")
+@Table(name="cc_my_class")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -17,19 +17,19 @@ public class MyClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mc_no")
-    private int mc_no;
+    private int mcNo;
 
     @ManyToOne
     @JoinColumn(name = "user_no")
-    private User user_no;
+    private User userNo;
 
     @ManyToOne
-    @JoinColumn(name = "cl_no")
-    private Course cl_no;
+    @JoinColumn(name = "cls_no")
+    private Course clsNo;
 
     @Column(name = "score")
     private int score;
 
     @Column(name = "add_count")
-    private int add_count;
+    private int addCount;
 }

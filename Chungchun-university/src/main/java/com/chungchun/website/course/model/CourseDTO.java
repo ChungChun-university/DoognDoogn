@@ -1,4 +1,4 @@
-package com.chungchun.website.course.common;
+package com.chungchun.website.course.model;
 
 import lombok.*;
 

@@ -1,13 +1,13 @@
-package com.chungchun.website.notice.common;
+package com.chungchun.website.notice.model;
 
-import com.chungchun.website.user.common.User;
+import com.chungchun.website.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name="notice")
+@Table(name="cc_notice")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -17,21 +17,21 @@ public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "noti_no")
-    private int noti_no;
+    private int notiNo;
 
     @ManyToOne
     @JoinColumn(name = "user_no")
-    private User user_no;
+    private User userNo;
 
     @Column(name = "noti_title")
-    private String noti_title;
+    private String notiTitle;
 
     @Column(name = "noti_content")
-    private String noti_content;
+    private String notiContent;
 
-    @Column(name = "noti_cdate")
-    private LocalDate noti_cdate;
+    @Column(name = "noti_create_date")
+    private LocalDate notiCreateDate;
 
-    @Column(name = "noti_udate")
-    private LocalDate noti_udate;
+    @Column(name = "noti_up_date")
+    private LocalDate notiUpDate;
 }
