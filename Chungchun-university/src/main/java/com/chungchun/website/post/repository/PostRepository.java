@@ -1,6 +1,6 @@
 package com.chungchun.website.post.repository;
 
-import com.chungchun.website.post.common.Post;
+import com.chungchun.website.post.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @org.springframework.stereotype.Repository

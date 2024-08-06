@@ -1,6 +1,6 @@
-package com.chungchun.website.notice.common;
+package com.chungchun.website.notice.model;
 
-import com.chungchun.website.user.common.User;
+import com.chungchun.website.user.model.User;
 import lombok.*;
 
 import java.time.LocalDate;

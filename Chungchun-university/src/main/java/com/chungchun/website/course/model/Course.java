@@ -1,6 +1,5 @@
-package com.chungchun.website.course.common;
+package com.chungchun.website.course.model;
 
-import com.chungchun.website.user.common.User;
 import jakarta.persistence.*;
 import lombok.*;
 

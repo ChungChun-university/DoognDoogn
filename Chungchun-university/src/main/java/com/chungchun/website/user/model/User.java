@@ -1,4 +1,4 @@
-package com.chungchun.website.user.common;
+package com.chungchun.website.user.model;
 
 import jakarta.persistence.*;
 import lombok.*;

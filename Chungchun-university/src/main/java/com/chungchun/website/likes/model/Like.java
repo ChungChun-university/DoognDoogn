@@ -1,7 +1,7 @@
-package com.chungchun.website.likes.common;
+package com.chungchun.website.likes.model;
 
-import com.chungchun.website.post.common.Post;
-import com.chungchun.website.user.common.User;
+import com.chungchun.website.post.model.Post;
+import com.chungchun.website.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
