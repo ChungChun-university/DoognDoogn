@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+    <h1>회원가입</h1>
+
+    <form th:action="@{/user/register}" th:method="post">
+        <div>
+            <label>ID : </label>
+            <input type="text" name="userId" id="userId"><br>
+            <label>PWD : </label>
+            <input type="password" name="userPwd" id="userPwd"><br>
+            <label>이름 : </label>
+            <input type="text" name="userName" id="userName"><br>
+            <label>전화번호 : </label>
+            <input type="text" name="userPhone" id="userPhone"><br>
+            <button type="submit">회원가입</button>
+        </div>
+    </form>
+</body>
+</html>
