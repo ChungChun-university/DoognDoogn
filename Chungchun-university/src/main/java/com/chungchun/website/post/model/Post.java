@@ -1,11 +1,14 @@
 package com.chungchun.website.post.model;
 
 import com.chungchun.website.course.model.Course;
+import com.chungchun.website.likes.model.Like;
 import com.chungchun.website.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cc_post")
@@ -40,4 +43,18 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_no", nullable = false)
     private User userNo;
+
+    @OneToMany(mappedBy = "post")
+    private List<Like> likes; // 좋아요 리스트 추가
+
+    // 좋아요 수를 반환하는 메서드
+    public int getPostLikes() {
+        return likes != null ? likes.size() : 0;
+    }
+
+    // Date를 연, 월, 일 형식으로 받아오기
+    public String getFormattedPostCreateDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 원하는 형식
+        return sdf.format(postCreateDate);
+    }
 }
