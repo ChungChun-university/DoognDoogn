@@ -1,11 +1,14 @@
 package com.chungchun.website.post.model;
 
 import com.chungchun.website.course.model.Course;
+import com.chungchun.website.likes.model.Like;
 import com.chungchun.website.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cc_post")
@@ -40,4 +43,8 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_no", nullable = false)
     private User userNo;
+
+    @OneToMany(mappedBy = "post")
+    private List<Like> likes; // 좋아요 리스트 추가
+
 }

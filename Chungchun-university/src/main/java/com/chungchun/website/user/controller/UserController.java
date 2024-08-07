@@ -1,17 +1,24 @@
 package com.chungchun.website.user.controller;
 
-import com.chungchun.website.user.model.User;
 import com.chungchun.website.user.model.UserDTO;
 import com.chungchun.website.user.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.net.URI;
 
 @Controller
 @RequestMapping("/user")
@@ -23,7 +30,9 @@ public class UserController {
 
     // 회원가입
     @GetMapping("/register")
-    public String register() {return "user/signUp";}
+    public String register() {
+        return "user/signUp";
+    }
 
     @PostMapping("/register")
     public String register(UserDTO userDTO) {
@@ -43,7 +52,7 @@ public class UserController {
 
         UserDTO userDTO = userService.findUserById(userId);
 
-        log.info("userDTO : {}",userDTO);
+        log.info("userDTO : {}", userDTO);
 
         model.addAttribute("user", userDTO);
         return "user/profile";
@@ -57,7 +66,7 @@ public class UserController {
 
         UserDTO userDTO = userService.findUserById(userId);
 
-        log.info("userDTO2 : {}",userDTO);
+        log.info("userDTO2 : {}", userDTO);
 
         model.addAttribute("user", userDTO);
         return "user/edit";
@@ -72,13 +81,14 @@ public class UserController {
 
 
         log.info("edit user : {}", userId);
-        userService.update(userId,updateUserDTO);
+        userService.update(userId, updateUserDTO);
         return "redirect:/user/profile"; // 수정 후 프로필 페이지로 리다이렉트
     }
 
     // 자신의 정보 삭제
     @PostMapping("/delete")
-    public String delete(@AuthenticationPrincipal UserDetails userDetails) {
+    @ResponseBody
+    public ResponseEntity<?> delete(@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request, HttpServletResponse response) {
 
         String userId = userDetails.getUsername();
 
@@ -86,6 +96,13 @@ public class UserController {
 
         log.info("delete user : {}", userDTO);
         userService.delete(userDTO.getUserNo()); // 사용자 ID를 기반으로 삭제
-        return "redirect:/auth/login"; // 삭제 후 로그인 페이지로 리다이렉트
+
+        // 로그아웃 처리
+        SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+        logoutHandler.logout(request, response, null);
+
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .location(URI.create("/")) // 로그아웃 후 리다이렉트할 URL
+                .build();
     }
 }
