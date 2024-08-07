@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ClassSearch</title>
+</head>
+<body>
+<h1>검색된 강의</h1>
+<div>
+    <p>강의명 : <span th:text="${course.cl_name}"></span></p>
+    <p>강의정보 : <span th:text="${course.cl_intro}"></span></p>
+    <p>개강일자 : <span th:text="${course.open_date}"></span></p>
+    <p>종강일자 : <span th:text="${course.close_date}"></span></p>
+    <p>담당교수 : <span th:text="${course.cl_prof}"></span></p>
+</div>
+<a th:href="@{/user/edit}">수강신청</a>
+<form th:action="@{/user/delete}" method="post">
+    <button type="submit">수강철회</button>
+</form>
+</body>
+</html>
