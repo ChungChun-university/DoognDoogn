@@ -1,4 +1,4 @@
-package com.chungchun.website.comment.model;
+package com.chungchun.website.comment.common;
 
 import com.chungchun.website.post.model.Post;
 import com.chungchun.website.user.model.User;

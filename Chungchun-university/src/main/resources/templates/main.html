@@ -12,7 +12,7 @@
     </div>
 
     <div sec:authorize="isAuthenticated()">
-        <a>[[|${ #authentication.principal.member.name } / ${ #authentication.principal.username }|]]</a>
+        <a>[[|${ #authentication.principal.user.userName } / ${ #authentication.principal.username }|]]</a>
         <h1>인증된 사용자만 보이는 태그 -> 여기에 딸기모양 이미지 들어갈것!</h1>
     </div>
 
@@ -20,6 +20,12 @@
         <form th:action="@{/auth/logout}" method="post">
             <input type="submit" value="로그아웃">
         </form>
+    </div>
+
+
+<!-- 아직 구현되지 않은 페이지로 인해 a태그 위치를 잡지를 못할 경우 여기 아래에 임시로 작성해주기!-->
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/user/profile}">내 정보 조회</a>
     </div>
 
     <a th:href="@{/post/postDetails}">PostDetails Test</a>
