@@ -10,11 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
+@Transactional( readOnly = true) // 읽기 관련해서
 public class UserService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
@@ -22,6 +24,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
+    @Transactional
     public void register(UserDTO userDTO) {
 
         User user = User.builder()
@@ -46,10 +49,18 @@ public class UserService {
         return modelMapper.map(user, UserDTO.class);
     }
 
-    public void update(UserDTO userDTO, UserDTO updateUserDTO) {
-        // 사용자 정보를 데이터베이스에서 조회
-        User foundUser = userRepository.findByUserNo(userDTO.getUserNo())
+    /***
+     *
+     * @param userId
+     * @param updateUserDTO
+     */
+    @Transactional
+    public void update(String userId, UserDTO updateUserDTO) {
+        // 로그인된 사용자와 정보수정하려는 회원이 일치하는가? 확인필요
+
+        User foundUser = userRepository.findUserByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+
 
         // DTO의 정보로 엔티티 업데이트
         foundUser.setUserId(updateUserDTO.getUserId());

@@ -39,6 +39,7 @@ public class UserController {
     public String profile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 
         String userId = userDetails.getUsername();
+        log.info("❤ userId : {}", userId);
 
         UserDTO userDTO = userService.findUserById(userId);
 
@@ -66,12 +67,12 @@ public class UserController {
     @PostMapping("/edit")
     public String edit(@AuthenticationPrincipal UserDetails userDetails, UserDTO updateUserDTO) {
 
+        // 로그인한 사용자
         String userId = userDetails.getUsername();
 
-        UserDTO userDTO = userService.findUserById(userId);
 
-        log.info("edit user : {}", userDTO);
-        userService.update(userDTO,updateUserDTO);
+        log.info("edit user : {}", userId);
+        userService.update(userId,updateUserDTO);
         return "redirect:/user/profile"; // 수정 후 프로필 페이지로 리다이렉트
     }
 

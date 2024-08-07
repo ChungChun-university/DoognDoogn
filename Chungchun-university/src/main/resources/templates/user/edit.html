@@ -8,10 +8,6 @@
     <h1>내 정보 수정</h1>
     <form th:action="@{/user/edit}" th:object="${user}" method="post">
         <div>
-            <label>ID :</label>
-            <input type="text" th:field="${user.userId}" required/>
-        </div>
-        <div>
             <label>이름 :</label>
             <input type="text" th:field="${user.userName}" required/>
         </div>
