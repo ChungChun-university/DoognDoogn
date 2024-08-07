@@ -1,6 +1,5 @@
 package com.chungchun.website.user.controller;
 
-import com.chungchun.website.user.model.User;
 import com.chungchun.website.user.model.UserDTO;
 import com.chungchun.website.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,7 +30,9 @@ public class UserController {
 
     // 회원가입
     @GetMapping("/register")
-    public String register() {return "user/signUp";}
+    public String register() {
+        return "user/signUp";
+    }
 
     @PostMapping("/register")
     public String register(UserDTO userDTO) {
@@ -51,7 +52,7 @@ public class UserController {
 
         UserDTO userDTO = userService.findUserById(userId);
 
-        log.info("userDTO : {}",userDTO);
+        log.info("userDTO : {}", userDTO);
 
         model.addAttribute("user", userDTO);
         return "user/profile";
@@ -65,7 +66,7 @@ public class UserController {
 
         UserDTO userDTO = userService.findUserById(userId);
 
-        log.info("userDTO2 : {}",userDTO);
+        log.info("userDTO2 : {}", userDTO);
 
         model.addAttribute("user", userDTO);
         return "user/edit";
@@ -80,7 +81,7 @@ public class UserController {
 
 
         log.info("edit user : {}", userId);
-        userService.update(userId,updateUserDTO);
+        userService.update(userId, updateUserDTO);
         return "redirect:/user/profile"; // 수정 후 프로필 페이지로 리다이렉트
     }
 
