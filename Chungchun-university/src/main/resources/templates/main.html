@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
-<head>
-    <meta charset="UTF-8">
-    <title>Main Page</title>
-    <style layout:fragment="style"></style>
-</head>
-<body>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/default}">
+
+<div layout:fragment="content">
     <h1>Main Page</h1>
 <!-- 로그인 화면으로 이동 -> (여기에 하트 이미지 반영 예정!) -->
     <div>
         <a th:href="@{/auth/login}">
-            <img src="../static/image/h_logo.png" style="width: 600px; height: 600px;">
+            <img src="/image/h-logo.png" style="width: 600px; height: 600px;" alt="h_logo">
         </a>
     </div>
 
@@ -31,5 +28,5 @@
     <div sec:authorize="isAuthenticated()">
         <a th:href="@{/user/profile}">내 정보 조회</a>
     </div>
-</body>
+</div>
 </html>
