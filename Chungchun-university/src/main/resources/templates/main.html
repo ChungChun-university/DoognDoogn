@@ -4,19 +4,68 @@
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout/default}">
+<head>
+    <style>
+        .shine {
+            animation: shine 0.5s linear;
+        }
+
+        @keyframes shine {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .image-container {
+            position: fixed; /* 고정 위치 */
+            bottom: 20px; /* 하단에서 20px */
+            left: 20px; /* 왼쪽에서 20px */
+
+        }
+
+        .image-container.right {
+            right: 20px; /* 오른쪽에서 20px */
+            transform: scaleX(-1); /* 좌우 반전 */
+        }
+
+        img {
+            width: 100px; /* 이미지 너비 조정 (필요에 따라 조정) */
+            height: auto; /* 비율 유지 */
+        }
+
+        #logo-link{
+
+        }
+    </style>
+</head>
 
 <div layout:fragment="content">
-    <h1>Main Page</h1>
+
 <!-- 로그인 화면으로 이동 -> (여기에 하트 이미지 반영 예정!) -->
-    <div>
-        <a th:href="@{/auth/login}">
-            <img src="/image/h-logo.png" style="width: 600px; height: 600px;" alt="h_logo">
+    <div sec:authorize="isAnonymous()">
+        <a id="logo-link" th:href="@{/auth/login}">
+            <img src="/image/h-logo.png" style="width: 500px; height: 500px;" alt="h_logo">
+        </a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+ -of       <a id="logo-link-of">
+            <img src="/image/h-logo.png" style="width: 500px; height: 500px;" alt="h_logo">
         </a>
     </div>
 
     <div sec:authorize="isAuthenticated()">
-        <a>[[|${ #authentication.principal.user.userName } / ${ #authentication.principal.username }|]]</a>
-        <h1>인증된 사용자만 보이는 태그 -> 여기에 딸기모양 이미지 들어갈것!</h1>
+        <div class="image-container">
+            <img src="/image/s-cookie.png" alt="딸기 이미지">
+        </div>
+        <div class="image-container right">
+            <img src="/image/s-cookie.png" alt="딸기 이미지">
+        </div>
     </div>
 
     <div sec:authorize="isAuthenticated()">
@@ -29,4 +78,18 @@
         <a th:href="@{/user/profile}">내 정보 조회</a>
     </div>
 </div>
+
+<script>
+    document.getElementById("logo-link-of").onclick = function() {
+        // 반짝이는 효과 추가
+        const logoImage = document.getElementById("/image/h-logo.png");
+        logoImage.classList.add("shine");
+
+        // 애니메이션 효과가 끝난 후 클래스 제거
+        setTimeout(() => {
+            logoImage.classList.remove("shine");
+        }, 500); // 애니메이션 지속 시간과 일치
+    };
+
+</script>
 </html>
