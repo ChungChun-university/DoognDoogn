@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -35,16 +36,17 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests((authorizationManagerRequestMatcherRegistry -> {
-            authorizationManagerRequestMatcherRegistry
-//                    .requestMatchers("/", "/main.html").permitAll() // 모두에게 허용
-//                    .requestMatchers("/user/register").anonymous() // 비인증사용자만 접근
-//                    .requestMatchers("/post/**","/user/**").authenticated()
-//                    .requestMatchers("/admin/**").hasRole("ADMIN") // ROLE이 ADMIN인 경우만 접근 가능
-//                    .anyRequest().authenticated(); // 인증된 사용자만 요청가능
-                    .anyRequest().permitAll(); // 모든 사용자만 요청가능
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests((authorizationManagerRequestMatcherRegistry -> {
+                    authorizationManagerRequestMatcherRegistry
+                            .requestMatchers("/", "/main.html").permitAll() // 모두에게 허용
+                            .requestMatchers("/user/register").anonymous() // 비인증사용자만 접근
+                            .requestMatchers("/post/**", "/user/**").authenticated()
+                            .requestMatchers("/admin/**").hasRole("ADMIN") // ROLE이 ADMIN인 경우만 접근 가능
+                            .anyRequest().authenticated(); // 인증된 사용자만 요청가능
+//                    .anyRequest().permitAll(); // 모든 사용자만 요청가능
 
-        }));
+                }));
 
         // formLogin 설정
 
