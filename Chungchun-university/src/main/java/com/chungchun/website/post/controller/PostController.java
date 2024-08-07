@@ -29,7 +29,7 @@ public class PostController {
     @GetMapping("/postDetails")
     public String postDetails(Model model){
 
-        List<Post> postList = postService.findAllPosts();
+        List<PostDTO> postList = postService.findAllPosts();
 
         model.addAttribute("postList",postList);
 
@@ -37,10 +37,16 @@ public class PostController {
     }
 
     @GetMapping("/createPost")
-    public void createPost(){}
+    public String createPost(){
+
+        log.info("createPost 이동 get 요청 들어옴...");
+        return "post/createPost";
+    }
 
     @PostMapping("/createPost")
     public String createPost(@AuthenticationPrincipal UserDetails userDetails, PostDTO postDTO) {
+
+        log.info("createPost Post 요청 확인!");
 
         String memberId = userDetails.getUsername();
 
