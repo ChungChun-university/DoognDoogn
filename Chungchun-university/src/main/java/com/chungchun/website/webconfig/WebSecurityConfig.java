@@ -37,11 +37,12 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests((authorizationManagerRequestMatcherRegistry -> {
             authorizationManagerRequestMatcherRegistry
-                    .requestMatchers("/", "/main.html").permitAll() // 모두에게 허용
-                    .requestMatchers("/user/register").anonymous() // 비인증사용자만 접근
-                    .requestMatchers("/post/**").authenticated()
-                    .requestMatchers("/admin/**").hasRole("ADMIN") // ROLE이 ADMIN인 경우만 접근 가능
-                    .anyRequest().authenticated(); // 인증된 사용자만 요청가능
+//                    .requestMatchers("/", "/main.html").permitAll() // 모두에게 허용
+//                    .requestMatchers("/user/register").anonymous() // 비인증사용자만 접근
+//                    .requestMatchers("/post/**","/user/**").authenticated()
+//                    .requestMatchers("/admin/**").hasRole("ADMIN") // ROLE이 ADMIN인 경우만 접근 가능
+//                    .anyRequest().authenticated(); // 인증된 사용자만 요청가능
+                    .anyRequest().permitAll(); // 모든 사용자만 요청가능
 
         }));
 
