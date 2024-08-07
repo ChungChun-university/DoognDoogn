@@ -86,6 +86,8 @@ public class UserController {
 
         log.info("delete user : {}", userDTO);
         userService.delete(userDTO.getUserNo()); // 사용자 ID를 기반으로 삭제
-        return "redirect:/auth/login"; // 삭제 후 로그인 페이지로 리다이렉트
+
+
+        return "redirect:/"; // 삭제 후 로그인 페이지로 리다이렉트
     }
 }
