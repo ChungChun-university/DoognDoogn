@@ -1,6 +1,5 @@
 package com.chungchun.website.user.controller;
 
-import com.chungchun.website.user.model.User;
 import com.chungchun.website.user.model.UserDTO;
 import com.chungchun.website.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user")
@@ -89,5 +89,21 @@ public class UserController {
 
 
         return "redirect:/"; // 삭제 후 로그인 페이지로 리다이렉트
+    }
+
+    // 아이디 찾기
+    @GetMapping("/search")
+    public String queryIdPage() {
+        log.info("log찍힘");
+        return "user/queryId";
+    }
+
+    @PostMapping("/search")
+    public String findUserByUserPhone(@RequestParam String userPhone, Model model) {
+        log.info("userPhone =============== {}", userPhone);
+        String userId=userService.findUserByUserPhone(userPhone);
+
+        model.addAttribute("userId", userId );
+        return "user/searchResult";
     }
 }
