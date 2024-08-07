@@ -1,6 +1,6 @@
 package com.chungchun.website.myclass.repository;
 
-import com.chungchun.website.myclass.common.MyClass;
+import com.chungchun.website.myclass.model.MyClass;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @org.springframework.stereotype.Repository
