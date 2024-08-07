@@ -99,8 +99,24 @@
 
 
         function goToMainPage() {
-            // 메인 페이지로 이동하는 로직 (예: 메인 페이지 URL)
-            window.location.href = "/"; // 적절한 메인 페이지 URL로 변경
+
+            fetch('auth/logout', {
+            method: 'POST',
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 로그아웃 및 삭제 성공 시 리다이렉트
+                    window.location.href = "/"; // 로그아웃 후 이동할 URL
+                } else {
+                    alert('회원 탈퇴 처리 중 오류가 발생했습니다.'); // 오류 처리
+                }
+            })
+            .catch(error => {
+                console.error("오류 발생:", error); // 오류 로그
+                alert('회원 탈퇴 처리 중 오류가 발생했습니다.'); // 오류 처리
+            });
+            // // 메인 페이지로 이동하는 로직 (예: 메인 페이지 URL)
+            // window.location.href = "/"; // 적절한 메인 페이지 URL로 변경
         }
 
         // 모달 외부 클릭 시 모달 닫기
