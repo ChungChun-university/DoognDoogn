@@ -12,7 +12,7 @@
     </div>
 
     <div sec:authorize="isAuthenticated()">
-        <a>[[|${ #authentication.principal.member.name } / ${ #authentication.principal.username }|]]</a>
+        <a>[[|${ #authentication.principal.user.userName } / ${ #authentication.principal.username }|]]</a>
         <h1>인증된 사용자만 보이는 태그 -> 여기에 딸기모양 이미지 들어갈것!</h1>
     </div>
 
@@ -22,5 +22,8 @@
         </form>
     </div>
 
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/user/profile}">내 정보 조회</a>
+    </div>
 </body>
 </html>

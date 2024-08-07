@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+    <h1>내 정보 조회</h1>
+    <div>
+        <p>ID: <span th:text="${user.userId}"></span></p>
+        <p>PWD : <span th:text="${user.userPwd}"></span></p>
+        <p>이름 : <span th:text="${user.userName}"></span></p>
+        <p>전화번호 : <span th:text="${user.userPhone}"></span></p>
+    </div>
+    <a th:href="@{/user/edit}">정보 수정</a>
+    <form th:action="@{/user/delete}" method="post">
+        <button type="submit">회원탈퇴</button>
+    </form>
+</body>
+</html>
