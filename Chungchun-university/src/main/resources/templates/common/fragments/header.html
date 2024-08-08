@@ -6,7 +6,7 @@
     <title>ChungChunUniversity</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<style th:fragment="header">
+<style>
     *{
         margin: 0;
         padding: 0;
@@ -92,8 +92,10 @@
         color: #FFC8DD;
         font-size: 1.5rem;
     }
-</style>
 
+</style>
+<header th:fragment="header"></header>
+<body>
 <header th:fragment="header">
     <div class="inner">
         <div class="menu">
@@ -103,26 +105,29 @@
                 <li><a href="">강의</a></li>
                 <li><a href="">나의수강</a></li>
                 <li><a href="">마이페이지</a></li>
-                <li><a href="">로그아웃</a></li>
+                <li>
+                    <a href="#" onclick="document.getElementById('logout-form').submit();">로그아웃</a>
+                </li>
             </ul>
         </div>
     </div>
     <div class="img">
         <div class="img-box">
-            <a href=""><img src="logo.png" alt=""></a>
+            <a href=""><img src="/image/logo.png" alt=""></a>
         </div>
-        <div class="text-box">
-            <form action="search-box" actiom="" method="get">
-                <label for="❣">
-                    <input class="search-txt" type="text" placeholder="두근력 풀충전 200%...❣" onfocus="this.placeholder=''" onblur="this.placeholder='두근력 풀충전 200%...❣'" name="search">
-                </label>
-                <button class="search-btn" type="submit">
-                    <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-                </button>
+            <div class="text-box">
+                <form action="search-box" actiom="" method="get">
+                    <label for="❣">
+                        <input class="search-txt" type="text" placeholder="두근력 풀충전 200%...❣" onfocus="this.placeholder=''" onblur="this.placeholder='두근력 풀충전 200%...❣'" name="search">
+                    </label>
+                    <button class="search-btn" type="submit">
+                        <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
+                    </button>
             </form>
         </div>
     </div>
 </header>
-<body>
+
+
 </body>
 </html>
