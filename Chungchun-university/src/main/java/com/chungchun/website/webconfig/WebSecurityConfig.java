@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -18,17 +19,17 @@ public class WebSecurityConfig {
     // CSS, JS, 이미지 같은 정적 자원들에 대해 보안 필터를 적용하지 않게 함.
     @Bean
     public WebSecurityCustomizer securityCustomizer() {
-//        return new WebSecurityCustomizer() {
-//            @Override
-//            public void customize(WebSecurity web) {
-//                web.ignoring().requestMatchers("/css/**", "/js/**", "/images/**");
-//            }
-//        };
-        return (web -> web
-                .ignoring()
-                .requestMatchers(PathRequest
-                        .toStaticResources()
-                        .atCommonLocations()));
+        return new WebSecurityCustomizer() {
+            @Override
+            public void customize(WebSecurity web) {
+                web.ignoring().requestMatchers("/css/**", "/js/**", "/image/**");
+            }
+        };
+//        return (web -> web
+//                .ignoring()
+//                .requestMatchers(PathRequest
+//                        .toStaticResources()
+//                        .atCommonLocations()));
     }
 
     // Spring Security에서 제공하는 인증, 인가를 위한 필터들의 모음
@@ -40,8 +41,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry
                             .requestMatchers("/", "/main.html").permitAll() // 모두에게 허용
-                            .requestMatchers("/user/register").anonymous() // 비인증사용자만 접근
-                            .requestMatchers("/post/**", "/user/**").authenticated()
+                            .requestMatchers("/user/register", "/user/search").anonymous() // 비인증사용자만 접근
+                            .requestMatchers("/post/**", "/user/**", "/myClass/**").authenticated()
                             .requestMatchers("/admin/**").hasRole("ADMIN") // ROLE이 ADMIN인 경우만 접근 가능
                             .anyRequest().authenticated(); // 인증된 사용자만 요청가능
 //                    .anyRequest().permitAll(); // 모든 사용자만 요청가능
