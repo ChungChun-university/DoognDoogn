@@ -21,11 +21,11 @@ public class MyClass {
 
     @ManyToOne
     @JoinColumn(name = "user_no")
-    private User userNo;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "cls_no")
-    private Course clsNo;
+    private Course course;
 
     @Column(name = "score")
     private int score;

@@ -1,5 +1,7 @@
 package com.chungchun.website.myclass.model;
 
+import com.chungchun.website.course.model.Course;
+import com.chungchun.website.user.model.User;
 import lombok.*;
 
 @NoArgsConstructor
@@ -9,15 +11,15 @@ import lombok.*;
 @ToString
 public class MyClassDTO {
 
-    private int mc_no;
+    private int mcNo;
 
-    private int user_no;
+    private User user;
 
-    private int cl_no;
+    private Course course;
 
     private int score;
 
-    private int add_count;
+    private int addCount;
 
 
 }
