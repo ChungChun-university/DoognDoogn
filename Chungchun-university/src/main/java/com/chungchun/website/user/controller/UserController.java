@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.net.URI;
@@ -104,5 +105,21 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.FOUND)
                 .location(URI.create("/")) // 로그아웃 후 리다이렉트할 URL
                 .build();
+    }
+
+    // 아이디 찾기
+    @GetMapping("/search")
+    public String queryIdPage() {
+        log.info("log찍힘");
+        return "user/queryId";
+    }
+
+    @PostMapping("/search")
+    public String findUserByUserPhone(@RequestParam String userPhone, Model model) {
+        log.info("userPhone =============== {}", userPhone);
+        String userId=userService.findUserByUserPhone(userPhone);
+
+        model.addAttribute("userId", userId );
+        return "user/searchResult";
     }
 }

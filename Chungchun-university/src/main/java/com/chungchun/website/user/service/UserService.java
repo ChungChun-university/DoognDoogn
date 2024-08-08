@@ -8,11 +8,14 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +66,7 @@ public class UserService {
 
 
         // DTO의 정보로 엔티티 업데이트
+        foundUser.setUserId(updateUserDTO.getUserId());
         foundUser.setUserName(updateUserDTO.getUserName());
         foundUser.setUserPhone(updateUserDTO.getUserPhone());
         // 필요한 다른 필드도 업데이트
@@ -76,4 +80,16 @@ public class UserService {
 
         userRepository.deleteById(userNo);
     }
+
+    public String findUserByUserPhone(String userPhone) {
+
+        log.info("log꽝!");
+        User userByUserPhone = userRepository.findUserByUserPhone(userPhone);
+        if (userByUserPhone != null) {
+            return userByUserPhone.getUserId();
+        } else {
+            return "아이디를 찾을 수 없습니다.";
+        }
+
 }
+    }
