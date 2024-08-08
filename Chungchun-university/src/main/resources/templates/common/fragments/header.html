@@ -6,7 +6,7 @@
     <title>ChungChunUniversity</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<style>
+<style th:fragment="header">
     *{
         margin: 0;
         padding: 0;
@@ -92,11 +92,9 @@
         color: #FFC8DD;
         font-size: 1.5rem;
     }
-
 </style>
-<header th:fragment="header"></header>
-<body>
-<header>
+
+<header th:fragment="header">
     <div class="inner">
         <div class="menu">
             <ul>
@@ -113,17 +111,18 @@
         <div class="img-box">
             <a href=""><img src="logo.png" alt=""></a>
         </div>
-            <div class="text-box">
-                <form action="search-box" actiom="" method="get">
-                    <label for="❣">
-                        <input class="search-txt" type="text" placeholder="두근력 풀충전 200%...❣" onfocus="this.placeholder=''" onblur="this.placeholder='두근력 풀충전 200%...❣'" name="search">
-                    </label>
-                    <button class="search-btn" type="submit">
-                        <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-                    </button>
+        <div class="text-box">
+            <form action="search-box" actiom="" method="get">
+                <label for="❣">
+                    <input class="search-txt" type="text" placeholder="두근력 풀충전 200%...❣" onfocus="this.placeholder=''" onblur="this.placeholder='두근력 풀충전 200%...❣'" name="search">
+                </label>
+                <button class="search-btn" type="submit">
+                    <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
+                </button>
             </form>
         </div>
     </div>
 </header>
+<body>
 </body>
 </html>

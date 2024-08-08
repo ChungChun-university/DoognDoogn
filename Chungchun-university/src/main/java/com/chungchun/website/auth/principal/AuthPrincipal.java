@@ -26,6 +26,7 @@ public class AuthPrincipal implements UserDetails, Serializable {
 
         return auth;
     }
+    public int getUserNo() {return user.getUserNo();}
 
     @Override
     public String getPassword() {

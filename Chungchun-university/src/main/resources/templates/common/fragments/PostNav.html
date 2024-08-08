@@ -8,9 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Jua&display=swap" rel="stylesheet">
 </head>
 <style>
-    body{
+    body {
         background-color: cornflowerblue;
     }
+
     .mainTopPostNav {
         margin-top: 180px;
         margin-left: 100px;
@@ -22,12 +23,13 @@
         position: inherit;
         border: 7px solid white;
     }
-    .mainInfo{
+
+    .mainInfo {
         margin-left: 20px;
         margin-top: 100px;
     }
 
-    .searchMyPost{
+    .searchMyPost {
         margin-top: -10px;
         margin-left: -5px;
         width: 120px;
@@ -42,7 +44,8 @@
         font-size: 22px;
         text-decoration: none;
     }
-    .mainBottomPostNav{
+
+    .mainBottomPostNav {
         margin-top: 20px;
         margin-left: 100px;
         padding: 50px;
@@ -54,101 +57,103 @@
         border: 7px solid white;
     }
 
-    li{
+    li {
         margin-top: 8px;
         margin-bottom: 10px;
         list-style-type: none;
         font-size: 18px;
     }
 
-    .ClassList{
+    .ClassList {
         margin-top: -45px;
         margin-left: -10px;
     }
 
-    .v-line1{
+    .v-line1 {
         margin-left: 165px;
         margin-top: -323px;
         border-left: 3.2px solid #000;
         height: 180px;
     }
-    .v-line2{
+
+    .v-line2 {
         margin-left: 165px;
-        margin-top:  65px;
+        margin-top: 65px;
         border-left: 3.2px solid #000;
         height: 35px;
     }
 
-    .v-subLine1{
+    .v-subLine1 {
         margin-left: 165px;
         margin-top: -270px;
         font-size: 20px;
     }
 
-    .v-subLine2{
+    .v-subLine2 {
         margin-left: 165px;
         margin-top: 10px;
         font-size: 20px;
     }
 
-    .v-subLine3{
+    .v-subLine3 {
         margin-left: 165px;
         margin-top: 13px;
         font-size: 20px;
     }
 
-    .v-subLine4{
+    .v-subLine4 {
         margin-left: 165px;
         margin-top: 11px;
         font-size: 20px;
     }
 
-    .v-subLine5{
+    .v-subLine5 {
         margin-left: 165px;
         margin-top: 12px;
         font-size: 20px;
     }
 
-    .v-subLine6{
+    .v-subLine6 {
         margin-left: 165px;
         margin-top: 73px;
         font-size: 20px;
     }
 </style>
-<body>
-<div class="mainTopPostNav">
-    <div class="hi" id="user_name">
-    <div class= "mainInfo" >
-    <h2>ドキドキ</h2>
-    <button class="searchMyPost">내 게시글 조회</button>
-    </div>
-    </div>
+<nav th:fragment="nav">
+    <div class="mainTopPostNav">
+        <div class="hi" id="user_name">
+            <div class="mainInfo">
+                <h2>ドキドキ</h2>
+                <button class="searchMyPost">내 게시글 조회</button>
+            </div>
+        </div>
     </div>
 
-<div class="mainBottomPostNav">
+    <div class="mainBottomPostNav">
 
-   <div class="ClassList">
-       <h2>강의</h2>
-    <ul>
-        <li><a href="">뜨개질</a></li>
-        <li><a href="">핸드 드립</a></li>
-        <li><a href="">소프트웨어</a></li>
-        <li><a href="">시.창작</a></li>
-        <li><a href="">가상체험</a></li>
-    </ul>
-    <h2>기타</h2>
-    <ul>
-    <li><a href="">기타</a></li>
-    </ul>
-   </div>
-</div>
-<div class="v-line1"></div>
-<div class="v-line2"></div>
-<div class="v-subLine1">&#10142;</div>
-<div class="v-subLine2">&#10142;</div>
-<div class="v-subLine3">&#10142;</div>
-<div class="v-subLine4">&#10142;</div>
-<div class="v-subLine5">&#10142;</div>
-<div class="v-subLine6">&#10142;</div>
-</body>
+        <div class="ClassList">
+            <h2>강의</h2>
+            <ul>
+                <li><a href="">뜨개질</a></li>
+                <li><a href="">핸드 드립</a></li>
+                <li><a href="">소프트웨어</a></li>
+                <li><a href="">시.창작</a></li>
+                <li><a href="">가상체험</a></li>
+            </ul>
+            <h2>기타</h2>
+            <ul>
+                <li><a href="">기타</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="v-line1"></div>
+    <div class="v-line2"></div>
+    <div class="v-subLine1">&#10142;</div>
+    <div class="v-subLine2">&#10142;</div>
+    <div class="v-subLine3">&#10142;</div>
+    <div class="v-subLine4">&#10142;</div>
+    <div class="v-subLine5">&#10142;</div>
+    <div class="v-subLine6">&#10142;</div>
+</nav>
+
 </html>
