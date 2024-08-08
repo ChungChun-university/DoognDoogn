@@ -96,7 +96,7 @@
 </style>
 <header th:fragment="header"></header>
 <body>
-<header>
+<header th:fragment="header">
     <div class="inner">
         <div class="menu">
             <ul>
@@ -105,13 +105,15 @@
                 <li><a href="">강의</a></li>
                 <li><a href="">나의수강</a></li>
                 <li><a href="">마이페이지</a></li>
-                <li><a href="">로그아웃</a></li>
+                <li>
+                    <a href="#" onclick="document.getElementById('logout-form').submit();">로그아웃</a>
+                </li>
             </ul>
         </div>
     </div>
     <div class="img">
         <div class="img-box">
-            <a href=""><img src="../../static/image/logo.png" alt=""></a>
+            <a href=""><img src="/image/logo.png" alt=""></a>
         </div>
             <div class="text-box">
                 <form action="search-box" actiom="" method="get">
@@ -125,5 +127,7 @@
         </div>
     </div>
 </header>
+
+
 </body>
 </html>
