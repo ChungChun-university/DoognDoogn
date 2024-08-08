@@ -30,5 +30,10 @@
 
     <a th:href="@{/post/postDetails}">PostDetails Test</a>
 
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{/course/main}">강의</a>
+    </div>
+
+
 </body>
 </html>
