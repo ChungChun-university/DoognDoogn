@@ -14,11 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -126,12 +122,24 @@ public class UserController {
 
         model.addAttribute("userId", userId );
         return "user/searchResult";
+//        log.info("userName = {}, userPhone = {}", userName, userPhone);
+
+//        String userId = userService.findIdByNameAndPhone(userName, userPhone);
+//        Map<String, Object> response = new HashMap<>();
+//
+//        if (userId != null) {
+//            response.put("userId", userId);
+//            return ResponseEntity.ok(response); // ID를 찾았을 경우
+//        } else {
+//            response.put("error", "일치하는 ID를 찾을 수 없습니다.");
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response); // ID를 찾지 못했을 경우
+//        }
     }
 
     // 아이디 중복 확인
     @PostMapping("/check-id")
     @ResponseBody
-    public ResponseEntity<Map<String, Boolean>> checkId(@RequestParam String userId) {
+    public ResponseEntity<Map<String, Boolean>> checkId(@RequestBody String userId) {
         log.info("💟 check-id 요청들어옴 ... userId : {}", userId);
         boolean isAvailable = userService.isIdAvailable(userId);
         Map<String, Boolean> response = new HashMap<>();

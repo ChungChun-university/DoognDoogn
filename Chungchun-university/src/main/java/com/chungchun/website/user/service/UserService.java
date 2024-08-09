@@ -96,4 +96,10 @@ public class UserService {
     public boolean isIdAvailable(String userId) {
         return userRepository.findByUserId(userId) == null; // ID가 존재하지 않으면 사용 가능
     }
+
+//    public String findIdByNameAndPhone(String userName, String userPhone) {
+//        // userRepository를 통해 사용자 정보를 조회합니다.
+//        User user = userRepository.findByNameAndPhone(userName, userPhone);
+//        return (user != null) ? user.getUserId() : null; // 사용자 ID 반환
+//    }
 }

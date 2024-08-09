@@ -268,11 +268,14 @@
         function checkId() {
             const userId = document.getElementById("userId").value;
             fetch(`/user/check-id`, {
-                method: 'POST'
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // JSON 형식으로 데이터 전송
+                },
+                body: JSON.stringify({ userId: userId }) // userId를 JSON 형식으로 변환하여 body에 담음
             })
                 .then(response => {
                     console.log("Response:", response); // 응답 확인
-                    // 응답이 JSON인지 확인
                     if (!response.ok) {
                         throw new Error("HTTP error " + response.status);
                     }
