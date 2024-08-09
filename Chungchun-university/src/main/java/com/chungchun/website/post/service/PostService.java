@@ -49,6 +49,15 @@ public class PostService {
         return modelMapper.map(post,PostDTO.class);
     }
 
+    // 내 게시글 조회
+    public List<Post> findPostsByUser(User user) {
+
+        List<Post> post = postRepository.findPostsByUserNo(user);
+
+        return post;
+    }
+
+
     // 게시글 작성
     @Transactional
     public void create(PostDTO postDTO, UserDTO user) {

@@ -4,6 +4,7 @@ import com.chungchun.website.auth.principal.AuthPrincipal;
 import com.chungchun.website.post.model.Post;
 import com.chungchun.website.post.model.PostDTO;
 import com.chungchun.website.post.service.PostService;
+import com.chungchun.website.user.model.User;
 import com.chungchun.website.user.model.UserDTO;
 import com.chungchun.website.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -68,9 +69,17 @@ public class PostController {
     }
 
     @GetMapping("/myPost")
-    public String myPost(){
+    public String myPost(@AuthenticationPrincipal UserDetails userDetails, Model model){
 
-        log.info("myPost 이동 get 요청 들어옴...");
+        // UserDetails를 AuthPrincipal로 캐스팅
+        AuthPrincipal authPrincipal = (AuthPrincipal) userDetails;
+
+        User user = authPrincipal.getUser();
+
+        List<Post> myPostList = postService.findPostsByUser(user);
+
+        model.addAttribute("postList",myPostList);
+
         return "post/myPost";
     }
 

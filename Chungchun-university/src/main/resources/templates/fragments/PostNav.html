@@ -46,9 +46,6 @@
         border: none;
     }
 
-    a {
-
-    }
 
     .mainBottomPostNav {
         margin-top: 20px;
@@ -138,7 +135,7 @@
                 </div>
                 <h1 style="margin-top: 0; margin-left: 10px">[[|${ #authentication.principal.user.userName }님|]]</h1>
                 <h2 style="margin-left: 10px">ドキドキ</h2>
-                <button class="searchMyPost">내 게시글 조회</button>
+                <a th:href="@{/post/myPost}"><button class="searchMyPost">내 게시글 조회</button></a>
             </div>
         </div>
     </div>
