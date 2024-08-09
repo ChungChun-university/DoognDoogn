@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         * {
-            margin: 20px;
+            margin: 15px;
         }
 
         body {
@@ -68,14 +67,6 @@
             background-color: #ff66aa; /* 버튼 호버 색상 */
         }
 
-        .link {
-
-            display: block;
-            margin: 10px 0; /* 링크 간 간격 */
-            color: blue; /* 링크 색상 */
-            text-decoration: none; /* 밑줄 제거 */
-            font-size: 12px; /* 링크 폰트 사이즈 줄이기 */
-        }
 
         .small-button {
             padding: 8px 12px; /* 패딩 줄이기 */
@@ -131,7 +122,7 @@
             width: 150px; /* 버튼 너비 조정 */
             font-size: 14px; /* 버튼 폰트 사이즈 줄이기 */
             height: 100px;
-            margin-left: 5px; /* 오른쪽으로 이동 */
+            margin-left: 15px; /* 오른쪽으로 이동 */
             margin-top: 50px;
             margin-right: 10px;
 
@@ -151,13 +142,17 @@
             display: flex; /* Flexbox 사용 */
             justify-content: space-between; /* 양쪽 끝으로 정렬 */
             align-items: center; /* 세로 중앙 정렬 */
+            width: 700px;
+            margin-left: 85px;
         }
     </style>
 </head>
 <body>
 <div class="login-container">
     <div class="logo">
-        <img src="logo-url.png" alt="로고" width="100"> <!-- 로고 이미지 URL로 대체 -->
+        <a href="/">
+            <img src="/image/h-logo.png" alt="로고" width="100"> <!-- 로고 이미지 URL로 대체 -->
+        </a>
         <form th:action="@{/auth/login}" th:method="post">
             <div class="form-container">
                 <div class="small-input">

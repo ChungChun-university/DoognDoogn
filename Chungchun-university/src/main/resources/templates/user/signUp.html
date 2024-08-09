@@ -42,62 +42,68 @@
     </style>
 </head>
 <body>
-    <h1>회원가입</h1>
+<h1>회원가입</h1>
 
-    <form th:action="@{/user/register}" th:method="post">
-        <div>
-            <label>ID : </label>
-            <input type="text" name="userId" id="userId"><br>
-            <label>PWD : </label>
-            <input type="password" name="userPwd" id="userPwd"><br>
-            <label>이름 : </label>
-            <input type="text" name="userName" id="userName"><br>
-            <label>전화번호 : </label>
-            <input type="text" name="userPhone" id="userPhone"><br>
-            <button type="button" onclick="registUser()">회원가입</button>
+<form th:action="@{/user/register}" th:method="post">
+    <div class="login-container">
+        <div class="logo">
+            <a href="/">
+                <img src="/image/h-logo.png" alt="로고" width="100">
+            </a>
         </div>
+        <label>ID : </label>
+        <input type="text" name="userId" id="userId"><br>
+        <label>PWD : </label>
+        <input type="password" name="userPwd" id="userPwd"><br>
+        <label>이름 : </label>
+        <input type="text" name="userName" id="userName"><br>
+        <label>전화번호 : </label>
+        <input type="text" name="userPhone" id="userPhone"><br>
+        <button type="button" onclick="registUser()">회원가입</button>
 
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>회원가입이 완료되었습니다.</h2>
-                <button onclick="goToLogin()">두근</button>
-            </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>회원가입이 완료되었습니다.</h2>
+            <button onclick="goToLogin()">두근</button>
         </div>
+    </div>
 
-        <script>
-            function registUser() {
-                const userId = document.getElementById("userId").value;
-                const userPwd = document.getElementById("userPwd").value;
-                const userName = document.getElementById("userName").value;
-                const userPhone = document.getElementById("userPhone").value;
+    <script>
+        function registUser() {
+            const userId = document.getElementById("userId").value;
+            const userPwd = document.getElementById("userPwd").value;
+            const userName = document.getElementById("userName").value;
+            const userPhone = document.getElementById("userPhone").value;
 
-                // 필드가 비어있는지 확인
-                if (!userId || !userPwd || !userName || !userPhone) {
-                    alert("작성하지 않은 칸이 있습니다.");
-                    return;
-                }
-
-                // 모든 필드가 입력된 경우 모달 열기
-                document.getElementById("myModal").style.display = "block";
+            // 필드가 비어있는지 확인
+            if (!userId || !userPwd || !userName || !userPhone) {
+                alert("작성하지 않은 칸이 있습니다.");
+                return;
             }
 
-            function closeModal() {
-                document.getElementById("myModal").style.display = "none";
-            }
+            // 모든 필드가 입력된 경우 모달 열기
+            document.getElementById("myModal").style.display = "block";
+        }
 
-            function goToLogin() {
-                window.location.href = "/auth/login"; // 로그인 화면의 URL로 변경
-            }
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
 
-            // 모달 외부 클릭 시 모달 닫기
-            window.onclick = function(event) {
-                const modal = document.getElementById("myModal");
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
+        function goToLogin() {
+            window.location.href = "/auth/login"; // 로그인 화면의 URL로 변경
+        }
+
+        // 모달 외부 클릭 시 모달 닫기
+        window.onclick = function (event) {
+            const modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
             }
-        </script>
-    </form>
+        }
+    </script>
+</form>
 </body>
 </html>
