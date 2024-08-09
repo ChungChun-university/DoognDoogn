@@ -1,5 +1,6 @@
 package com.chungchun.website.post.controller;
 
+import com.chungchun.website.auth.principal.AuthPrincipal;
 import com.chungchun.website.post.model.Post;
 import com.chungchun.website.post.model.PostDTO;
 import com.chungchun.website.post.service.PostService;
@@ -48,16 +49,30 @@ public class PostController {
 
         log.info("createPost Post 요청 확인!");
 
-        String memberId = userDetails.getUsername();
+        // UserDetails를 AuthPrincipal로 캐스팅
+        AuthPrincipal authPrincipal = (AuthPrincipal) userDetails;
+
+        String memberId = authPrincipal.getUsername();
+        int userNo = authPrincipal.getUserNo();
 
         // member 찾기
         UserDTO user = userService.findUserById(memberId);
 
         log.info("로그인한 사용자 ID : {}", memberId);
+        log.info("로그인한 사용자 No : {}", userNo);
         log.info("전달받은 PostDTO : {}", postDTO);
 
         postService.create(postDTO, user);
 
         return "redirect:/";
     }
+
+    @GetMapping("/myPost")
+    public String myPost(){
+
+        log.info("myPost 이동 get 요청 들어옴...");
+        return "post/myPost";
+    }
+
+
 }
