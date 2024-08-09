@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html
         xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         lang=xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
@@ -106,7 +107,7 @@
                 <li><a href="">강의</a></li>
                 <li><a href="">나의수강</a></li>
                 <li><a href="">마이페이지</a></li>
-                <li>
+                <li sec:authorize="isAuthenticated()">
                     <a href="#" onclick="document.getElementById('logout-form').submit();">로그아웃</a>
                 </li>
             </ul>
@@ -114,7 +115,7 @@
     </div>
     <div class="img">
         <div class="img-box">
-            <a href=""><img src="/image/logo.png" alt=""></a>
+            <a href="/main"><img src="/image/logo.png" alt=""></a>
         </div>
             <div class="text-box">
                 <form action="search-box" method="get">
@@ -129,6 +130,11 @@
     </div>
 </header>
 
+<div sec:authorize="isAuthenticated()">
+    <form id="logout-form" th:action="@{/auth/logout}" method="post" style="display:none;">
+        <input type="submit" value="로그아웃">
+    </form>
+</div>
 
 </body>
 </html>

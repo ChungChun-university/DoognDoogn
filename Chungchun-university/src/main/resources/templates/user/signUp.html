@@ -100,6 +100,11 @@
             float: left;
         }
 
+        .Id {
+            width: 300px;
+            float: left;
+        }
+
         button {
             padding: 10px;
             border: none;
@@ -128,7 +133,25 @@
             width: 150px; /* 버튼 너비 조정 */
             font-size: 14px; /* 버튼 폰트 사이즈 줄이기 */
             margin-left: 50px;
-            margin-top: 315px;
+            margin-top: 240px;
+        }
+
+        .small-button2 {
+            padding: 8px 16px; /* 버튼 패딩 */
+            border: none; /* 기본 테두리 제거 */
+            border-radius: 40px; /* 둥글게 */
+            background-color: #ff99cc; /* 버튼 배경색 */
+            color: white; /* 버튼 글자색 */
+            font-size: 14px; /* 버튼 폰트 사이즈 */
+            cursor: pointer; /* 커서 모양 변경 */
+            width: 150px; /* 버튼 너비 조정 */
+            margin-left: 50px; /* 버튼과 입력 필드 사이의 간격 */
+            height: 36px; /* 버튼 높이를 입력 필드와 맞추기 */
+            margin-top: 40px;
+        }
+
+        .small-button2:hover {
+            background-color: #ff66aa; /* 호버 시 버튼 색상 변경 */
         }
 
         .small-button:hover {
@@ -145,6 +168,18 @@
             margin-left: 40px;
             margin-top: 30px;
         }
+
+        .small-input2 {
+            width: 100%; /* 입력 필드 너비 조정 */
+            padding: 8px; /* 패딩 줄이기 */
+            border-radius: 40px; /* 둥글게 */
+            font-size: 14px; /* 폰트 사이즈 줄이기 */
+
+            margin-right: 1px; /* 버튼과의 간격 */
+            margin-left: 40px;
+            margin-top: 30px;
+        }
+
     </style>
 </head>
 <body>
@@ -158,10 +193,12 @@
     </div>
     <div class="sign-container">
         <div class="form-container">
-            <div class="small-input">
+
+            <div class="small-input2">
                 <label></label>
-                <input type="text" name="userId" id="userId" placeholder="ID"><br>
+                <input type="text" name="userId" id="userId" placeholder="ID">
             </div>
+
             <div class="small-input">
                 <label></label>
                 <input type="password" name="userPwd" id="userPwd" placeholder="PWD"><br>
@@ -170,13 +207,17 @@
                 <label></label>
                 <input type="text" name="userName" id="userName" placeholder="NAME"><br>
             </div>
+
             <div class="small-input">
                 <label></label>
                 <input type="text" name="userPhone" id="userPhone" placeholder="PHONE"><br>
             </div>
         </div>
         <div id="registerButton">
-            <div class="button-container">
+            <div class="Id" id="checkId" >
+                <button type="button" class="small-button2" onclick="checkId()">중복확인</button>
+            </div>
+            <div class="Id">
                 <button type="button" class="small-button" onclick="registUser()">회원가입</button>
             </div>
 
@@ -222,6 +263,33 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+        }
+
+        function checkId() {
+            const userId = document.getElementById("userId").value;
+            fetch(`/user/check-id`, {
+                method: 'POST'
+            })
+                .then(response => {
+                    console.log("Response:", response); // 응답 확인
+                    // 응답이 JSON인지 확인
+                    if (!response.ok) {
+                        throw new Error("HTTP error " + response.status);
+                    }
+                    return response.json(); // JSON으로 변환
+                })
+                .then(data => {
+                    console.log("Data:", data); // 데이터 확인
+                    if (data.available) { // 여기서 'data.available'을 확인
+                        alert("사용 가능한 ID입니다.");
+                    } else {
+                        alert("해당 ID는 이미 존재합니다.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Error");
+                });
         }
     </script>
 </form>

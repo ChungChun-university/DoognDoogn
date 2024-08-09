@@ -92,4 +92,8 @@ public class UserService {
         }
 
 }
+
+    public boolean isIdAvailable(String userId) {
+        return userRepository.findByUserId(userId) == null; // ID가 존재하지 않으면 사용 가능
     }
+}

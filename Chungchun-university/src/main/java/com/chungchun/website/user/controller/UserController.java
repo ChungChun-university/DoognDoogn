@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -27,6 +30,7 @@ import java.net.URI;
 @Slf4j
 public class UserController {
 
+    @Autowired
     private final UserService userService;
 
     // 회원가입
@@ -43,6 +47,7 @@ public class UserController {
         userService.register(userDTO);
         return "/auth/login";
     }
+
 
     // 자신의 정보 조회
     @GetMapping("/profile")
@@ -121,5 +126,16 @@ public class UserController {
 
         model.addAttribute("userId", userId );
         return "user/searchResult";
+    }
+
+    // 아이디 중복 확인
+    @PostMapping("/check-id")
+    @ResponseBody
+    public ResponseEntity<Map<String, Boolean>> checkId(@RequestParam String userId) {
+        log.info("💟 check-id 요청들어옴 ... userId : {}", userId);
+        boolean isAvailable = userService.isIdAvailable(userId);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("available", isAvailable);
+        return ResponseEntity.ok(response); // JSON 형식으로 반환
     }
 }
