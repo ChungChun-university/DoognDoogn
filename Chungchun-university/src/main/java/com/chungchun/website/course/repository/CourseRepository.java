@@ -9,5 +9,5 @@ import java.util.Optional;
 @org.springframework.stereotype.Repository
 public interface CourseRepository extends JpaRepository<Course,Integer> {
 
-    Optional<Course> findCourseByClsNameContains(String clsName);
+//    Optional<Course> findCourseByClsNameContains(String clsName);
 }

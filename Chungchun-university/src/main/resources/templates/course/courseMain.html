@@ -1,90 +1,131 @@
 <!DOCTYPE html>
-<html lang=xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+ lang=xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        div.heart {
+            width: 100px;
+            height: 100px;
+        }
+        .heart img {
+            width: 70px;
+            height: 70px;
+            margin-left: 90px;
+            margin-top: 40px;
+        }
+        {}
+        .text-box1 {
+            width: 600px;
+            height: 50px;
+            background-color: white;
+            border-radius: 30px;
+        }
+
+    </style>
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Class</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
 </head>
+<script th:inline="javascript">
+    cls1 = courseList[0].getclsNo()
+    function courseApply(cls1) {
+
+        alert('수강신청이 완료되었습니다.');
+    }
+</script>
 <body>
-<div class="img-box">
-    <!-- 하트 누르면 내 수강목록으로 이동하게  -->
-    <a href=""><img src="/image/heart.png" alt=""></a>
+<div class="body">
+    <div layout:fragment="content">
+    <!-- 하트 누르면 내 수강목록으로 이동하게 -->
+        <div sec:authorize="isAuthenticated()" class="heart">
+        <a href=""><img src="/image/heart.png" alt=""></a>
+        </div>
+<!--        <div class="text-box">-->
+<!--            <form action="course/search" method="get">-->
+<!--                <label for="❣">-->
+<!--                    <input class="search-txt" type="text" placeholder="두근두근 게임 소프트웨어 만들기" onfocus="this.placeholder=''" onblur="this.placeholder='두근두근 게임 소프트웨어 만들기'" name="search">-->
+<!--                </label>-->
+<!--                <button class="search-btn" type="submit">-->
+<!--                    <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>-->
+<!--                </button>-->
+<!--            </form>-->
+<!--        </div>-->
+        <div class="text-box1">
+
+        </div>
+        <div>
+            <h1 th:text="${courseList[0].getClsName()}">강의명 - 뜨게질</h1>
+            <ul>
+                <li th:text="|개강일자 : ${courseList[0].getOpenDate()}|">개강일자</li>
+                <li th:text="|종강일자 : ${courseList[0].getCloseDate()}|">종강일자</li>
+            </ul>
+            <button class="course-apply" onclick="courseApply()">수강신청
+                <a href="/course/apply"></a>
+            </button>
+            <button class="course-cancel" type="submit">수강철회
+                <a href=""></a>
+            </button>
+        </div>
+        <div>
+            <h1 th:text="${courseList[1].getClsName()}">강의명 - 핸드드립</h1>
+            <ul>
+                <li th:text="|개강일자 : ${courseList[1].getOpenDate()}|">개강일자</li>
+                <li th:text="|종강일자 : ${courseList[1].getCloseDate()}|">종강일자</li>
+            </ul>
+            <button class="course-apply" type="submit">수강신청
+                <a href=""></a>
+            </button>
+            <button class="course-cancel" type="submit">수강철회
+                <a href=""></a>
+            </button>
+        </div>
+        <div>
+            <h1 th:text="${courseList[2].getClsName()}">강의명 - 게임</h1>
+            <ul>
+                <li th:text="|개강일자 : ${courseList[2].getOpenDate()}|">개강일자</li>
+                <li th:text="|종강일자 : ${courseList[2].getCloseDate()}|">종강일자</li>
+            </ul>
+            <button class="course-apply" type="submit">수강신청
+                <a href=""></a>
+            </button>
+            <button class="course-cancel" type="submit">수강철회
+                <a href=""></a>
+            </button>
+        </div>
+        <div>
+            <h1 th:text="${courseList[3].getClsName()}">강의명 - 시노래</h1>
+            <ul>
+                <li th:text="|개강일자 : ${courseList[3].getOpenDate()}|">개강일자</li>
+                <li th:text="|종강일자 : ${courseList[3].getCloseDate()}|">종강일자</li>
+            </ul>
+            <button class="course-apply" type="submit">수강신청
+                <a href=""></a>
+            </button>
+            <button class="course-cancel" type="submit">수강철회
+                <a href=""></a>
+            </button>
+        </div>
+        <div>
+            <h1 th:text="${courseList[4].getClsName()}">강의명 - 가상체험</h1>
+            <ul>
+                <li th:text="|개강일자 : ${courseList[4].getOpenDate()}|">개강일자</li>
+                <li th:text="|종강일자 : ${courseList[4].getCloseDate()}|">종강일자</li>
+            </ul>
+            <button class="course-apply" type="submit">수강신청
+                <a href=""></a>
+            </button>
+            <button class="course-cancel" type="submit">수강철회
+                <a href=""></a>
+            </button>
+        </div>
+    </div>
 </div>
-<div class="text-box">
-    <form action="course/search" actiom="" method="get">
-        <label for="❣">
-            <input class="search-txt" type="text" placeholder="#3/ 두근두근 게임 소프트웨어 만들기" onfocus="this.placeholder=''" onblur="this.placeholder='#3/ 두근두근 게임 소프트웨어 만들기'" name="search">
-        </label>
-        <button class="search-btn" type="submit">
-            <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-        </button>
-    </form>
-</div>
-<div>
-    <h1>뜨개질 고수로 한걸음</h1>
-    <ul>
-        <li>개강일자 : 2024.05.09</li>
-        <li>종강일자 : 2024.12.16</li>
-    </ul>
-    <button class="class-apply" type="submit">수강신청
-        <a href=""></a>
-    </button>
-    <button class="class-cancel" type="submit">수강철회
-        <a href=""></a>
-    </button>
-</div>
-<div>
-    <h1>핸드 드립 브루잉</h1>
-    <ul>
-        <li>개강일자 : 2024.05.09</li>
-        <li>종강일자 : 2024.12.16</li>
-    </ul>
-    <button class="class-apply" type="submit">수강신청
-        <a href=""></a>
-    </button>
-    <button class="class-cancel" type="submit">수강철회
-        <a href=""></a>
-    </button>
-</div>
-<div>
-    <h1>두근두근 게임 소프트웨어 만들기</h1>
-    <ul>
-        <li>개강일자 : 2024.05.09</li>
-        <li>종강일자 : 2024.12.16</li>
-    </ul>
-    <button class="class-apply" type="submit">수강신청
-        <a href=""></a>
-    </button>
-    <button class="class-cancel" type="submit">수강철회
-        <a href=""></a>
-    </button>
-</div>
-<div>
-    <h1>간편 시•노래 창작</h1>
-    <ul>
-        <li>개강일자 : 2024.05.09</li>
-        <li>종강일자 : 2024.12.16</li>
-    </ul>
-    <button class="class-apply" type="submit">수강신청
-        <a href=""></a>
-    </button>
-    <button class="class-cancel" type="submit">수강철회
-        <a href=""></a>
-    </button>
-</div>
-<div>
-    <h1>상상력 자극 가상체험</h1>
-    <ul>
-        <li>개강일자 : 2024.05.09</li>
-        <li>종강일자 : 2024.12.16</li>
-    </ul>
-    <button class="class-apply" type="submit">수강신청
-        <a href=""></a>
-    </button>
-    <button class="class-cancel" type="submit">수강철회
-        <a href=""></a>
-    </button>
-</div>
+
+
 </body>
 </html>
