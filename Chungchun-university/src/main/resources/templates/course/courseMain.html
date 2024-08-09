@@ -11,12 +11,135 @@
             width: 100px;
             height: 100px;
         }
+        div.text-box1 {
+            width: 1500px;
+        }
         .heart img {
             width: 80px;
             height: 80px;
             margin-top: 80px;
             margin-left: 100px;
         }
+        .search-txt1 {
+            width: 600px;
+            height: 50px;
+            background-color: white;
+            border-radius: 30px;
+            margin-left: 200px;
+            text-align: center;
+            font-size: 16px;
+            border:none;
+            outline: none;
+        }
+        .search-btn1 {
+            color: rgb(255, 255, 255);
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            font-size: 16px;
+            border: initial;
+            color: #FFC8DD;
+            font-size: 1.5rem;
+            margin-top: 8px;
+            margin-right: 710px;
+        }
+        .logo1 img {
+            width: 150px;
+            height: 150px;
+        }
+        .course-list {
+            margin-top: 150px;
+            width: 1500px;
+            overflow-x:scroll;
+        }
+        .course-gosu {
+            width: 250px;
+            height: 330px;
+            background-color: #f7f6cc;
+            text-align: center;
+            border-radius: 30px;
+        }
+        .gosu-font {
+            -webkit-text-stroke: 0.8px black;
+            font-weight: bold;
+            font-size: 25px;
+            font-family: 나눔고딕;
+            color: white;
+        }
+        .course-hand {
+            width: 250px;
+            height: 330px;
+            background-color: #f7f6cc;
+            text-align: center;
+            border-radius: 30px;
+            margin-right: 930px;
+        }
+        .hand-font {
+            -webkit-text-stroke: 0.8px black;
+            font-weight: bold;
+            font-size: 25px;
+            font-family: 나눔고딕;
+            color: white;
+        }
+        .course-game {
+            width: 250px;
+            height: 330px;
+            background-color: #f7f6cc;
+            text-align: center;
+            border-radius: 30px;
+            margin-right: 620px;
+        }
+        .game-font {
+            -webkit-text-stroke: 0.8px black;
+            font-weight: bold;
+            font-size: 25px;
+            font-family: 나눔고딕;
+            color: white;
+        }
+        .course-music {
+            width: 250px;
+            height: 330px;
+            background-color: #f7f6cc;
+            text-align: center;
+            border-radius: 30px;
+            margin-right: 310px;
+        }
+        .music-font {
+            -webkit-text-stroke: 0.8px black;
+            font-weight: bold;
+            font-size: 25px;
+            font-family: 나눔고딕;
+            color: white;
+        }
+        .course-vr {
+            width: 250px;
+            height: 330px;
+            background-color: #f7f6cc;
+            text-align: center;
+            border-radius: 30px;
+
+        }
+        .vr-font {
+            -webkit-text-stroke: 0.8px black;
+            font-weight: bold;
+            font-size: 25px;
+            font-family: 나눔고딕;
+            color: white;
+        }
+        .course-apply {
+            margin-right: 30px;
+            background-color: #bde0fe;
+            font-weight: bold;
+            font-size: 15px;
+        }
+        .course-cancel {
+            background-color: #bde0fe;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+
+
 
 
     </style>
@@ -39,73 +162,92 @@
         <div sec:authorize="isAuthenticated()" class="heart">
         <a href=""><img src="/image/heart.png" alt=""></a>
         </div>
-        <div class="">
+        <div class="text-box1" style="position: relative">
+            <form action="search-box1" method="get">
+                <label for="input-text">
+                    <input class="search-txt1" type="text" id="input-text" placeholder="두근두근 게임 소프트웨어 만들기" onfocus="this.placeholder=''" onblur="this.placeholder='두근두근 게임 소프트웨어 만들기'" name="search1">
+                </label>
+                <button class="search-btn1" type="submit" style="position: absolute; right: 0; top: 0; bottom: 0; background: none; border: none; cursor: pointer;">
+                    <i class="fa-solid fa-magnifying-glass"></i></a>
+                </button>
+                <div sec:authorize="isAuthenticated()" class="logo1" style="position: absolute; right: 0; top: 0; bottom: 0;" >
+                    <img src="/image/logo1.png">
+                </div>
+            </form>
 
         </div>
-        <div>
-            <h1 th:text="${courseList[0].getClsName()}">강의명 - 뜨게질</h1>
-            <ul>
-                <li th:text="|개강일자 : ${courseList[0].getOpenDate()}|">개강일자</li>
-                <li th:text="|종강일자 : ${courseList[0].getCloseDate()}|">종강일자</li>
-            </ul>
-            <button class="course-apply" onclick="courseApply()">수강신청
-                <a href="/course/apply"></a>
-            </button>
-            <button class="course-cancel" type="submit">수강철회
-                <a href=""></a>
-            </button>
-        </div>
-        <div>
-            <h1 th:text="${courseList[1].getClsName()}">강의명 - 핸드드립</h1>
-            <ul>
-                <li th:text="|개강일자 : ${courseList[1].getOpenDate()}|">개강일자</li>
-                <li th:text="|종강일자 : ${courseList[1].getCloseDate()}|">종강일자</li>
-            </ul>
-            <button class="course-apply" type="submit">수강신청
-                <a href=""></a>
-            </button>
-            <button class="course-cancel" type="submit">수강철회
-                <a href=""></a>
-            </button>
-        </div>
-        <div>
-            <h1 th:text="${courseList[2].getClsName()}">강의명 - 게임</h1>
-            <ul>
-                <li th:text="|개강일자 : ${courseList[2].getOpenDate()}|">개강일자</li>
-                <li th:text="|종강일자 : ${courseList[2].getCloseDate()}|">종강일자</li>
-            </ul>
-            <button class="course-apply" type="submit">수강신청
-                <a href=""></a>
-            </button>
-            <button class="course-cancel" type="submit">수강철회
-                <a href=""></a>
-            </button>
-        </div>
-        <div>
-            <h1 th:text="${courseList[3].getClsName()}">강의명 - 시노래</h1>
-            <ul>
-                <li th:text="|개강일자 : ${courseList[3].getOpenDate()}|">개강일자</li>
-                <li th:text="|종강일자 : ${courseList[3].getCloseDate()}|">종강일자</li>
-            </ul>
-            <button class="course-apply" type="submit">수강신청
-                <a href=""></a>
-            </button>
-            <button class="course-cancel" type="submit">수강철회
-                <a href=""></a>
-            </button>
-        </div>
-        <div>
-            <h1 th:text="${courseList[4].getClsName()}">강의명 - 가상체험</h1>
-            <ul>
-                <li th:text="|개강일자 : ${courseList[4].getOpenDate()}|">개강일자</li>
-                <li th:text="|종강일자 : ${courseList[4].getCloseDate()}|">종강일자</li>
-            </ul>
-            <button class="course-apply" type="submit">수강신청
-                <a href=""></a>
-            </button>
-            <button class="course-cancel" type="submit">수강철회
-                <a href=""></a>
-            </button>
+
+        <div class="course-list" style="position: relative">
+            <div class="course-gosu">
+                <br>
+                <p class="gosu-font" th:text="${courseList[0].getClsName()}">강의명 - 뜨게질</p><br>
+                <p style="font-weight: bold" th:text="|개강일자 : ${courseList[0].getOpenDate()}|">개강일자</p>
+                <p style="font-weight: bold" th:text="|종강일자 : ${courseList[0].getCloseDate()}|">종강일자</p><br><br>
+
+                <button class="course-apply" onclick="courseApply()">수강신청
+                    <a href="/course/apply"></a>
+                </button>
+                <button class="course-cancel" type="submit">수강철회
+                    <a href=""></a>
+                </button>
+
+            </div>
+
+            <div class="course-hand" style="position: absolute; right: 0; top: 0; bottom: 0;">
+                <br>
+                <p class="hand-font" th:text="${courseList[1].getClsName()}">강의명 - 핸드드립</p><br>
+                <p style="font-weight: bold" th:text="|개강일자 : ${courseList[1].getOpenDate()}|">개강일자</p>
+                <p style="font-weight: bold" th:text="|종강일자 : ${courseList[1].getCloseDate()}|">종강일자</p><br><br>
+
+                <button class="course-apply" type="submit">수강신청
+                    <a href=""></a>
+                </button>
+                <button class="course-cancel" type="submit">수강철회
+                    <a href=""></a>
+                </button>
+            </div>
+
+            <div class="course-game" style="position: absolute; right: 0; top: 0; bottom: 0;">
+                <br>
+                <p class="game-font" th:text="${courseList[2].getClsName()}">강의명 - 게임</p>
+                <p style="font-weight: bold" th:text="|개강일자 : ${courseList[2].getOpenDate()}|">개강일자</p>
+                <p style="font-weight: bold" th:text="|종강일자 : ${courseList[2].getCloseDate()}|">종강일자</p><br><br>
+
+                <button class="course-apply" type="submit">수강신청
+                    <a href=""></a>
+                </button>
+                <button class="course-cancel" type="submit">수강철회
+                    <a href=""></a>
+                </button>
+            </div>
+
+            <div class="course-music" style="position: absolute; right: 0; top: 0; bottom: 0;">
+                <br>
+                <p class="music-font" th:text="${courseList[3].getClsName()}">강의명 - 시노래</p><br>
+                <p style="font-weight: bold" th:text="|개강일자 : ${courseList[3].getOpenDate()}|">개강일자</p>
+                <p style="font-weight: bold" th:text="|종강일자 : ${courseList[3].getCloseDate()}|">종강일자</p><br><br>
+
+                <button class="course-apply" type="submit">수강신청
+                    <a href=""></a>
+                </button>
+                <button class="course-cancel" type="submit">수강철회
+                    <a href=""></a>
+                </button>
+            </div>
+
+            <div class="course-vr" style="position: absolute; right: 0; top: 0; bottom: 0;">
+                <br>
+                <p class="vr-font" th:text="${courseList[4].getClsName()}">강의명 - 가상체험</p><br>
+                <p style="font-weight: bold" th:text="|개강일자 : ${courseList[4].getOpenDate()}|">개강일자</p>
+                <p style="font-weight: bold" th:text="|종강일자 : ${courseList[4].getCloseDate()}|">종강일자</p><br><br>
+
+                <button class="course-apply" type="submit">수강신청
+                    <a href=""></a>
+                </button>
+                <button class="course-cancel" type="submit">수강철회
+                    <a href=""></a>
+                </button>
+            </div>
         </div>
     </div>
 </div>
