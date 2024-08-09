@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,6 +29,7 @@ public class PostController {
     private final PostService postService;
     private final UserService userService;
 
+    // 전체 게시글 조회
     @GetMapping("/postDetails")
     public String postDetails(Model model){
 
@@ -38,6 +40,20 @@ public class PostController {
         return "post/postDetails";
     }
 
+    // 게시글 단일 조회 기능
+    @GetMapping("/{postNo}")
+    public String findMenuByCode(@PathVariable("postNo") int postNo, Model model) {
+
+        log.info("menuCode = {}", postNo);
+
+        Post post = postService.findByPostNo(postNo);
+
+        model.addAttribute("post",post);
+
+        return "post/readPost";
+    }
+
+    // 게시글 작성
     @GetMapping("/createPost")
     public String createPost(){
 
@@ -68,6 +84,7 @@ public class PostController {
         return "redirect:/";
     }
 
+    // 내 게시글
     @GetMapping("/myPost")
     public String myPost(@AuthenticationPrincipal UserDetails userDetails, Model model){
 

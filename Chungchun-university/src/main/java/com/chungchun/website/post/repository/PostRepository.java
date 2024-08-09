@@ -10,7 +10,7 @@ import java.util.Optional;
 @org.springframework.stereotype.Repository
 public interface PostRepository extends JpaRepository<Post,Integer> {
 
-    Optional<Post> findByPostNo(int postNo);
+    Post findByPostNo(int postNo);
 
     List<Post> findPostsByUserNo(User user);
 }
