@@ -1,6 +1,5 @@
 package com.chungchun.website.webconfig;
 
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -57,7 +56,7 @@ public class WebSecurityConfig {
                     .loginProcessingUrl("/auth/login") // 로그인 처리 요청(POST)
                     .usernameParameter("userId") // userName으로 전달할 파라미터 설정
                     .passwordParameter("userPwd") // password로 전달할 파라미터 설정
-                    .defaultSuccessUrl("/") // 로그인 성공시 이동할 URL
+                    .defaultSuccessUrl("/main") // 로그인 성공시 이동할 URL
                     .permitAll();
         }));
 

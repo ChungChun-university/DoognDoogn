@@ -33,14 +33,6 @@
             }
         }
 
-        .shine {
-            animation: colorChange 1s ease-in-out forwards; /* 애니메이션 설정 */
-            -webkit-mask-image: url('/image/h-logo.png');
-            mask-image: url('/image/h-logo.png');
-            -webkit-mask-size: cover;
-            mask-size: cover;
-        }
-
         .image-container {
             position: fixed; /* 고정 위치 */
             bottom: 20px; /* 하단에서 20px */
@@ -59,7 +51,7 @@
         }
 
         img {
-            max-width: 80%; /* 화면 크기에 맞게 비율 조정 */
+            max-width: 100%; /* 화면 크기에 맞게 비율 조정 */
             height: auto; /* 비율 유지 */
         }
 
@@ -188,7 +180,5 @@
     };
 
 </script>
-
-<a th:href="@{/post/postDetails}">PostDetails Test</a>
 
 </html>

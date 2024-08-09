@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang=xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        lang=xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChungChunUniversity</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<style>
-    *{
-        margin: 0;
-        padding: 0;
-    }
+<style th:fragment="headerStyle">
     body{
         background-color: #FFC8DD;
     }
@@ -20,15 +18,13 @@
     a{
         text-decoration: none;
         color: inherit;
-    }
-    header{
-        position: fixed;
+        font-family: "Jua", sans-serif;
+        font-size: 22px;
     }
     .menu{
         width: 1400px;
-        margin: 0 650px;
+        margin: 0 470px;
         margin-top: 30px;
-        margin-left: 800px;
     }
     .menu a{
         font-weight: bold;
@@ -47,15 +43,14 @@
         display: flex;
         border: 1px solid #FF5693;
         background-color: #FF5693;
-        width: 1700px;
+        width: 1500px;
         height: 100px;
         border-radius: 50px;
         gap: 200px;
-        /*margin: 0 auto;*/
-        margin-left: 100px;
+        margin: 0 auto;
     }
     .img img{
-        width: 150px;
+        width: 90px;
         height: 100px;
     }
     .text-box em{
@@ -73,6 +68,7 @@
         margin-left: 100px;
     }
     .search-txt{
+        font-family: 'Inter';
         border: none;
         background: none;
         outline: none;
@@ -81,6 +77,7 @@
         width: 750px;
         outline: none;
         margin-top: 5px;
+        text-align: center;
     }
     .search-btn{
         color: rgb(255, 255, 255);
@@ -96,8 +93,8 @@
         color: #FFC8DD;
         font-size: 1.5rem;
     }
-</style>
 
+</style>
 <header th:fragment="header"></header>
 <body>
 <header th:fragment="header">
@@ -105,7 +102,7 @@
         <div class="menu">
             <ul>
                 <li><a href="">공지사항</a></li>
-                <li><a href="">게시판</a></li>
+                <li><a th:href="@{/post/postDetails}">게시판</a></li>
                 <li><a href="/course/main">강의</a></li>
                 <li><a href="">나의수강</a></li>
                 <li><a href="">마이페이지</a></li>
@@ -120,9 +117,9 @@
             <a href=""><img src="/image/logo.png" alt=""></a>
         </div>
             <div class="text-box">
-                <form action="search-box" actiom="" method="get">
-                    <label for="❣">
-                        <input class="search-txt" type="text" placeholder="두근력 풀충전 200%...❣" onfocus="this.placeholder=''" onblur="this.placeholder='두근력 풀충전 200%...❣'" name="search">
+                <form action="search-box" method="get">
+                    <label for="heart">
+                        <input class="search-txt" type="text" id="heart" placeholder="두근력 풀충전 200%...❣" onfocus="this.placeholder=''" onblur="this.placeholder='두근력 풀충전 200%...❣'" name="search">
                     </label>
                     <button class="search-btn" type="submit">
                         <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
