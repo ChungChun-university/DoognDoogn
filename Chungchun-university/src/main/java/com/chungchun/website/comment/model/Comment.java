@@ -4,6 +4,9 @@ import com.chungchun.website.post.model.Post;
 import com.chungchun.website.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 
@@ -14,6 +17,7 @@ import java.util.Date;
 @ToString
 @Getter
 @Setter
+@Builder
 public class Comment {
 
     @Id
@@ -33,10 +37,17 @@ public class Comment {
     private Post post;
 
     @Column(name = "cmt_create_date", nullable = false)
+    @CreatedDate
     private Date cmtCreateDate;
 
     @Column(name = "cmt_up_date", nullable = false)
+    @LastModifiedDate
     private Date cmtUpDate;
+
+
+//    public void update(String comment){
+//        this.comment = comment;
+//    }
 
 
 
