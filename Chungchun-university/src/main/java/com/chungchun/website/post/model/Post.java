@@ -57,4 +57,13 @@ public class Post {
         return sdf.format(postCreateDate);
     }
 
+    private Integer likeCount; // Integer로 선언
+
+    public Integer getLikeCount() {
+        return likeCount; // null일 수 있으므로 Integer로 반환
+    }
+
+    public void setLikeCount(int count) {
+        this.likeCount = count;
+    }
 }

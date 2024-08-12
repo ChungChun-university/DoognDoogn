@@ -66,7 +66,6 @@ public class UserService {
 
 
         // DTO의 정보로 엔티티 업데이트
-        foundUser.setUserId(updateUserDTO.getUserId());
         foundUser.setUserName(updateUserDTO.getUserName());
         foundUser.setUserPhone(updateUserDTO.getUserPhone());
         // 필요한 다른 필드도 업데이트

@@ -7,18 +7,98 @@
 <body>
 <h1>내 좋아요 조회</h1>
 <div th:each="like : ${likes}">
-    <p>
-        게시글 번호: <span th:text="${like.post.id}"></span><br>
+    <p id="post-${like.post.postNo}">
+        게시글 번호: <span th:text="${like.post.postNo}"></span><br>
         생성일자: <span th:text="${like.createDate}"></span><br>
-        <button th:onclick="'toggleLike(' + ${like.post.id} + ')'">하트 아이콘</button>
+        <button id="like-btn-${like.post.postNo}"
+                th:class="${like.isLiked} ? 'liked' : ''"
+            <span th:text="${like.isLiked} ? '❤️' : '🤍'"></span>
+        </button>
     </p>
 </div>
 
 <script>
-    function toggleLike(postId) {
-        // AJAX 호출로 좋아요 추가/삭제 처리
-        // 성공적으로 처리된 후 페이지 새로고침 또는 목록 갱신
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+        const userNo = /*[[${userNo}]]*/1; // 사용자 번호가 서버에서 주입됨
+
+        // 각 게시글에 대해 postNo를 서버에서 주입받기
+        const postNumbers = /*[[${likes.size() > 0 ? likes.stream().map(like -> like.post.postNo).toList() : []}]]*/ [];
+
+        function toggleLike(postNo) {
+            if (!userNo) {
+                alert('사용자 정보를 찾을 수 없습니다. 로그인 해주세요.');
+                window.location.href = '/auth/login'; // 로그인 페이지로 리다이렉트
+                return;
+            }
+
+            const button = document.getElementById(`like-btn-${postNo}`);
+            if (!button) {
+                console.error('버튼을 찾을 수 없습니다.');
+                return;
+            }
+
+            if (button.classList.contains('liked')) {
+                // 좋아요가 등록된 상태일 때
+                fetch(`/api/likes/remove?userNo=${userNo}&postNo=${postNo}`, {
+                    method: 'DELETE', // 삭제 요청
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // 좋아요가 성공적으로 삭제된 경우
+                            button.classList.remove('liked');
+                            button.innerHTML = '🤍'; // 좋아요 버튼 상태 변경
+                            postElement.remove(); // 게시글 삭제
+                        } else {
+                            throw new Error('좋아요 삭제 실패');
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert('오류가 발생했습니다.');
+                    });
+            } else {
+                // 좋아요가 등록되지 않은 상태일 때
+                fetch(`/api/likes/add?userNo=${userNo}&postNo=${postNo}`, {
+                    method: 'POST', // 추가 요청
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('좋아요 추가 실패');
+                        }
+                    })
+                    .then(data => {
+                        button.classList.add('liked');
+                        button.innerHTML = '❤️'; // 좋아요 버튼 상태 변경
+                        postElement.querySelector('span').textContent = data.createDate; // 날짜 업데이트
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert('오류가 발생했습니다.');
+                    });
+            }
+        }
+
+        // DOMContentLoaded 이벤트를 사용하여 DOM이 완전히 로드된 후 실행
+        document.addEventListener('DOMContentLoaded', () => {
+            // 필요한 초기화 코드가 있으면 여기에 추가
+        });
+
+        // 버튼에 이벤트 리스너 추가
+        postNumbers.forEach(postNo => {
+            const button = document.getElementById(`like-btn-${postNo}`);
+            if (button) {
+                button.addEventListener('click', () => toggleLike(postNo)); // 이벤트 리스너 추가
+            }
+        });
+    });
 </script>
+
+<style>
+    .liked {
+        color: red; /* 좋아요가 등록된 경우 하트 색상 */
+    }
+</style>
 </body>
 </html>

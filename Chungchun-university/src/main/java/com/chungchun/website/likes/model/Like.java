@@ -26,7 +26,7 @@ public class Like {
     private LocalDate createDate;
 
     @Column(name = "delete_date")
-    private LocalDate dDate;
+    private LocalDate deleteDate;
 
     @ManyToOne
     @JoinColumn(name = "user_no", nullable = false)
@@ -36,6 +36,8 @@ public class Like {
     @JoinColumn(name = "post_no", nullable = false)
     private Post post;
 
-
+    public boolean isLiked() {
+        return deleteDate == null; // 삭제일자가 null이면 좋아요가 등록된 상태
+    }
 
 }
