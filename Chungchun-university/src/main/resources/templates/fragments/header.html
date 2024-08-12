@@ -106,6 +106,13 @@
                 <li><a href="/course/main">강의</a></li>
                 <li><a href="">나의수강</a></li>
                 <li><a href="">마이페이지</a></li>
+                <li><a href="">강의</a></li>
+                <li>
+                    <a th:href="@{/myClass/myClassList}">나의수강</a>
+                </li>
+                <li>
+                    <a th:href="@{/user/myPageMain}">마이페이지</a>
+                </li>
                 <li>
                     <a href="#" onclick="document.getElementById('logout-form').submit();">로그아웃</a>
                 </li>
@@ -114,7 +121,9 @@
     </div>
     <div class="img">
         <div class="img-box">
-            <a href=""><img src="/image/logo.png" alt=""></a>
+            <a th:href="@{/main}">
+                <img src="/image/logo.png" alt="">
+            </a>
         </div>
             <div class="text-box">
                 <form action="search-box" method="get">
