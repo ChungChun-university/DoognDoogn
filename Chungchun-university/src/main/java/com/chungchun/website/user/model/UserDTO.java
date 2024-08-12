@@ -19,4 +19,7 @@ public class UserDTO {
     private String userPhone;
     private String role;
 
+    public String getPassword() {
+        return userPwd;
+    }
 }
