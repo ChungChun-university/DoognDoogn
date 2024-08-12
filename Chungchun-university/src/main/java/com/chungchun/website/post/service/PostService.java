@@ -49,6 +49,19 @@ public class PostService {
         return foundAllPosts.map(post -> modelMapper.map(post, PostDTO.class));
     }
 
+    // 카테고리 필터링 후 게시글 조회
+    public Page<PostDTO> findPostsByCategory(String categoryCode, Pageable pageable) {
+
+        pageable = PageRequest.of(
+                pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1,
+                pageable.getPageSize(),
+                Sort.by("postNo").descending());
+
+        Page<Post> foundPosts = postRepository.findByCategoryCode(categoryCode, pageable);
+
+        return foundPosts.map(post -> modelMapper.map(post, PostDTO.class));
+    }
+
     // 게시글 번호로 조회
     public Post findByPostNo(int postNo) {
 

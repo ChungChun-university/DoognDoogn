@@ -34,9 +34,18 @@ public class PostController {
 
     // 전체 게시글 조회
     @GetMapping("/postDetails")
-    public String postDetails(Model model, @PageableDefault Pageable pageable){
+    public String postDetails(@RequestParam(required = false) String categoryCode, Model model, @PageableDefault Pageable pageable){
 
-        Page<PostDTO> postList = postService.findAllPosts(pageable);
+        Page<PostDTO> postList;
+
+        if (categoryCode != null && !categoryCode.isEmpty()) {
+            // 카테고리에 따라 게시글 필터링
+            postList = postService.findPostsByCategory(categoryCode, pageable);
+            model.addAttribute("categoryCode",categoryCode);
+        } else {
+            // 모든 게시글 가져오기
+            postList = postService.findAllPosts(pageable);
+        }
 
         PagingButtonInfo paging = ArticlePage.getPagingButtonInfo(postList);
 

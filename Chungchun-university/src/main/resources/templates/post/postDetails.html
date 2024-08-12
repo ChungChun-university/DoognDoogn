@@ -121,7 +121,7 @@
             <td class="">작성날짜</td>
         </tr>
         <tbody>
-        <tr class="body" th:each="post : ${postList}" th:data-post-no="${post.postNo}" th:data-category="${post.categoryCode}">
+        <tr class="body" th:each="post : ${postList}" th:data-post-no="${post.postNo}">
             <td th:text="${post.postNo}">번호</td>
             <td th:text="${post.categoryCode}">자유</td>
             <td>
@@ -133,79 +133,79 @@
         </tbody>
     </table>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const table = document.getElementById("postTable");
-            const tbody = table.querySelector("tbody");
-            const rows = Array.from(tbody.querySelectorAll("tr.body"));
+<!--    <script>-->
+<!--        document.addEventListener("DOMContentLoaded", function () {-->
+<!--            const table = document.getElementById("postTable");-->
+<!--            const tbody = table.querySelector("tbody");-->
+<!--            const rows = Array.from(tbody.querySelectorAll("tr.body"));-->
 
-            // 내림차순 정렬
-            rows.sort((a, b) => {
-                const postNoA = parseInt(a.getAttribute("data-post-no"), 10);
-                const postNoB = parseInt(b.getAttribute("data-post-no"), 10);
-                return postNoB - postNoA; // 내림차순
-            });
+<!--            // 내림차순 정렬-->
+<!--            rows.sort((a, b) => {-->
+<!--                const postNoA = parseInt(a.getAttribute("data-post-no"), 10);-->
+<!--                const postNoB = parseInt(b.getAttribute("data-post-no"), 10);-->
+<!--                return postNoB - postNoA; // 내림차순-->
+<!--            });-->
 
-            // 정렬된 행을 tbody에 다시 추가
-            rows.forEach(row => tbody.appendChild(row));
-        });
+<!--            // 정렬된 행을 tbody에 다시 추가-->
+<!--            rows.forEach(row => tbody.appendChild(row));-->
+<!--        });-->
 
-    </script>
+<!--    </script>-->
 
-    <!--  카테고리별 필터링 및 페이징 처리 -->
-    <script>
-        const categoryLinks = document.querySelectorAll('.category-link');
-        const posts = document.querySelectorAll('.body');
-        const pagingDiv = document.querySelector('.paging');
+<!--    &lt;!&ndash;  카테고리별 필터링 및 페이징 처리 &ndash;&gt;-->
+<!--    <script>-->
+<!--        const categoryLinks = document.querySelectorAll('.category-link');-->
+<!--        const posts = document.querySelectorAll('.body');-->
+<!--        const pagingDiv = document.querySelector('.paging');-->
 
-        categoryLinks.forEach(link => {
-            link.addEventListener('click', function (event) {
-                event.preventDefault(); // 기본 링크 클릭 동작 방지
-                const selectedCategory = this.getAttribute('data-category');
+<!--        categoryLinks.forEach(link => {-->
+<!--            link.addEventListener('click', function (event) {-->
+<!--                event.preventDefault(); // 기본 링크 클릭 동작 방지-->
+<!--                const selectedCategory = this.getAttribute('data-category');-->
 
-                // 모든 게시글을 숨기고 선택된 카테고리의 게시글만 표시
-                posts.forEach(post => {
-                    if (post.getAttribute('data-category') === selectedCategory) {
-                        post.classList.remove('hidden');
-                    } else {
-                        post.classList.add('hidden');
-                    }
-                });
+<!--                // 모든 게시글을 숨기고 선택된 카테고리의 게시글만 표시-->
+<!--                posts.forEach(post => {-->
+<!--                    if (post.getAttribute('data-category') === selectedCategory) {-->
+<!--                        post.classList.remove('hidden');-->
+<!--                    } else {-->
+<!--                        post.classList.add('hidden');-->
+<!--                    }-->
+<!--                });-->
 
-                // 필터링된 게시글 수에 따라 페이지네이션 업데이트
-                updatePagination();
-            });
-        });
+<!--                // 필터링된 게시글 수에 따라 페이지네이션 업데이트-->
+<!--                updatePagination();-->
+<!--            });-->
+<!--        });-->
 
-        function updatePagination() {
-            const visiblePosts = Array.from(posts).filter(post => !post.classList.contains('hidden'));
-            const totalPosts = visiblePosts.length;
-            const postsPerPage = 10; // 페이지당 게시글 수
-            const totalPages = Math.ceil(totalPosts / postsPerPage);
+<!--        function updatePagination() {-->
+<!--            const visiblePosts = Array.from(posts).filter(post => !post.classList.contains('hidden'));-->
+<!--            const totalPosts = visiblePosts.length;-->
+<!--            const postsPerPage = 10; // 페이지당 게시글 수-->
+<!--            const totalPages = Math.ceil(totalPosts / postsPerPage);-->
 
-            // 기존 페이지 버튼 제거
-            pagingDiv.innerHTML = '';
+<!--            // 기존 페이지 버튼 제거-->
+<!--            pagingDiv.innerHTML = '';-->
 
-            // 페이지 버튼 생성
-            for (let i = 1; i <= totalPages; i++) {
-                const button = document.createElement('button');
-                button.textContent = i;
-                button.onclick = () => paginate(i, visiblePosts, postsPerPage);
-                pagingDiv.appendChild(button);
-            }
-        }
+<!--            // 페이지 버튼 생성-->
+<!--            for (let i = 1; i <= totalPages; i++) {-->
+<!--                const button = document.createElement('button');-->
+<!--                button.textContent = i;-->
+<!--                button.onclick = () => paginate(i, visiblePosts, postsPerPage);-->
+<!--                pagingDiv.appendChild(button);-->
+<!--            }-->
+<!--        }-->
 
-        function paginate(page, visiblePosts, postsPerPage) {
-            const start = (page - 1) * postsPerPage;
-            const end = start + postsPerPage;
+<!--        function paginate(page, visiblePosts, postsPerPage) {-->
+<!--            const start = (page - 1) * postsPerPage;-->
+<!--            const end = start + postsPerPage;-->
 
-            // 모든 게시글 숨기기
-            posts.forEach(post => post.classList.add('hidden'));
+<!--            // 모든 게시글 숨기기-->
+<!--            posts.forEach(post => post.classList.add('hidden'));-->
 
-            // 해당 페이지의 게시글만 표시
-            visiblePosts.slice(start, end).forEach(post => post.classList.remove('hidden'));
-        }
-    </script>
+<!--            // 해당 페이지의 게시글만 표시-->
+<!--            visiblePosts.slice(start, end).forEach(post => post.classList.remove('hidden'));-->
+<!--        }-->
+<!--    </script>-->
 
     <br>
     <table>
