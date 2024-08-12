@@ -10,19 +10,19 @@
     <title>게시판</title>
     <style layout:fragment="style">
         table {
-            margin: auto;
-            width: 800px;
+            margin-left: 20px;
+            width: 1000px;
             border-radius: 5px;
             border-collapse: collapse;
             border-top: none;
         }
 
-        .header {
+        .tableHeader {
             background-color: rgb(218, 231, 255);
             text-align: center;
         }
 
-        .table td, .table th {
+        #postTable td, #postTable th {
             border-bottom: 1px lightgray solid;
             height: 30px;
             font-size: 14px;
@@ -40,6 +40,16 @@
             width: 500px;
         }
 
+        #postTitle {
+            /* 제목 */
+
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+
+        }
+
         .likes {
             width: 60px;
         }
@@ -51,28 +61,6 @@
         .body .title {
             text-align: left;
         }
-
-        /*button {*/
-        /*    width: 100px;*/
-        /*    height: 40px;*/
-        /*    font-size: 15px;*/
-        /*    border: 0;*/
-        /*    outline: 1.5px rgb(68, 136, 244) solid;*/
-        /*    border-radius: 5px;*/
-        /*    padding-left: 10px;*/
-        /*    background-color: rgb(164, 199, 255);*/
-        /*}*/
-
-        /*button:active {*/
-        /*    width: 100px;*/
-        /*    height: 40px;*/
-        /*    font-size: 15px;*/
-        /*    border: 0;*/
-        /*    border-radius: 5px;*/
-        /*    outline: 1.5px rgb(27, 76, 155) solid;*/
-        /*    padding-left: 10px;*/
-        /*    background-color: rgb(68, 136, 244);*/
-        /*}*/
 
         .pageNumber {
             left: 50%;
@@ -102,41 +90,80 @@
         .pageNumber li a.active {
             background-color: rgb(252, 212, 205);
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 
 <div layout:fragment="content">
-    <table class="table">
+    <table id="postTable">
         <tr>
             <td colspan="2"><h2>게시판</h2></td>
         </tr>
-        <tr class="header">
+        <tr class="tableHeader">
             <td class="num">게시글 번호</td>
             <td class="category">카테고리</td>
             <td class="title">제목</td>
             <td class="likes">좋아요</td>
             <td class="">작성날짜</td>
         </tr>
-        <tr class="body">
-            <td th:text="${postList.get(1).getPostNo()}">번호</td>
-            <td th:text="${postList.get(1).getCategoryCode()}">자유</td>
-            <td th:text="${postList.get(1).getPostTitle()}">제목</td>
-            <td th:text="${postList.get(1).getPostLikes()}">좋아요</td>
-            <td th:text="${postList.get(1).getFormattedPostCreateDate()}">작성날짜</td>
+        <tbody>
+        <tr class="body" th:each="post : ${postList}" th:data-post-no="${post.postNo}"
+            th:data-category="${post.categoryCode}">
+            <td th:text="${post.postNo}">번호</td>
+            <td th:text="${post.categoryCode}">자유</td>
+            <td>
+                <a id="postTitle" th:href="@{/post/{postNo}(postNo=${post.postNo})}" th:text="${post.postTitle}">제목</a>
+            </td>
+            <td th:text="${post.postLikes}">좋아요</td>
+            <td th:text="${post.getFormattedPostCreateDate()}">작성날짜</td>
         </tr>
-
-        <!--    <script>-->
-        <!--        var i, day = 20;-->
-        <!--        for (i = 10; i > 0; i&#45;&#45;) {-->
-        <!--            document.write("<tr class='body'>");-->
-        <!--            document.write("<td>" + i +"</td>");-->
-        <!--            document.write("<td class='title'>제목입니다.</td>");-->
-        <!--            document.write("<td>작성자</td>");-->
-        <!--            document.write("<td>24-01-" + day&#45;&#45; + "</td>");-->
-        <!--            document.write("</tr>");-->
-        <!--        }-->
-        <!--    </script>-->
+        </tbody>
     </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const table = document.getElementById("postTable");
+            const tbody = table.querySelector("tbody");
+            const rows = Array.from(tbody.querySelectorAll("tr.body"));
+
+            // 내림차순 정렬
+            rows.sort((a, b) => {
+                const postNoA = parseInt(a.getAttribute("data-post-no"), 10);
+                const postNoB = parseInt(b.getAttribute("data-post-no"), 10);
+                return postNoB - postNoA; // 내림차순
+            });
+
+            // 정렬된 행을 tbody에 다시 추가
+            rows.forEach(row => tbody.appendChild(row));
+        });
+
+    </script>
+
+    <!--  카테고리별 필터링  -->
+    <script>
+        const categoryLinks = document.querySelectorAll('.category-link');
+        const posts = document.querySelectorAll('.body');
+
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault(); // 기본 링크 클릭 동작 방지
+                const selectedCategory = this.getAttribute('data-category');
+
+                // 모든 게시글을 숨기고 선택된 카테고리의 게시글만 표시
+                posts.forEach(post => {
+                    if (post.getAttribute('data-category') === selectedCategory) {
+                        post.classList.remove('hidden');
+                    } else {
+                        post.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
     <br>
     <table>
         <tr>

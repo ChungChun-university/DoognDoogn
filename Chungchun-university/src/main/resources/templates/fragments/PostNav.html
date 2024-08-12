@@ -44,13 +44,9 @@
         background-color: white;
         border-radius: 20px;
         border: none;
+        cursor: pointer;
     }
 
-    a {
-        font-family: "Jua", sans-serif;
-        font-size: 22px;
-        text-decoration: none;
-    }
 
     .mainBottomPostNav {
         margin-top: 20px;
@@ -64,11 +60,17 @@
         border: 7px solid white;
     }
 
-    li {
+    .classUl li {
         margin-top: 8px;
         margin-bottom: 10px;
         list-style-type: none;
         font-size: 18px;
+        z-index: 10;
+        position: relative;
+    }
+
+    .classUl li a {
+        cursor: pointer;
     }
 
     .ClassList {
@@ -140,7 +142,7 @@
                 </div>
                 <h1 style="margin-top: 0; margin-left: 10px">[[|${ #authentication.principal.user.userName }님|]]</h1>
                 <h2 style="margin-left: 10px">ドキドキ</h2>
-                <button class="searchMyPost">내 게시글 조회</button>
+                <a th:href="@{/post/myPost}"><button class="searchMyPost">내 게시글 조회</button></a>
             </div>
         </div>
     </div>
@@ -149,19 +151,33 @@
 
         <div class="ClassList">
             <h2>강의</h2>
-            <ul>
-                <li><a href="">뜨개질</a></li>
-                <li><a href="">핸드 드립</a></li>
-                <li><a href="">소프트웨어</a></li>
-                <li><a href="">시.창작</a></li>
-                <li><a href="">가상체험</a></li>
+            <ul class="classUl">
+                <li><a href="#" class="category-link" data-category="뜨개질">뜨개질</a></li>
+                <li><a href="#" class="category-link" data-category="핸드 드립">핸드 드립</a></li>
+                <li><a href="#" class="category-link" data-category="소프트웨어">소프트웨어</a></li>
+                <li><a href="#" class="category-link" data-category="시.창작">시.창작</a></li>
+                <li><a href="#" class="category-link" data-category="가상체험">가상체험</a></li>
             </ul>
             <h2>기타</h2>
-            <ul>
-                <li><a href="">기타</a></li>
+            <ul class="classUl">
+                <li><a href="#" class="category-link" data-category="기타">기타</a></li>
             </ul>
         </div>
     </div>
+
+    <script>
+        const links = document.querySelectorAll('.classUl a');
+        const lectureTitleDiv = document.getElementById('lectureTitle');
+
+        links.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // 기본 링크 클릭 동작 방지
+                const title = this.getAttribute('data-title'); // data-title 속성에서 강의명 가져오기
+                lectureTitleDiv.textContent = title; // 강의명 표시
+            });
+        });
+    </script>
+
     <div class="vLine">
         <div id="v-line1">
             <div id="v-subLine1">&#10142;</div>

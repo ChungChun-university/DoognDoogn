@@ -40,11 +40,21 @@ public class Post {
     @Column(name = "post_create_date", nullable = false)
     private Date postCreateDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_no", nullable = false)
     private User userNo;
 
     @OneToMany(mappedBy = "post")
     private List<Like> likes; // 좋아요 리스트 추가
+
+    public int getPostLikes() {
+        return likes != null ? likes.size() : 0;
+    }
+
+    // Date를 연, 월, 일 형식으로 받아오기
+    public String getFormattedPostCreateDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 원하는 형식
+        return sdf.format(postCreateDate);
+    }
 
 }
