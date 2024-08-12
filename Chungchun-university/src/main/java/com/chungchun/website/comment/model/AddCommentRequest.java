@@ -13,7 +13,6 @@ public class AddCommentRequest {
     private Post post;
     private Date cmtCreateDate;
     private Date cmtUpDate;
-    private String comment;
 
     public Comment toEntity(){
         // 생성자를 사용해 객체 생성
@@ -27,6 +26,4 @@ public class AddCommentRequest {
 
     }
 
-    public void setUser(User user) {
-    }
 }

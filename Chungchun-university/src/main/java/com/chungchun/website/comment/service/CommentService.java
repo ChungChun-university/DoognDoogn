@@ -35,22 +35,5 @@ public class CommentService {
             return myCommentList;
         }
 
-    public Comment save(int userNo, AddCommentRequest request, String userName) {
-        Optional<User> userOptional = userRepository.findByUserNo(userNo);
-        User user;
-        if (userOptional.isPresent()) { // Optional이 값으로 채워져 있는지 확인
-            user = userOptional.get(); // User 객체 추출
-        } else {
-            System.out.println("사용자가 존재하지 않습니다: " + userName);
-            return null;
-        }
-        Post post = (Post) postRepository.findByUserNo(userNo).orElseThrow(() ->
-                new IllegalArgumentException("댓글 쓰기 실패: 해당 게시글이 존재하지 않습니다. " + userNo));
-
-        request.setUser(user);
-        request.setPost(post);
-
-        return commentRepository.save(request.toEntity());
-    }
 
 }

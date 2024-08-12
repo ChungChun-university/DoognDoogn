@@ -10,5 +10,5 @@ public interface PostRepository extends JpaRepository<Post,Integer> {
 
     Optional<Post> findByPostNo(int postNo);
 
-    Optional<Object> findByUserNo(int userNo);
+//    Optional<Object> findByUserNo(int userNo);
 }

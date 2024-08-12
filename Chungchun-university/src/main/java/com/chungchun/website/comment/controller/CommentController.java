@@ -48,13 +48,6 @@ public class CommentController {
     }
     //2. 내 댓글 작성
 
-    @PostMapping("/") //+현재 인증 정보를 가져오는 principal객체
-    public ResponseEntity<Comment> save(@PathVariable int userNo, @RequestBody AddCommentRequest request, Principal principal) {
-        Comment savedComment = commentService.save(userNo, request, principal.getName());
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedComment);
-    }
     //3. 내 댓글 수정
 
     //4. 삭제

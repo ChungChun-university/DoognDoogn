@@ -45,9 +45,6 @@ public class Comment {
     private Date cmtUpDate;
 
 
-//    public void update(String comment){
-//        this.comment = comment;
-//    }
 
 
 
