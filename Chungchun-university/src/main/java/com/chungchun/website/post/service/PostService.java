@@ -10,6 +10,10 @@ import com.chungchun.website.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,14 +34,17 @@ public class PostService {
 
 
     // 전체 게시글 조회
-    public List<PostDTO> findAllPosts() {
+    public Page<PostDTO> findAllPosts(Pageable pageable) {
 
-           List<Post> foundAllPosts = postRepository.findAll();
+        pageable = PageRequest.of(
+                pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1,
+                pageable.getPageSize(),
+                Sort.by("postNo").descending());
+
+        Page<Post> foundAllPosts = postRepository.findAll(pageable);
 
 
-           return foundAllPosts.stream()
-                   .map(post -> modelMapper.map(post,PostDTO.class))
-                   .collect(Collectors.toList());
+        return foundAllPosts.map(post -> modelMapper.map(post, PostDTO.class));
     }
 
     // 게시글 번호로 조회
@@ -49,11 +56,16 @@ public class PostService {
     }
 
     // 내 게시글 조회
-    public List<Post> findPostsByUser(User user) {
+    public Page<PostDTO> findPostsByUser(User user, Pageable pageable) {
 
-        List<Post> post = postRepository.findPostsByUserNo(user);
+        pageable = PageRequest.of(
+                pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1,
+                pageable.getPageSize(),
+                Sort.by("postNo").descending());
 
-        return post;
+        Page<Post> myPost = postRepository.findPostsByUserNo(user,pageable);
+
+        return myPost.map(post -> modelMapper.map(post, PostDTO.class));
     }
 
 
@@ -77,7 +89,7 @@ public class PostService {
 
         Post newPost = postRepository.save(post);
 
-        log.info("등록된 게시글 : {}",newPost);
+        log.info("등록된 게시글 : {}", newPost);
 
     }
 

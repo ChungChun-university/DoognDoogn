@@ -62,33 +62,44 @@
             text-align: left;
         }
 
-        .pageNumber {
+        .paging {
             left: 50%;
             margin: 0 auto;
-            width: 400px;
+            width: 600px;
             height: 100px;
 
         }
 
-        .pageNumber li {
-            list-style: none;
-            display: inline-block;
-        }
-
-        .pageNumber li a {
-            display: block;
-            font-size: 20px;
+        .paging button {
+            font-size: 18px; /* 폰트 크기를 약간 줄임 */
             text-align: center;
-            width: 40px;
-            line-height: 40px;
-            border-radius: 10px;
-            margin: 3px;
-            margin-top: 20px;
-            box-shadow: 0 5px 10px #f1f1f1;
+            width: 50px; /* 버튼 너비를 늘림 */
+            height: 50px; /* 버튼 높이를 설정 */
+            border-radius: 25px; /* 둥근 모서리를 더 강조 */
+            margin: 5px; /* 여백을 약간 늘림 */
+            margin-top: 15px; /* 위쪽 여백을 줄임 */
+            background-color: #F7F6CC; /* 배경색을 파란색으로 변경 */
+            color: #66b2fa; /* 글자색을 흰색으로 변경 */
+            border: none; /* 기본 테두리 제거 */
+            cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+            transition: background-color 0.3s, transform 0.5s; /* 부드러운 전환 효과 추가 */
         }
 
-        .pageNumber li a.active {
-            background-color: rgb(252, 212, 205);
+        .paging button:hover {
+            background-color: #f6f48b; /* 호버 시 배경색 변경 */
+            transform: translateY(-2px); /* 호버 시 약간 위로 이동 */
+        }
+
+        .paging button:active {
+            transform: translateY(0); /* 클릭 시 원래 위치로 돌아옴 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 효과 추가 */
+        }
+
+        .paging button.current-page {
+            background-color: #5daae8; /* 강조 색상 (예: 초록색) */
+            color: white; /* 글자색을 흰색으로 변경 */
+            font-weight: bold; /* 글자 두께를 굵게 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
         }
 
         .hidden {
@@ -170,14 +181,32 @@
         </tr>
     </table>
 
-    <div class="pageNumber">
-        <li><a href="#">&lt;</a></li>
-        <li><a href="#" class="active">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&gt;</a></li>
+    <div class="paging">
+        <!-- 맨 앞으로 이동 -->
+        <button th:onclick="'location.href=\'/post/myPost?page=' + ${ paging.startPage } + '\''">&lt;&lt;</button>
+        <!-- 이전 페이지로 이동 -->
+        <button th:onclick="'location.href=\'/post/myPost?page=' + ${ paging.currentPage - 1} + '\''"
+                th:disabled="${ postList.first }">&lt;
+        </button>
+
+        <!-- 숫자 버튼 -->
+        <th:block th:each="page: ${ #numbers.sequence(paging.startPage, paging.endPage)}">
+            <button th:onclick="'location.href=\'/post/myPost?page=' + @{${page}} + '\''"
+                    th:text="${page}"
+                    th:class="${ paging.currentPage eq page ? 'current-page' : '' }"
+                    th:disabled="${ paging.currentPage eq page }">
+            </button>
+        </th:block>
+
+        <!-- 다음 페이지로 이동 -->
+        <button th:onclick="'location.href=\'/post/myPost?page=' + ${ paging.currentPage + 1} + '\''"
+                th:disabled="${ postList.last }">
+            &gt;
+        </button>
+        <!-- 맨 뒤로 이동 -->
+        <button th:onclick="'location.href=\'/post/myPost?page=' + ${ paging.endPage } + '\''">
+            &gt;&gt;
+        </button>
     </div>
 </div>
 </html>

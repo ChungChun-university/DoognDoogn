@@ -1,6 +1,8 @@
 package com.chungchun.website.post.controller;
 
 import com.chungchun.website.auth.principal.AuthPrincipal;
+import com.chungchun.website.common.ArticlePage;
+import com.chungchun.website.common.PagingButtonInfo;
 import com.chungchun.website.post.model.Post;
 import com.chungchun.website.post.model.PostDTO;
 import com.chungchun.website.post.service.PostService;
@@ -9,14 +11,14 @@ import com.chungchun.website.user.model.UserDTO;
 import com.chungchun.website.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,13 +33,35 @@ public class PostController {
 
     // 전체 게시글 조회
     @GetMapping("/postDetails")
-    public String postDetails(Model model){
+    public String postDetails(Model model, @PageableDefault Pageable pageable){
 
-        List<PostDTO> postList = postService.findAllPosts();
+        Page<PostDTO> postList = postService.findAllPosts(pageable);
 
+        PagingButtonInfo paging = ArticlePage.getPagingButtonInfo(postList);
+
+        model.addAttribute("paging",paging);
         model.addAttribute("postList",postList);
 
         return "post/postDetails";
+    }
+
+    // 내 게시글 조회
+    @GetMapping("/myPost")
+    public String myPost(@AuthenticationPrincipal UserDetails userDetails, Model model, @PageableDefault Pageable pageable){
+
+        // UserDetails를 AuthPrincipal로 캐스팅
+        AuthPrincipal authPrincipal = (AuthPrincipal) userDetails;
+
+        User user = authPrincipal.getUser();
+
+        Page<PostDTO> myPostList = postService.findPostsByUser(user,pageable);
+
+        PagingButtonInfo paging = ArticlePage.getPagingButtonInfo(myPostList);
+
+        model.addAttribute("postList",myPostList);
+        model.addAttribute("paging",paging);
+
+        return "post/myPost";
     }
 
     // 게시글 단일 조회 기능
@@ -82,22 +106,6 @@ public class PostController {
         postService.create(postDTO, user);
 
         return "redirect:/";
-    }
-
-    // 내 게시글
-    @GetMapping("/myPost")
-    public String myPost(@AuthenticationPrincipal UserDetails userDetails, Model model){
-
-        // UserDetails를 AuthPrincipal로 캐스팅
-        AuthPrincipal authPrincipal = (AuthPrincipal) userDetails;
-
-        User user = authPrincipal.getUser();
-
-        List<Post> myPostList = postService.findPostsByUser(user);
-
-        model.addAttribute("postList",myPostList);
-
-        return "post/myPost";
     }
 
 
