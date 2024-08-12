@@ -1,5 +1,6 @@
 package com.chungchun.website.post.model;
 
+import com.chungchun.website.comment.model.Comment;
 import com.chungchun.website.course.model.Course;
 import com.chungchun.website.likes.model.Like;
 import com.chungchun.website.user.model.User;
@@ -14,9 +15,9 @@ import java.util.List;
 @Table(name = "cc_post")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @ToString
-@Builder
+@Getter
+@Builder(toBuilder = true)
 public class Post {
 
     @Id
@@ -44,8 +45,11 @@ public class Post {
     @JoinColumn(name = "user_no", nullable = false)
     private User userNo;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Like> likes; // 좋아요 리스트 추가
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comment; // 댓글 리스트 추가
 
     public int getPostLikes() {
         return likes != null ? likes.size() : 0;

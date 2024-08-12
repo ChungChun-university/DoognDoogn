@@ -1,5 +1,6 @@
 package com.chungchun.website.post.service;
 
+import com.chungchun.website.comment.repository.CommentRepository;
 import com.chungchun.website.post.model.Post;
 import com.chungchun.website.post.model.PostDTO;
 import com.chungchun.website.post.repository.PostRepository;
@@ -30,6 +31,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
     private final ModelMapper modelMapper;
 
 
@@ -42,7 +44,7 @@ public class PostService {
                 Sort.by("postNo").descending());
 
         Page<Post> foundAllPosts = postRepository.findAll(pageable);
-
+        log.info("게시글 수: {}", foundAllPosts.getTotalElements());
 
         return foundAllPosts.map(post -> modelMapper.map(post, PostDTO.class));
     }
@@ -63,7 +65,7 @@ public class PostService {
                 pageable.getPageSize(),
                 Sort.by("postNo").descending());
 
-        Page<Post> myPost = postRepository.findPostsByUserNo(user,pageable);
+        Page<Post> myPost = postRepository.findPostsByUserNo(user, pageable);
 
         return myPost.map(post -> modelMapper.map(post, PostDTO.class));
     }
@@ -93,5 +95,27 @@ public class PostService {
 
     }
 
+
+    @Transactional
+    public void deletePost(int postNo) {
+
+        postRepository.deleteById(postNo);
+    }
+
+    @Transactional
+    public void updatePost(int postNo, String postTitle, String postContent) {
+
+        Post post = postRepository.findById(postNo)
+                .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
+
+        post = post.toBuilder()
+                .postTitle(postTitle)
+                .postContent(postContent)
+                .build();
+
+        log.info("변경된 게시글 ============= > {}", post);
+
+        postRepository.save(post); // 수정된 게시글 저장
+    }
 
 }

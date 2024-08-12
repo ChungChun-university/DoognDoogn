@@ -11,7 +11,7 @@
     <style layout:fragment="style">
         table {
             margin: auto;
-            width: 800px;
+            width: 1000px;
             border-radius: 5px;
             border-collapse: collapse;
             border-top: none;
@@ -37,7 +37,7 @@
         }
 
         .title {
-            width: 500px;
+            width: 620px;
         }
 
         #postTitle{
@@ -52,6 +52,18 @@
 
         .likes {
             width: 60px;
+        }
+
+        .cDate {
+            width: 100px;
+        }
+
+        .delete {
+            width: 50px;
+        }
+
+        .deleteIcon {
+            width: 50px;
         }
 
         .body {
@@ -119,7 +131,9 @@
             <td class="category">카테고리</td>
             <td class="title">제목</td>
             <td class="likes">좋아요</td>
-            <td class="">작성날짜</td>
+            <td class="cDate">작성날짜</td>
+            <td class="delete"></td>
+
         </tr>
         <tbody>
         <tr class="body" th:each="post : ${postList}" th:data-post-no="${post.postNo}" th:data-category="${post.categoryCode}">
@@ -130,6 +144,11 @@
             </td>
             <td th:text="${post.postLikes}">좋아요</td>
             <td th:text="${post.getFormattedPostCreateDate()}">작성날짜</td>
+            <td>
+                <a href="#" th:onclick="'deletePost(' + ${post.postNo} + '); return false;'" title="삭제">
+                    <img src="/image/bin.png" class="deleteIcon" alt="삭제">
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -172,6 +191,30 @@
                 });
             });
         });
+    </script>
+
+<!--  게시글 삭제  -->
+    <script>
+        function deletePost(postNo) {
+            if (confirm("게시글을 삭제하시겠습니까?")) {
+                // 삭제 요청을 서버로 보냅니다.
+                fetch(`/post/delete/${postNo}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("게시글이 삭제되었습니다.");
+                            location.reload(); // 페이지 새로 고침
+                        } else {
+                            alert("게시글 삭제에 실패했습니다.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("게시글 삭제 중 오류가 발생했습니다.");
+                    });
+            }
+        }
     </script>
 
     <br>

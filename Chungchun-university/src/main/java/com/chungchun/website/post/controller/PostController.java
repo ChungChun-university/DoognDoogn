@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -68,7 +69,7 @@ public class PostController {
     @GetMapping("/{postNo}")
     public String findMenuByCode(@PathVariable("postNo") int postNo, Model model) {
 
-        log.info("menuCode = {}", postNo);
+        log.info("postNo = {}", postNo);
 
         Post post = postService.findByPostNo(postNo);
 
@@ -106,6 +107,37 @@ public class PostController {
         postService.create(postDTO, user);
 
         return "redirect:/";
+    }
+
+    // 게시글 수정 페이지로 이동
+    @GetMapping("/edit/{postNo}")
+    public String editPost(@PathVariable int postNo, Model model) {
+        Post post = postService.findByPostNo(postNo);
+        model.addAttribute("post", post);
+        return "post/edit";
+    }
+
+    // 게시글 수정 처리
+    @PostMapping("/update/{postNo}")
+    public String updatePost(@PathVariable int postNo,
+                             @RequestParam String postTitle,
+                             @RequestParam String postContent) {
+        postService.updatePost(postNo, postTitle, postContent);
+
+        log.info("게시글 내용 변경 완료!");
+
+        return "redirect:/post/" + postNo; // 수정 후 게시글 조회 페이지로 리다이렉트
+    }
+
+    // 게시글 삭제
+    @DeleteMapping("/delete/{postNo}")
+    public ResponseEntity<String> deletePost(@PathVariable int postNo) {
+        try {
+            postService.deletePost(postNo); // 서비스 메서드 호출
+            return ResponseEntity.ok("게시글이 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("게시글 삭제에 실패했습니다.");
+        }
     }
 
 
