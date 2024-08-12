@@ -3,9 +3,12 @@ package com.chungchun.website.course.service;
 import com.chungchun.website.course.model.Course;
 import com.chungchun.website.course.model.CourseDTO;
 import com.chungchun.website.course.repository.CourseRepository;
+import com.chungchun.website.myclass.model.MyClass;
+import com.chungchun.website.myclass.model.MyClassDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -32,4 +35,17 @@ public class CourseService {
 //
 //        return modelMapper.map(course, CourseDTO.class);
 //    }
+
+//    // 수강신청
+//    @Transactional
+//    public void saveCourseApply(MyClassDTO myClassDTO){
+//
+//        MyClass myClass = MyClass.builder()
+//                .
+//    }
+
+
+
+
+
 }
