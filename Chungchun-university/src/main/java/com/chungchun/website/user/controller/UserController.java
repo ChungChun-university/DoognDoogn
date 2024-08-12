@@ -29,6 +29,14 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
+    // 마이페이지 메인으로 이동
+    @GetMapping("/myPageMain")
+        public String myPageMain(){
+            log.info("로그 찍기1");
+            return "myPage/myPage";
+        }
+
+
     // 회원가입
     @GetMapping("/register")
     public String register() {

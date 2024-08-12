@@ -1,32 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/PostDefault}"
+>
 <head>
     <meta charset="UTF-8">
     <title>게시글 조회</title>
-</head>
-<body>
+    <style>
 
-<table>
-    <tr>
-        <td>게시글 번호</td>
-        <td>게시글 제목</td>
-    </tr>
-</table>
-<div>
-    <div>
-        <p>게시글 내용</p>
+        #content {
+
+        }
+
+        #postHeader {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            width: 950px;
+            height: 80px;
+            left: 350px;
+            top: 80px;
+            background: #FFFFFF;
+            border-radius: 50px;
+            justify-content: center;
+        }
+
+        #postHeader p {
+            display: flex;
+            align-items: center; /* 수직 가운데 정렬 */
+            height: 100%; /* 부모 요소의 높이에 맞춤 */
+        }
+
+        #postNo {
+            position: absolute;
+            width: 162px;
+            left: 30px;
+            font-family: 'Sunflower';
+            font-style: normal;
+            font-weight: bold;
+            font-size: 40px;
+            text-align: center;
+            color: #000000;
+        }
+
+        #postTitle {
+            position: absolute;
+            width: 806px;
+            left: 150px;
+            font-family: 'Sunflower';
+            font-style: normal;
+            font-weight: bolder;
+            font-size: 30px;
+            text-align: center;
+            color: #000000;
+        }
+
+        #contentBody {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            width: 1100px;
+            left: 300px;
+            top: 200px;
+            justify-content: start;
+        }
+
+        #postContent {
+            width: 1100px;
+            min-height: 300px;
+            background: #FFFFFF;
+
+        }
+
+        #postContent p {
+            width: 850px;
+            margin-top: 50px;
+            margin-left: 80px;
+            margin-bottom: 80px;
+            font-size: 25px;
+            font-weight: normal;
+            line-height: 50px;
+        }
+
+        #editAndLikes {
+            position: absolute;
+            bottom: 40px;
+            right: 0;
+            width: 150px;
+            display: flex; /* Flexbox 사용 */
+            justify-content: space-between; /* 아이콘 간의 간격을 균등하게 배치 */
+            align-items: center; /* 세로 중앙 정렬 */
+            padding: 10px; /* 패딩 추가 (선택 사항) */
+        }
+
+        .iconBox {
+            flex: 1; /* 동일한 크기로 설정 */
+            display: flex; /* 내부 요소를 중앙 정렬하기 위해 Flexbox 사용 */
+            justify-content: center; /* 아이콘을 수평 중앙 정렬 */
+            align-items: center; /* 아이콘을 수직 중앙 정렬 */
+            margin: 0 10px; /* 좌우 간격 설정 */
+        }
+
+        .iconBox img {
+            max-width: 100%; /* 이미지가 박스를 넘지 않도록 설정 */
+            height: auto; /* 비율 유지 */
+        }
+
+        #goToPage {
+
+        }
+    </style>
+</head>
+<div layout:fragment="content">
+    <div id="postHeader">
+        <p id="postNo" th:text="'#' + ${post.postNo}">게시글 번호</p>
+        <p id="postTitle" th:text="${post.postTitle}">게시글 제목</p>
     </div>
-    <div>
-        <ul>
-            <li>댓글1</li>
-            <li>댓글2</li>
-            <li>댓글3</li>
-        </ul>
-    </div>
-    <div>
-        <li>이전 글 넘어가기</li>
-        <li>다음 글 넘어가기</li>
+    <div id="contentBody">
+        <div id="postContent">
+            <p th:text="${post.postContent}">게시글 본문</p>
+            <!-- 게시글 수정, 좋아요 버튼 -->
+            <div id="editAndLikes">
+                <div class="iconBox" >
+                    <a class="edit" href="#">
+                        <img src="/image/수정버튼.png" alt="수정">
+                    </a>
+                </div>
+                <div class="iconBox">
+                    <a class="likes" href="#">
+                        <img src="/image/좋아요.png" alt="좋아요">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- 댓글 부분 -->
+        <div>
+
+        </div>
+        <div id="goToPage">
+            <li>이전 글 넘어가기</li>
+            <li>다음 글 넘어가기</li>
+        </div>
     </div>
 </div>
-</body>
 </html>

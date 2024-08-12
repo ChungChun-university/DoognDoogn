@@ -41,13 +41,21 @@ public class PostService {
     }
 
     // 게시글 번호로 조회
-    public PostDTO findByPostNo(int postNo) {
+    public Post findByPostNo(int postNo) {
 
-        Post post = postRepository.findByPostNo(postNo)
-                .orElseThrow(() -> new NoSuchElementException("해당하는 게시글 번호를 찾을 수 없습니다."));
+        Post post = postRepository.findByPostNo(postNo);
 
-        return modelMapper.map(post,PostDTO.class);
+        return post;
     }
+
+    // 내 게시글 조회
+    public List<Post> findPostsByUser(User user) {
+
+        List<Post> post = postRepository.findPostsByUserNo(user);
+
+        return post;
+    }
+
 
     // 게시글 작성
     @Transactional
