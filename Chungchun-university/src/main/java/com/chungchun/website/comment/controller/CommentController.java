@@ -1,22 +1,17 @@
 package com.chungchun.website.comment.controller;
 
 import com.chungchun.website.auth.principal.AuthPrincipal;
-import com.chungchun.website.comment.model.AddCommentRequest;
 import com.chungchun.website.comment.model.Comment;
-import com.chungchun.website.comment.model.CommentDTO;
 import com.chungchun.website.comment.service.CommentService;
 import com.chungchun.website.user.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller

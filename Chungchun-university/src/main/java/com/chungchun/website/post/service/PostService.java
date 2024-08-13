@@ -7,7 +7,6 @@ import com.chungchun.website.post.repository.PostRepository;
 import com.chungchun.website.user.model.User;
 import com.chungchun.website.user.model.UserDTO;
 import com.chungchun.website.user.repository.UserRepository;
-import com.chungchun.website.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -19,9 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
