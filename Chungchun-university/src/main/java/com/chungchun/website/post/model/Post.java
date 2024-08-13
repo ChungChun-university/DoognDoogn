@@ -6,6 +6,7 @@ import com.chungchun.website.likes.model.Like;
 import com.chungchun.website.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,6 +40,7 @@ public class Post {
     private String postContent;
 
     @Column(name = "post_create_date", nullable = false)
+    @CreatedDate
     private Date postCreateDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

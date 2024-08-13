@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/MyPageDefault}" xmlns:magin="http://www.w3.org/1999/xhtml">
+
+
+
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
 
     <style>
+
         /* Modal 스타일 */
         .modal {
             display: none; /* 기본적으로 숨김 */
@@ -40,19 +47,143 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        .text1{
+            font-family: "Jua", sans-serif;
+            font-size: 38pt;
+            margin-top: 67px;
+        }
+
+        .MyInfoLeft{
+            margin-top: 35px;
+            width: 325px;
+            height: 650px;
+            position: relative;
+            text-align: center;
+        }
+
+        .MyInfoCenter {
+            /*background-color: #68b54e;*/
+            position: relative;
+            width: 800px;
+            height: 650px;
+            text-align: center;
+            margin-top: -700px;
+            margin-left: 300px;
+
+            .content {
+
+                    .text1 {
+                        margin-top: 68px;
+                    }
+
+                    .text3 {
+                        height: 50px;
+                        margin-top: 76px;
+                        margin-left: -30px;
+                        font-size: 18px;
+
+                }
+
+            }
+        }
+
+        .MyInfoRight{
+            position: relative;
+        }
+        .linerContent{
+            position: relative;
+            z-index: 1;
+            margin-left: 0px ;
+            margin-top: -610px;
+        }
+
+        .line1{
+            border-bottom: 2.2px solid #000;
+        }
+
+        .line2{
+            border-bottom: 2.2px solid #000;
+        }
+
+        .line3{
+            border-bottom: 2.2px solid #000;
+        }
+
+        .line4{
+            border-bottom: 2.2px solid #000;
+        }
+
+        .MyInfoRight {
+            font-family: "Jua", sans-serif;
+
+            .button {
+                font-size: 18pt;
+                margin-left: 900px;
+                background-color: #A0D3FF;
+                font-family: "Jua", sans-serif;
+                width: 180px;
+                height: 60px;
+                border-radius: 15px;
+                text-align: center;
+                justify-content: center;
+                align-content: center;
+            }
+
+            .editButton {
+                margin-top: -62px;
+                width: 180px;
+                height: 60px;
+                border-radius: 15px;
+                margin-left: 400px;
+                background-color: white;
+                text-align: center;
+                justify-content: center;
+                align-content: center;
+            }
+        }
     </style>
 </head>
 <body>
-<h1>내 정보 조회</h1>
-<div>
-    <p>ID: <span th:text="${user.userId}"></span></p>
-    <p>PWD : <span th:text="${user.userPwd}"></span></p>
-    <p>이름 : <span th:text="${user.userName}"></span></p>
-    <p>전화번호 : <span th:text="${user.userPhone}"></span></p>
-</div>
-<a th:href="@{/user/edit}">정보 수정</a>
+<div layout:fragment="content">
+    <div class="MyInfoLeft">
+        <ul>
+            <div class="imageInfo"> <img src="/image/logo1.png" style="width: 80px; height: 80px" alt=""></div>
+            <li class="text1">ID</li>
+            <li class="text1">비밀번호</li>
+            <li class="text1">이름</li>
+            <li class="text1">전화번호</li>
+        </ul>
+    </div>
 
-<button type="button" onclick="showModal()">회원탈퇴</button>
+<div class="MyInfoCenter">
+    <ul>
+    <div class="text1">&#42;나의 정보&#42;</div>
+    <div class="content">
+    <div class="text1" th:text="${user.userId}"  ></div>
+    <div class="text3" th:text="${user.userPwd}" ></div>
+    <div class="text1" th:text="${user.userName}" ></div>
+    <div class="text1" th:text="${user.userPhone}"></div>
+</div>
+    </ul>
+</div>
+
+    <div class="MyInfoRight">
+        <div button class="button" onclick="showModal()">회원탈퇴</div>
+        <div button class="editButton"><a th:href="@{/user/edit}">수정</a></div>
+    </div>
+
+
+    <div class="linerContent">
+        <div class="line1" style="width: 863pt; margin-bottom: 128px; "></div>
+        <div class="line2" style="width: 863pt; margin-bottom: 128px; "></div>
+        <div class="line3" style="width: 863pt; margin-bottom: 128px; "></div>
+        <div class="line4" style="width: 863pt; margin-bottom: 128px; "></div>
+    </div>
+
+
+
+
 
 <div id="myModal" class="modal">
     <div class="modal-content">
@@ -130,5 +261,6 @@
         }
     }
 </script>
+</div>
 </body>
 </html>

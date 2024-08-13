@@ -1,23 +1,22 @@
 package com.chungchun.website.comment.controller;
 
 import com.chungchun.website.auth.principal.AuthPrincipal;
+import com.chungchun.website.comment.model.AddCommentRequest;
 import com.chungchun.website.comment.model.Comment;
 import com.chungchun.website.comment.model.CommentDTO;
 import com.chungchun.website.comment.service.CommentService;
-import com.chungchun.website.myclass.model.MyClass;
-import com.chungchun.website.post.model.PostDTO;
 import com.chungchun.website.user.model.User;
-import com.chungchun.website.user.model.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -49,22 +48,6 @@ public class CommentController {
     }
     //2. 내 댓글 작성
 
-    @GetMapping("/createComment")
-    public String createComment(){
-
-        log.info("댓글 작성 요청함");
-        return "comment/createComment";
-    }
-
-    @PostMapping("/createComment")
-    public String createComment(@AuthenticationPrincipal UserDetails userDetails, CommentDTO postDTO) {
-
-        log.info("Comment 작성 post 요청");
-
-
-
-        return "redirect:/";
-    }
     //3. 내 댓글 수정
 
     //4. 삭제
