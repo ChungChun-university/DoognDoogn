@@ -124,22 +124,27 @@ public class UserController {
     }
 
     @PostMapping("/search")
-    public String findUserByUserPhone(@RequestParam String userName, @RequestParam String userPhone, Model model) {
-        log.info("userName =============== {}", userName);
-        log.info("userPhone =============== {}", userPhone);
+    public ResponseEntity<UserDTO> findUserByUserPhone(@RequestBody UserSearchRequest request) {
 
-        // 사용자 ID 찾기
+        log.info("search 요청들어옴...");
+
+        String userName = request.getUserName();
+        String userPhone = request.getUserPhone();
+
+        log.info("userName : {}", userName);
+        log.info("userPhone : {}", userPhone);
+
         String userId = userService.findIdByUser(userName, userPhone);
 
-        // 결과를 모델에 추가
-        model.addAttribute("userId", userId);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName(userName);
+        userDTO.setUserId(userId);
 
-        // 사용자 ID를 찾지 못했을 경우
         if (userId == null) {
-            model.addAttribute("errorMessage", "일치하는 ID를 찾을 수 없습니다.");
+            return ResponseEntity.status(404).body(null);
         }
 
-        return "user/queryId"; // 결과를 보여줄 뷰로 이동
+        return ResponseEntity.ok(userDTO);
     }
 
     // 아이디 중복 확인
