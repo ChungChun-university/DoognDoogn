@@ -4,8 +4,6 @@ import com.chungchun.website.comment.model.Comment;
 import com.chungchun.website.course.model.Course;
 import com.chungchun.website.likes.model.Like;
 import com.chungchun.website.user.model.User;
-import com.chungchun.website.user.model.UserDTO;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.text.SimpleDateFormat;
