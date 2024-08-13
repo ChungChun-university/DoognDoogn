@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
-@Transactional( readOnly = true) // 읽기 관련해서
+@Transactional(readOnly = true) // 읽기 관련해서
 public class UserService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
@@ -87,15 +87,23 @@ public class UserService {
             return "아이디를 찾을 수 없습니다.";
         }
 
-}
+    }
 
     public boolean isIdAvailable(String userId) {
         return userRepository.findByUserId(userId) == null; // ID가 존재하지 않으면 사용 가능
     }
 
-//    public String findIdByNameAndPhone(String userName, String userPhone) {
-//        // userRepository를 통해 사용자 정보를 조회합니다.
-//        User user = userRepository.findByNameAndPhone(userName, userPhone);
-//        return (user != null) ? user.getUserId() : null; // 사용자 ID 반환
-//    }
+
+    public String findIdByUser(String userName, String userPhone) {
+        // 사용자 정보를 조회하는 메소드 호출
+        User user = userRepository.findByUserNameAndUserPhone(userName, userPhone);
+
+        // 사용자 ID 반환
+        if (user != null) {
+            return user.getUserId(); // ID 반환
+        } else {
+            return null; // 사용자 찾지 못한 경우
+        }
+    }
 }
+

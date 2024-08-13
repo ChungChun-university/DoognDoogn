@@ -1,104 +1,173 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/MyPageDefault}"
+>
 <head>
     <meta charset="UTF-8">
     <title>Like</title>
-</head>
-<body>
-<h1>내 좋아요 조회</h1>
-<div th:each="like : ${likes}">
-    <p id="post-${like.post.postNo}">
-        게시글 번호: <span th:text="${like.post.postNo}"></span><br>
-        생성일자: <span th:text="${like.createDate}"></span><br>
-        <button id="like-btn-${like.post.postNo}"
-                th:class="${like.isLiked} ? 'liked' : ''"
-            <span th:text="${like.isLiked} ? '❤️' : '🤍'"></span>
-        </button>
-    </p>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const userNo = /*[[${userNo}]]*/1; // 사용자 번호가 서버에서 주입됨
-
-        // 각 게시글에 대해 postNo를 서버에서 주입받기
-        const postNumbers = /*[[${likes.size() > 0 ? likes.stream().map(like -> like.post.postNo).toList() : []}]]*/ [];
-
-        function toggleLike(postNo) {
-            if (!userNo) {
-                alert('사용자 정보를 찾을 수 없습니다. 로그인 해주세요.');
-                window.location.href = '/auth/login'; // 로그인 페이지로 리다이렉트
-                return;
-            }
-
-            const button = document.getElementById(`like-btn-${postNo}`);
-            if (!button) {
-                console.error('버튼을 찾을 수 없습니다.');
-                return;
-            }
-
-            if (button.classList.contains('liked')) {
-                // 좋아요가 등록된 상태일 때
-                fetch(`/api/likes/remove?userNo=${userNo}&postNo=${postNo}`, {
-                    method: 'DELETE', // 삭제 요청
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            // 좋아요가 성공적으로 삭제된 경우
-                            button.classList.remove('liked');
-                            button.innerHTML = '🤍'; // 좋아요 버튼 상태 변경
-                            postElement.remove(); // 게시글 삭제
-                        } else {
-                            throw new Error('좋아요 삭제 실패');
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        alert('오류가 발생했습니다.');
-                    });
-            } else {
-                // 좋아요가 등록되지 않은 상태일 때
-                fetch(`/api/likes/add?userNo=${userNo}&postNo=${postNo}`, {
-                    method: 'POST', // 추가 요청
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json();
-                        } else {
-                            throw new Error('좋아요 추가 실패');
-                        }
-                    })
-                    .then(data => {
-                        button.classList.add('liked');
-                        button.innerHTML = '❤️'; // 좋아요 버튼 상태 변경
-                        postElement.querySelector('span').textContent = data.createDate; // 날짜 업데이트
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        alert('오류가 발생했습니다.');
-                    });
-            }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Jua&display=swap" rel="stylesheet">
+    <style>
+        .liked {
+            color: red; /* 좋아요 상태일 때 하트 색상 */
         }
 
-        // DOMContentLoaded 이벤트를 사용하여 DOM이 완전히 로드된 후 실행
+        .not-liked {
+            color: gray; /* 좋아요 미등록 상태일 때 하트 색상 */
+        }
+
+        .table {
+            margin-top: 12px;
+            width: 1100px;
+            margin-left: 30px;
+            border-collapse: separate;
+            border-spacing: 110px 34px;
+        }
+
+        .textMCV {
+            font-family: "Jua", sans-serif;
+            float: right;
+            margin-right: 150px;
+            font-size: 35pt;
+            margin-top: 70px;
+        }
+
+        .imageMCV {
+            margin-left: 90px;
+            margin-top: 50px;
+        }
+
+        .linerContent2 {
+            position: absolute;
+            top: 230px;
+            z-index: 1;
+            margin-left: 0px;
+        }
+
+        .MLine1 {
+            border-bottom: 3pt solid purple;
+        }
+
+        .MLine2 {
+            margin-left: 40px;
+            border-bottom: 2.2pt solid #000;
+        }
+
+        .MLine3 {
+            margin-left: 40px;
+            border-bottom: 2.2pt solid #000;
+        }
+
+        .MLine4 {
+            margin-left: 40px;
+            border-bottom: 2.2pt solid #000;
+        }
+
+        .underSearch {
+            position: absolute;
+            top: 580px;
+            margin-left: 370px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        td{
+            padding-left: 75px; /* 왼쪽 여백 추가 */
+            display: table-cell;
+            vertical-align: inherit;
+            unicode-bidi: isolate;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="MCV">
+        <div class="textMCV">* 내 좋아요 조회 *</div>
+        <img class="imageMCV" src="/image/logo1.png" style="width: 100px; height: 100px" alt="logoMCV">
+    </div>
+    <table class="table">
+        <tr>
+            <th>게시글 번호</th>
+            <th>생성일자</th>
+            <th>좋아요</th>
+        </tr>
+        <tr class="likes" th:each="like : ${likes}">
+            <td data-post-no="${like.post.postNo}">
+                <span class="post-no" style="cursor: pointer;" th:text="${like.post.postNo}"></span>
+            <td>
+                생성일자: <span th:text="${like.createDate}"></span><br>
+            </td>
+            <td>
+                <button class="like-btn liked"> <!-- 초기 상태는 채워진 하트 -->
+                    <span class="heart">❤️</span>
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <div class="linerContent2">
+        <div class="MLine1" style="width: 863pt; margin-bottom: 60px; "></div>
+        <div class="MLine2" style="width: 800pt; margin-bottom: 60px; "></div>
+        <div class="MLine3" style="width: 800pt; margin-bottom: 60px; "></div>
+        <div class="MLine4" style="width: 800pt; margin-bottom: 60px; "></div>
+    </div>
+
+    <div class="underSearch"><img src="/image/searchPic.PNG" style="width: 500px; height: 100px"></div>
+
+    <div id="post-detail" style="display:none;">
+        <h2>게시글 상세 내용</h2>
+        <p id="post-content"></p>
+        <button id="close-detail">닫기</button>
+    </div>
+
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 필요한 초기화 코드가 있으면 여기에 추가
-        });
+            const userNo = /*[[${userNo}]]*/1; // 사용자 번호가 서버에서 주입됨
 
-        // 버튼에 이벤트 리스너 추가
-        postNumbers.forEach(postNo => {
-            const button = document.getElementById(`like-btn-${postNo}`);
-            if (button) {
-                button.addEventListener('click', () => toggleLike(postNo)); // 이벤트 리스너 추가
+            function fetchPostDetail(postNo) {
+                const url = `/post/${postNo}`; // 게시글 상세 조회 API
+                return fetch(url)
+                    .then(response => {
+                        if (!response.ok) throw new Error('게시글 조회 실패');
+                        return response.json();
+                    });
             }
-        });
-    });
-</script>
 
-<style>
-    .liked {
-        color: red; /* 좋아요가 등록된 경우 하트 색상 */
-    }
-</style>
+            document.getElementById('likes-container').addEventListener('click', (event) => {
+                const button = event.target.closest('.like-btn');
+                const postNoElement = event.target.closest('.post-no');
+
+                if (button) {
+                    // 하트 상태 변경
+                    button.classList.toggle('liked');
+                    button.classList.toggle('not-liked');
+                    const heart = button.querySelector('.heart');
+                    heart.textContent = button.classList.contains('liked') ? '❤️' : '🤍'; // 하트 상태에 따라 변경
+                }
+
+                if (postNoElement) {
+                    const postNo = postNoElement.textContent; // 게시글 번호 가져오기
+
+                    // 게시글 상세 조회
+                    fetchPostDetail(postNo)
+                        .then(post => {
+                            document.getElementById('post-content').textContent = post.content; // 게시글 내용 설정
+                            document.getElementById('post-detail').style.display = 'block'; // 상세 내용 표시
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            alert('게시글을 불러오는 데 실패했습니다.');
+                        });
+                }
+            });
+
+            document.getElementById('close-detail').addEventListener('click', () => {
+                document.getElementById('post-detail').style.display = 'none'; // 상세 내용 숨기기
+            });
+        });
+    </script>
+</div>
 </body>
 </html>
