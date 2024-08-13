@@ -115,7 +115,7 @@ public class PostController {
 
         postService.create(postDTO, user);
 
-        return "redirect:/";
+        return "redirect:/post/myPost";
     }
 
     // 게시글 수정 페이지로 이동
