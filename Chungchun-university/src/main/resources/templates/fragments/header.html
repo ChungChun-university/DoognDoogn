@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html
         xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         lang=xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
@@ -110,7 +111,7 @@
                 <li>
                     <a th:href="@{/user/myPageMain}">마이페이지</a>
                 </li>
-                <li>
+                <li sec:authorize="isAuthenticated()">
                     <a href="#" onclick="document.getElementById('logout-form').submit();">로그아웃</a>
                 </li>
             </ul>
@@ -135,6 +136,11 @@
     </div>
 </header>
 
+<div sec:authorize="isAuthenticated()">
+    <form id="logout-form" th:action="@{/auth/logout}" method="post" style="display:none;">
+        <input type="submit" value="로그아웃">
+    </form>
+</div>
 
 </body>
 </html>

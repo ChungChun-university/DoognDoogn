@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/admindefault}">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* 가운데 정렬 */
+            gap: 50px;
+            text-align: center; /* 텍스트 가운데 정렬 */
+            margin-top: 300px;
+            margin-left: 80px;
+
+        }
+        .image-text-container {
+            display: flex;
+            align-items: center;
+            margin: 20px 0; /* 이미지와 텍스트 간 간격 */
+
+        }
+        .side-image {
+            width: 100px; /* 이미지 크기 조정 (기존 50px에서 증가) */
+            height: auto;
+        }
+        .text a {
+            font-size: 30px; /* 텍스트 크기 조정 (기존 20px에서 증가) */
+            text-decoration: none;
+            color: #000; /* 텍스트 색상 */
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+
+        <div class="image-text-container">
+            <img src="/image/pink-wing-left.png" alt="이미지 1" class="side-image">
+            <div class="text"><a href="page1.html">회원관리</a></div>
+            <img src="/image/pink-wing-right.png" alt="이미지 2" class="side-image">
+        </div>
+
+        <div class="image-text-container">
+            <img src="/image/pink-wing-left.png" alt="이미지 3" class="side-image">
+            <div class="text"><a href="page2.html">게시글,댓글 관리</a></div>
+            <img src="/image/pink-wing-right.png" alt="이미지 4" class="side-image">
+        </div>
+
+        <div class="image-text-container">
+            <img src="/image/pink-wing-left.png" alt="이미지 5" class="side-image">
+            <div class="text"><a href="page3.html">공지사항</a></div>
+            <img src="/image/pink-wing-right.png" alt="이미지 6" class="side-image">
+        </div>
+
+        <div class="image-text-container">
+            <img src="/image/pink-wing-left.png" alt="이미지 7" class="side-image">
+            <div class="text"><a href="page4.html">강의관리</a></div>
+            <img src="/image/pink-wing-right.png" alt="이미지 8" class="side-image">
+        </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <form id="logout-form" th:action="@{/auth/logout}" method="post" style="display:none;">
+            <input type="submit" value="로그아웃">
+        </form>
+    </div>
+</div>
+</body>
+</html>
