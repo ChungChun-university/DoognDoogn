@@ -1,7 +1,6 @@
 package com.chungchun.website.myclass.service;
 
 import com.chungchun.website.myclass.model.MyClass;
-import com.chungchun.website.myclass.model.MyClassDTO;
 import com.chungchun.website.myclass.repository.MyClassRepository;
 import com.chungchun.website.user.model.User;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor

@@ -1,6 +1,5 @@
 package com.chungchun.website.likes.service;
 
-import com.chungchun.website.likes.exception.LikeAlreadyExistsException;
 import com.chungchun.website.likes.exception.LikeNotFoundException;
 import com.chungchun.website.likes.model.Like;
 import com.chungchun.website.likes.repository.LikeRepository;
@@ -8,7 +7,6 @@ import com.chungchun.website.post.model.Post;
 import com.chungchun.website.post.repository.PostRepository;
 import com.chungchun.website.user.model.User;
 import com.chungchun.website.user.repository.UserRepository;
-import com.chungchun.website.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

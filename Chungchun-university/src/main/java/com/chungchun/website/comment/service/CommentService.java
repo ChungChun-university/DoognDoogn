@@ -1,13 +1,8 @@
 package com.chungchun.website.comment.service;
 
-import com.chungchun.website.comment.model.AddCommentRequest;
 import com.chungchun.website.comment.model.Comment;
-import com.chungchun.website.comment.model.CommentDTO;
 import com.chungchun.website.comment.repository.CommentRepository;
-import com.chungchun.website.myclass.model.MyClass;
-import com.chungchun.website.post.model.Post;
 import com.chungchun.website.post.repository.PostRepository;
-import com.chungchun.website.user.model.RoleType;
 import com.chungchun.website.user.model.User;
 import com.chungchun.website.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
