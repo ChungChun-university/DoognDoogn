@@ -11,7 +11,9 @@ import java.time.LocalDate;
 @ToString
 public class LikeDTO {
 
-    private LocalDate c_date;
+    private LocalDate createDate;
 
-    private LocalDate d_date;
+    private LocalDate deleteDate;
+
+    private boolean isLiked; // 추가된 필드
 }

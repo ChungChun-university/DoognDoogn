@@ -66,7 +66,6 @@ public class UserService {
 
 
         // DTO의 정보로 엔티티 업데이트
-        foundUser.setUserId(updateUserDTO.getUserId());
         foundUser.setUserName(updateUserDTO.getUserName());
         foundUser.setUserPhone(updateUserDTO.getUserPhone());
         // 필요한 다른 필드도 업데이트
@@ -92,4 +91,14 @@ public class UserService {
         }
 
 }
+
+    public boolean isIdAvailable(String userId) {
+        return userRepository.findByUserId(userId) == null; // ID가 존재하지 않으면 사용 가능
     }
+
+//    public String findIdByNameAndPhone(String userName, String userPhone) {
+//        // userRepository를 통해 사용자 정보를 조회합니다.
+//        User user = userRepository.findByNameAndPhone(userName, userPhone);
+//        return (user != null) ? user.getUserId() : null; // 사용자 ID 반환
+//    }
+}

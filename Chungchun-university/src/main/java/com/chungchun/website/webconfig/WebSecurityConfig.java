@@ -39,7 +39,7 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry
-                            .requestMatchers("/", "/main.html").permitAll() // 모두에게 허용
+                            .requestMatchers("/", "/main.html", "/user/check-id", "/auth/login").permitAll() // 모두에게 허용
                             .requestMatchers("/user/register", "/user/search").anonymous() // 비인증사용자만 접근
                             .requestMatchers("/post/**", "/user/**", "/myClass/**","/comment/**").authenticated()
                             .requestMatchers("/admin/**").hasRole("ADMIN") // ROLE이 ADMIN인 경우만 접근 가능
@@ -56,7 +56,7 @@ public class WebSecurityConfig {
                     .loginProcessingUrl("/auth/login") // 로그인 처리 요청(POST)
                     .usernameParameter("userId") // userName으로 전달할 파라미터 설정
                     .passwordParameter("userPwd") // password로 전달할 파라미터 설정
-                    .defaultSuccessUrl("/main") // 로그인 성공시 이동할 URL
+                    .successHandler(new CustomAuthenticationSuccessHandler()) // 커스텀 핸들러 사용
                     .permitAll();
         }));
 
