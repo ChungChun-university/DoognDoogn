@@ -33,9 +33,9 @@ public class CourseController {
 
         return "course/courseMain";}
 
-    // 하트 이미지 클릭시 나의 강의 페이지로 이동
-    @GetMapping("/myCourse")
-    public String myCourse() {return "myClass/myClassView";}
+//    // 하트 이미지 클릭시 나의 강의 페이지로 이동
+//    @GetMapping("/myCourse")
+//    public String myCourse() {return "myClass/myClassView";}
 
 
 //    // 강의 검색
