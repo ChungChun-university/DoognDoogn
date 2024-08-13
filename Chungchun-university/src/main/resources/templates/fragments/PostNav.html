@@ -142,39 +142,68 @@
                 </div>
                 <h1 style="margin-top: 0; margin-left: 10px">[[|${ #authentication.principal.user.userName }님|]]</h1>
                 <h2 style="margin-left: 10px">ドキドキ</h2>
-                <a th:href="@{/post/myPost}"><button class="searchMyPost">내 게시글 조회</button></a>
+                <a th:href="@{/post/myPost}">
+                    <button class="searchMyPost">내 게시글 조회</button>
+                </a>
             </div>
         </div>
     </div>
 
     <div class="mainBottomPostNav">
-
         <div class="ClassList">
-            <h2>강의</h2>
-            <ul class="classUl">
-                <li><a href="#" class="category-link" data-category="뜨개질">뜨개질</a></li>
-                <li><a href="#" class="category-link" data-category="핸드 드립">핸드 드립</a></li>
-                <li><a href="#" class="category-link" data-category="소프트웨어">소프트웨어</a></li>
-                <li><a href="#" class="category-link" data-category="시.창작">시.창작</a></li>
-                <li><a href="#" class="category-link" data-category="가상체험">가상체험</a></li>
-            </ul>
-            <h2>기타</h2>
-            <ul class="classUl">
-                <li><a href="#" class="category-link" data-category="기타">기타</a></li>
-            </ul>
+            <div id="allPostsNav" style="display: none">
+                <h2>강의</h2>
+                <ul class="classUl">
+                    <li><a th:href="@{/post/postDetails(categoryCode='뜨개질')}" class="category-link" data-category="뜨개질">뜨개질</a></li>
+                    <li><a th:href="@{/post/postDetails(categoryCode='핸드 드립')}" class="category-link" data-category="핸드 드립">핸드 드립</a></li>
+                    <li><a th:href="@{/post/postDetails(categoryCode='소프트웨어')}" class="category-link" data-category="소프트웨어">소프트웨어</a></li>
+                    <li><a th:href="@{/post/postDetails(categoryCode='시.창작')}" class="category-link" data-category="시.창작">시.창작</a></li>
+                    <li><a th:href="@{/post/postDetails(categoryCode='가상체험')}" class="category-link" data-category="가상체험">가상체험</a></li>
+                </ul>
+                <h2>기타</h2>
+                <ul class="classUl">
+                    <li><a th:href="@{/post/postDetails(categoryCode='기타')}" class="category-link" data-category="기타">기타</a></li>
+                </ul>
+            </div>
+            <div id="myPostsNav" style="display: none">
+                <h2>강의</h2>
+                <ul class="classUl">
+                    <li><a th:href="@{/post/myPost(categoryCode='뜨개질')}" class="category-link" data-category="뜨개질">뜨개질</a></li>
+                    <li><a th:href="@{/post/myPost(categoryCode='핸드 드립')}" class="category-link" data-category="핸드 드립">핸드 드립</a></li>
+                    <li><a th:href="@{/post/myPost(categoryCode='소프트웨어')}" class="category-link" data-category="소프트웨어">소프트웨어</a></li>
+                    <li><a th:href="@{/post/myPost(categoryCode='시.창작')}" class="category-link" data-category="시.창작">시.창작</a></li>
+                    <li><a th:href="@{/post/myPost(categoryCode='가상체험')}" class="category-link" data-category="가상체험">가상체험</a></li>
+                </ul>
+                <h2>기타</h2>
+                <ul class="classUl">
+                    <li><a th:href="@{/post/myPost(categoryCode='기타')}" class="category-link" data-category="기타">기타</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <script>
-        const links = document.querySelectorAll('.classUl a');
-        const lectureTitleDiv = document.getElementById('lectureTitle');
+    <!--    <script>-->
+    <!--        const links = document.querySelectorAll('.classUl a');-->
+    <!--        const lectureTitleDiv = document.getElementById('lectureTitle');-->
 
-        links.forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault(); // 기본 링크 클릭 동작 방지
-                const title = this.getAttribute('data-title'); // data-title 속성에서 강의명 가져오기
-                lectureTitleDiv.textContent = title; // 강의명 표시
-            });
+    <!--        links.forEach(link => {-->
+    <!--            link.addEventListener('click', function(event) {-->
+    <!--                event.preventDefault(); // 기본 링크 클릭 동작 방지-->
+    <!--                const title = this.getAttribute('data-title'); // data-title 속성에서 강의명 가져오기-->
+    <!--                lectureTitleDiv.textContent = title; // 강의명 표시-->
+    <!--            });-->
+    <!--        });-->
+    <!--    </script>-->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentUrl = window.location.href;
+
+            if (currentUrl.includes("/post/myPost")) {
+                document.getElementById("myPostsNav").style.display = "block"; // 나의 게시글 네비게이션 표시
+            } else if (currentUrl.includes("/post/postDetails")) {
+                document.getElementById("allPostsNav").style.display = "block"; // 전체 게시글 네비게이션 표시
+            }
         });
     </script>
 

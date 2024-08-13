@@ -142,12 +142,11 @@
             </form>
         </div>
     </div>
+    <div>
+        <form id="logout-form" th:action="@{/auth/logout}" method="post" style="display:none;">
+            <input type="submit" value="로그아웃">
+        </form>
+    </div>
 </header>
-
-<div>
-    <form id="logout-form" th:action="@{/auth/logout}" method="post" style="display:none;">
-        <input type="submit" value="로그아웃">
-    </form>
-</div>
 </body>
 </html>
