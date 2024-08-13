@@ -19,5 +19,7 @@ public interface LikeRepository extends JpaRepository<Like,Integer> {
     // userNo를 사용하여 Like 목록을 찾는 메소드
     List<Like> findByUser_UserNo(int userNo); // User의 userNo 속성을 사용
 
-    void deleteByUser_UserNoAndPost_PostNo(int userNo, int postNo);
+
+    // 사용자 번호와 게시글 번호로 좋아요 삭제 메소드 정의
+    int deleteByUser_UserNoAndPost_PostNo(int userNo, int postNo);
 }
