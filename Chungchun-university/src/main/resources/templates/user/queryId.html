@@ -217,7 +217,7 @@
                 }
 
                 // 여기에 AJAX 요청 추가 (서버와 통신하여 ID 찾기)
-                fetch('/user/findId', {
+                fetch('/user/search', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -227,7 +227,12 @@
                         userPhone: userPhone
                     })
                 })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('서버 오류: ' + response.status);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         // 서버에서 받은 데이터에 따라 메시지 설정
                         if (data.userId) {

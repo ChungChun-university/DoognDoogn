@@ -93,7 +93,8 @@ public class UserService {
         return userRepository.findByUserId(userId) == null; // ID가 존재하지 않으면 사용 가능
     }
 
-    public String findIdByNameAndPhone(String userName, String userPhone) {
+
+    public String findIdByUser(String userName, String userPhone) {
         // 사용자 정보를 조회하는 메소드 호출
         User user = userRepository.findByUserNameAndUserPhone(userName, userPhone);
 

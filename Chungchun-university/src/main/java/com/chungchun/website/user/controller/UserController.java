@@ -120,7 +120,7 @@ public class UserController {
     @GetMapping("/search")
     public String queryIdPage() {
         log.info("log찍힘");
-        return "user/search";
+        return "user/queryId";
     }
 
     @PostMapping("/search")
@@ -129,7 +129,7 @@ public class UserController {
         log.info("userPhone =============== {}", userPhone);
 
         // 사용자 ID 찾기
-        String userId = userService.findIdByNameAndPhone(userName, userPhone);
+        String userId = userService.findIdByUser(userName, userPhone);
 
         // 결과를 모델에 추가
         model.addAttribute("userId", userId);

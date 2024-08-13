@@ -20,5 +20,4 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     User findByUserNameAndUserPhone(String userName, String userPhone);
 
-//    User findByNameAndPhone(String userName, String userPhone);
 }
