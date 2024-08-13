@@ -17,21 +17,21 @@ public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "noti_no")
-    private int notiNo;
+    private int noticeNo;
 
     @ManyToOne
     @JoinColumn(name = "user_no")
     private User user;
 
     @Column(name = "noti_title")
-    private String notiTitle;
+    private String noticeTitle;
 
     @Column(name = "noti_content")
-    private String notiContent;
+    private String noticeContent;
 
     @Column(name = "noti_create_date")
-    private LocalDate notiCreateDate;
+    private LocalDate noticeCreateDate;
 
     @Column(name = "noti_up_date")
-    private LocalDate notiUpDate;
+    private LocalDate noticeUpDate;
 }
