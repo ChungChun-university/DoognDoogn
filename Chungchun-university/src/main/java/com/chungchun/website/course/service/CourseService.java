@@ -4,8 +4,8 @@ import com.chungchun.website.course.model.Course;
 import com.chungchun.website.course.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

@@ -124,24 +124,27 @@ public class UserController {
     }
 
     @PostMapping("/search")
-    public String findUserByUserPhone(@RequestParam String userPhone, Model model) {
-        log.info("userPhone =============== {}", userPhone);
-        String userId=userService.findUserByUserPhone(userPhone);
+    public ResponseEntity<UserDTO> findUserByUserPhone(@RequestBody UserSearchRequest request) {
 
-        model.addAttribute("userId", userId );
-        return "user/searchResult";
-//        log.info("userName = {}, userPhone = {}", userName, userPhone);
+        log.info("search 요청들어옴...");
 
-//        String userId = userService.findIdByNameAndPhone(userName, userPhone);
-//        Map<String, Object> response = new HashMap<>();
-//
-//        if (userId != null) {
-//            response.put("userId", userId);
-//            return ResponseEntity.ok(response); // ID를 찾았을 경우
-//        } else {
-//            response.put("error", "일치하는 ID를 찾을 수 없습니다.");
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response); // ID를 찾지 못했을 경우
-//        }
+        String userName = request.getUserName();
+        String userPhone = request.getUserPhone();
+
+        log.info("userName : {}", userName);
+        log.info("userPhone : {}", userPhone);
+
+        String userId = userService.findIdByUser(userName, userPhone);
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName(userName);
+        userDTO.setUserId(userId);
+
+        if (userId == null) {
+            return ResponseEntity.status(404).body(null);
+        }
+
+        return ResponseEntity.ok(userDTO);
     }
 
     // 아이디 중복 확인

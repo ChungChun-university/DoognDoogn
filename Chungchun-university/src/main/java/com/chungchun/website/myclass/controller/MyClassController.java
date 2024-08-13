@@ -2,10 +2,8 @@ package com.chungchun.website.myclass.controller;
 
 import com.chungchun.website.auth.principal.AuthPrincipal;
 import com.chungchun.website.myclass.model.MyClass;
-import com.chungchun.website.myclass.model.MyClassDTO;
 import com.chungchun.website.myclass.service.MyClassService;
 import com.chungchun.website.user.model.User;
-import com.chungchun.website.user.model.UserDTO;
 import com.chungchun.website.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
