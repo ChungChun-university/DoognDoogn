@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.w3.org/1999/html"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/MyPageDefault}"
+>
 <head>
     <meta charset="UTF-8">
     <title>myClassView</title>
@@ -11,9 +14,10 @@
     }
 </style>
 <body>
+<div layout:fragment="content">
 [[|${ #authentication.principal.username }|]]
 [[|${ #authentication.principal.user.userName }|]]
-</div>
+
 
 <table class="table">
     <tr>
@@ -25,9 +29,10 @@
     <tr th:each="myClass : ${myClassList}">
         <td th:text="${ myClass.getCourse().getClsName() }"></td>
         <td th:text="${ myClass.getScore() }"></td>
-        <td> <a href=""><img src="/image/bin.png" style="width: 40px; height: 30px;" alt="bin"></a></td>
-        <td ><a href="">출석체크</a> </td>
+        <td> <a href="#"><img src="/image/bin.png" style="width: 40px; height: 30px;" alt="bin"></a></td>
+        <td ><a href="#">출석체크</a> </td>
     </tr>
 </table>
+</div>
 </body>
 </html>

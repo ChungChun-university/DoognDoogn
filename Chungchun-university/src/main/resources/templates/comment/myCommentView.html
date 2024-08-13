@@ -1,19 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/MyPageDefault}">
 <head>
     <meta charset="UTF-8">
     <title>myCommentView</title>
 </head>
 <style>
+    .text1{
+        font-family: "Jua", sans-serif;
+        font-size: 38pt;
+        margin-top: 67px;
+    }
     li{
         list-style-type: none;
         display: inline;
     }
     .viewMyCommentMain {
     }
+
+    .linerContent2 {
+        position: absolute;
+        z-index: 1;
+        margin-left: 400px;
+        margin-top: -610px;
+
+        .line1 {
+            border-bottom: 3pt solid purple;
+        }
+
+        .line2 {
+            border-bottom: 2.2pt solid #000;
+        }
+
+        .line3 {
+            border-bottom: 2.2pt solid #000;
+        }
+
+        .line4 {
+            border-bottom: 2.2pt solid #000;
+        }
+    }
 </style>
+<!--</head>-->
 <body>
-<h1>내 작성한 댓글</h1>
+<div layout:fragment="content">
+    <div class="linerContent2">
+    <div class="line1" style="width: 863pt; margin-bottom: 100px; "></div>
+    <div class="line2" style="width: 800pt; margin-bottom: 128px; "></div>
+    <div class="line3" style="width: 800pt; margin-bottom: 128px; "></div>
+    <div class="line4" style="width: 800pt; margin-bottom: 128px; "></div>
+</div>
+    <div class="text1">&#42;내가 작성한 댓글&#42;</div>
 <div class="viewMyCommentMain">
     <ul>
         <li style="margin-right: 5%">게시글 번호 </li>
@@ -26,10 +65,13 @@
     <ul>
         <li style="margin-right: 5%" th:text="${ myComment.getPost().getPostNo() }"></li>
         <li style="margin-right: 5%" th:text="${ myComment.getCmtContent() }"></li>
-        <li><a href="" style="margin-right: 5%" th:text="${ myComment.getCmtCreateDate()}"></a></li>
+        <li><a href="#" style="margin-right: 5%" th:text="${ myComment.getCmtCreateDate()}"></a></li>
 <!--        <li> <a th:href="@{/comment/modifyComment}" img src=/image/" style="width: 40px; height: 30px;" alt="bin"></a></li>-->
 <!--        <li> <a th:href="@{/comment/deleteComment}" img src=/image/bin.png" style="width: 40px; height: 30px;" alt="bin"></a></li>-->
     </ul>
+</div>
+
+
 </div>
 </body>
 </html>

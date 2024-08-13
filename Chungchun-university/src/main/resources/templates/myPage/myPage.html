@@ -1,17 +1,62 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org"
-       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-       layout:decorate="~{layout/default}" lang="en"
-       layout:decorate="~{layout/MyPageDefault}"
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/MyPageDefault}"
 >
 <head>
-  <style>스타일</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title></title>
 </head>
-<div class="myPageMainView">
+<style layout:fragment="style">
+
+  .leftInfo{
+    margin: 210px 76px 76px;
+  }
+  .mainName{
+    margin-top: 35px;
+    margin-left: 15px;
+    position: relative;
+    font-family: "나눔고딕",serif;
+    font-size: 45pt;
+  }
+  .userImage{
+  }
+
+  .rightInfo{
+    margin-top: -640px;
+    margin-left: 510px;
+    position: relative;
+  }
+
+  .text1{
+    font-size: 30pt;
+    text-align: center;
+    font-family: "Jua", sans-serif;
+  }
+  .heart{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: -100px;
+  }
+
+</style>
+<body>
 <div layout:fragment="content">
-<h2>마이페이지</h2>
+  <div class="leftInfo">
+    <div><img class="userImage" src="/image/user2Image.PNG" style="width: 200px; height: 300px;" alt="user2"></div>
+    <div class="mainName">[[|${ #authentication.principal.user.userName }|]]</div>
+  </div>
+
+<div class="rightInfo">
+  <div> <img class="star1" src="/image/starline.PNG" style="width: 500px; height: 40px" alt="sta1"></div>
+  <div class="text1">[[|${ #authentication.principal.user.userName }|]]의 마이페이지 입니다.</div>
+  <div> <img class="heart" src="/image/h-logo.png" style="width: 680px; height: 300px" alt=""></div>
+  <div class="text1">왼쪽에서 원하시는 메뉴를<br>
+    선택해주세요!</div>
+  <div> <img class="star2" src="/image/starline.PNG" style="width: 500px; height: 40px" alt="sta2"></div>
 </div>
 </div>
+</body>
 </html>
