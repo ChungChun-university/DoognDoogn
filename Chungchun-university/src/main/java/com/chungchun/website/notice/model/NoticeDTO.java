@@ -11,16 +11,16 @@ import java.time.LocalDate;
 @Setter
 @ToString
 public class NoticeDTO {
-    private int noti_no;
+    private int noticeNo;
 
-    private User user_no;
+    private User user;
 
-    private String noti_title;
+    private String noticeTitle;
 
-    private String noti_content;
+    private String noticeContent;
 
-    private LocalDate noti_cdate;
+    private LocalDate noticeCreateDate;
 
-    private LocalDate noti_udate;
+    private LocalDate noticeUpDate;
 
 }
