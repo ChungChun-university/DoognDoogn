@@ -57,27 +57,28 @@
         }
 
         #contentBody {
-            position: absolute;
+            position: relative;
             display: flex;
             flex-direction: column;
-            width: 1100px;
-            left: 300px;
-            top: 200px;
+            width: 950px;
+            left: 50px;
+            top: 150px;
             justify-content: start;
         }
 
         #postContent {
-            width: 1100px;
+            position: relative;
+            display: flex;
+            width: 950px;
             min-height: 300px;
             background: #FFFFFF;
 
         }
 
         #postContent p {
+            position: relative;
             width: 850px;
-            margin-top: 50px;
-            margin-left: 80px;
-            margin-bottom: 80px;
+            margin: 50px 150px 80px 80px;
             font-size: 25px;
             font-weight: normal;
             line-height: 50px;
@@ -85,9 +86,10 @@
 
         #editAndLikes {
             position: absolute;
-            bottom: 40px;
             right: 0;
-            width: 150px;
+            bottom: 0px;
+            width: 140px;
+            height: 60px;
             display: flex; /* Flexbox 사용 */
             justify-content: space-between; /* 아이콘 간의 간격을 균등하게 배치 */
             align-items: center; /* 세로 중앙 정렬 */
@@ -107,9 +109,61 @@
             height: auto; /* 비율 유지 */
         }
 
-        #goToPage {
+        /*  댓글 부분  */
 
+        #comments {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
         }
+
+        #commentTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        #commentTable th, #commentTable td {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #commentTable th {
+            background-color: #f2f2f2;
+        }
+
+        #commentForm {
+            display: flex;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        #commentInput {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        #submitComment {
+            position: absolute;
+            width: 100px;
+            right: 30px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #submitComment:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 </head>
 <div layout:fragment="content">
@@ -122,7 +176,7 @@
             <p th:text="${post.postContent}">게시글 본문</p>
             <!-- 게시글 수정, 좋아요 버튼 -->
             <div id="editAndLikes">
-                <div class="iconBox" >
+                <div class="iconBox">
                     <a class="edit" th:href="@{/post/edit/{postNo}(postNo=${post.postNo})}">
                         <img src="/image/수정버튼.png" alt="수정">
                     </a>
@@ -135,13 +189,33 @@
             </div>
         </div>
         <!-- 댓글 부분 -->
-        <div>
-
+        <div id="comments">
+            <h3>댓글</h3>
+            <table id="commentTable">
+                <thead>
+                <tr>
+                    <th>작성자</th>
+                    <th>댓글 내용</th>
+                    <th>날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="comment : ${post.comment}">
+                    <td th:text="${comment.user.getUserName()}">작성자 이름</td>
+                    <td th:text="${comment.cmtContent}">댓글 내용</td>
+                    <td th:text="${comment.cmtUpDate}">댓글 최종 변경일자</td>
+                </tr>
+                </tbody>
+            </table>
+            <div id="commentForm">
+                <textarea id="commentInput" placeholder="댓글을 입력하세요..." rows="3"></textarea>
+                <button id="submitComment">댓글 작성</button>
+            </div>
         </div>
-        <div id="goToPage">
-            <li>이전 글 넘어가기</li>
-            <li>다음 글 넘어가기</li>
-        </div>
+<!--        <div id="goToPage">-->
+<!--            <li>이전 글 넘어가기</li>-->
+<!--            <li>다음 글 넘어가기</li>-->
+<!--        </div>-->
     </div>
 </div>
 </html>
