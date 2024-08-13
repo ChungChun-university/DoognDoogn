@@ -29,43 +29,6 @@ public class CourseController {
 
         return "course/courseMain";}
 
-//    // 하트 이미지 클릭시 나의 강의 페이지로 이동
-//    @GetMapping("/myCourse")
-//    public String myCourse() {return "myClass/myClassView";}
 
-
-//    // 강의 검색
-//    @GetMapping("/search")
-//    public String searchCourse(@RequestParam(name = "clsName", required = false, defaultValue = "") String clsName, Model model) {
-//
-//        Iterable<Course> courses = courseService.findCourseByName(clsName);
-//        model.addAttribute("courses", courses);
-//        return "/course/search2";
-//    }
-
-
-
-
-//    // 강의 검색
-//    @GetMapping("/search")
-//    public String search(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-//        String clsName = userDetails.getUsername();
-//        log.info("clsName : {}", clsName);
-//
-//        CourseDTO courseDTO = courseService.findCourseByName(clsName);
-//        log.info("CourseDTO : {}", courseDTO);
-//
-//        model.addAttribute("course", courseDTO);
-//        return "course/search";
-
-//    }
-
-//    // 수강신청
-//    @GetMapping("/apply")
-//    public String apply() {
-//
-//
-//        return "course/courseMain/courseApply";
-//    }
 
 }

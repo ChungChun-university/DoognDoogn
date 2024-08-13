@@ -7,7 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @org.springframework.stereotype.Repository
 public interface CourseRepository extends JpaRepository<Course,Integer> {
 
-//    Optional<Course> findCourseByClsNameContains(String clsName);
 
-//    Iterable<Course> findByCourse(String clsName);
 }
