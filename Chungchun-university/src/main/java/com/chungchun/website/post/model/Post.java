@@ -1,10 +1,12 @@
 package com.chungchun.website.post.model;
 
+import com.chungchun.website.comment.model.Comment;
 import com.chungchun.website.course.model.Course;
 import com.chungchun.website.likes.model.Like;
 import com.chungchun.website.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,9 +16,9 @@ import java.util.List;
 @Table(name = "cc_post")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @ToString
-@Builder
+@Getter
+@Builder(toBuilder = true)
 public class Post {
 
     @Id
@@ -38,14 +40,18 @@ public class Post {
     private String postContent;
 
     @Column(name = "post_create_date", nullable = false)
+    @CreatedDate
     private Date postCreateDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_no", nullable = false)
     private User userNo;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Like> likes; // 좋아요 리스트 추가
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comment; // 댓글 리스트 추가
 
     public int getPostLikes() {
         return likes != null ? likes.size() : 0;

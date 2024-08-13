@@ -123,7 +123,7 @@
             <!-- 게시글 수정, 좋아요 버튼 -->
             <div id="editAndLikes">
                 <div class="iconBox" >
-                    <a class="edit" href="#">
+                    <a class="edit" th:href="@{/post/edit/{postNo}(postNo=${post.postNo})}">
                         <img src="/image/수정버튼.png" alt="수정">
                     </a>
                 </div>

@@ -130,13 +130,14 @@
             </form>
         </div>
     </div>
+    <div sec:authorize="isAuthenticated()">
+        <form id="logout-form" th:action="@{/auth/logout}" method="post" style="display:none;">
+            <input type="submit" value="로그아웃">
+        </form>
+    </div>
 </header>
 
-<div sec:authorize="isAuthenticated()">
-    <form id="logout-form" th:action="@{/auth/logout}" method="post" style="display:none;">
-        <input type="submit" value="로그아웃">
-    </form>
-</div>
+
 
 </body>
 </html>
