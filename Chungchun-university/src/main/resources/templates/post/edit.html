@@ -6,10 +6,12 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>createPost</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>게시글 수정</title>
     <style>
-        #createForm {
-            width: 900px;
+        #editForm {
+            width: 800px;
             margin: 50px auto;
             padding: 20px;
             background: #FFFFFF;
@@ -17,24 +19,16 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        #createForm h2 {
+        #editForm h2 {
             text-align: center;
         }
 
-        .form-group {
-            width: 850px;
-        }
-
-        #createContent {
-            margin: 0px;
-        }
-
-        #createForm label {
+        #editForm label {
             display: block;
             margin: 10px 0 5px;
         }
 
-        #createForm input, #createForm textarea {
+        #editForm input, #editForm textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
@@ -42,7 +36,7 @@
             border-radius: 5px;
         }
 
-        #createForm button {
+        #editForm button {
             width: 100%;
             padding: 10px;
             background: #007BFF;
@@ -52,10 +46,16 @@
             cursor: pointer;
         }
 
-        #createForm button:hover {
+        #editForm button:hover {
             background: #0056b3;
         }
 
+        a.btn.cancel {
+            background-color: #dc3545;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+        }
 
         /* 반응형 디자인 */
         @media (max-width: 600px) {
@@ -69,31 +69,20 @@
         }
     </style>
 </head>
-
 <div layout:fragment="content">
-    <div id="createForm">
-        <h2>게시글 작성</h2>
-        <form th:action="@{/post/createPost}" method="post">
+    <div id="editForm">
+        <h2>게시글 수정</h2>
+        <form th:action="@{/post/update/{postNo}(postNo=${post.postNo})}" method="post">
             <div class="form-group">
-                <label for="category">카테고리:</label>
-                <select id="category" name="categoryCode" required>
-                    <option value="뜨개질 고수로 한걸음">뜨개질 고수로 한걸음</option>
-                    <option value="핸드 드립 브루잉">핸드 드립 브루잉</option>
-                    <option value="두근두근 게임 소프트웨어 만들기">두근두근 게임 소프트웨어 만들기</option>
-                    <option value="간편 시 노래 창작">간편 시 노래 창작</option>
-                    <option value="상상력 자극 가상체험">상상력 자극 가상체험</option>
-                    <option value="null">자유</option>
-                </select>
+                <label for="postTitle">제목</label>
+                <input type="text" id="postTitle" name="postTitle" th:value="${post.postTitle}" required>
             </div>
             <div class="form-group">
-                <label for="title">제목:</label>
-                <input type="text" id="title" name="postTitle" required>
+                <label for="postContent">내용</label>
+                <textarea id="postContent" name="postContent" rows="10" th:text="${post.postContent}" required></textarea>
             </div>
-            <div class="form-group">
-                <label for="createContent">내용:</label>
-                <textarea id="createContent" name="postContent" rows="10" required></textarea>
-            </div>
-            <button type="submit" style="width: 100px; display: block; margin: 10px auto">등록</button>
+            <button type="submit" class="btn">수정하기</button>
+            <a th:href="@{/post/{postNo}(postNo=${post.postNo})}" class="btn cancel">취소</a>
         </form>
     </div>
 </div>
@@ -102,11 +91,10 @@
     document.addEventListener("DOMContentLoaded", function() {
         const form = document.querySelector("form");
         form.addEventListener("submit", function(event) {
-            const categoryCode = document.getElementById("categoryCode").value;
             const title = document.getElementById("postTitle").value;
             const content = document.getElementById("postContent").value;
 
-            if (!categoryCode || !title || !content) {
+            if (!title || !content) {
                 alert("제목과 내용을 모두 입력해야 합니다.");
                 event.preventDefault(); // 폼 제출 방지
             }

@@ -1,13 +1,13 @@
-# DROP TABLE IF EXISTS cc_course;
-#
-# CREATE TABLE cc_course (
-#                            cls_no INT AUTO_INCREMENT PRIMARY KEY,
-#                            cls_name VARCHAR(255) NOT NULL,
-#                            open_date DATE NOT NULL,
-#                            close_date DATE NOT NULL,
-#                            cls_intro TEXT NOT NULL,
-#                            cls_prof VARCHAR(255) NOT NULL
-# );
+DROP TABLE IF EXISTS cc_course;
+
+CREATE TABLE cc_course (
+                            cls_no INT AUTO_INCREMENT PRIMARY KEY,
+                            cls_name VARCHAR(255) NOT NULL,
+                            open_date DATE NOT NULL,
+                            close_date DATE NOT NULL,
+                            cls_intro TEXT NOT NULL,
+                            cls_prof VARCHAR(255) NOT NULL
+);
 
 INSERT INTO cc_course (cls_name, open_date, close_date, cls_intro, cls_prof) VALUES
                                                                                           ('뜨개질 고수로 한걸음', '2024-05-09', '2024-12-16', '뜨개질 입문을 해보아요', 'Professor.B'),

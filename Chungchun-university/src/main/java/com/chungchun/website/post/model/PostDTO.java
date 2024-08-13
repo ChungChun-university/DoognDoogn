@@ -1,5 +1,6 @@
 package com.chungchun.website.post.model;
 
+import com.chungchun.website.comment.model.Comment;
 import com.chungchun.website.course.model.Course;
 import com.chungchun.website.likes.model.Like;
 import com.chungchun.website.user.model.User;
@@ -26,6 +27,7 @@ public class PostDTO {
     private Date postCreateDate;
     private User userNo;
     private List<Like> likes;
+    private List<Comment> comment;
 
     // 좋아요 수를 반환하는 메서드
     public int getPostLikes() {

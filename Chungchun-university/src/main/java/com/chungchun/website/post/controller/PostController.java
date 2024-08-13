@@ -1,6 +1,8 @@
 package com.chungchun.website.post.controller;
 
 import com.chungchun.website.auth.principal.AuthPrincipal;
+import com.chungchun.website.common.ArticlePage;
+import com.chungchun.website.common.PagingButtonInfo;
 import com.chungchun.website.post.model.Post;
 import com.chungchun.website.post.model.PostDTO;
 import com.chungchun.website.post.service.PostService;
@@ -9,14 +11,15 @@ import com.chungchun.website.user.model.UserDTO;
 import com.chungchun.website.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,20 +34,51 @@ public class PostController {
 
     // 전체 게시글 조회
     @GetMapping("/postDetails")
-    public String postDetails(Model model){
+    public String postDetails(@RequestParam(required = false) String categoryCode, Model model, @PageableDefault Pageable pageable){
 
-        List<PostDTO> postList = postService.findAllPosts();
+        Page<PostDTO> postList;
 
+        if (categoryCode != null && !categoryCode.isEmpty()) {
+            // 카테고리에 따라 게시글 필터링
+            postList = postService.findPostsByCategory(categoryCode, pageable);
+            model.addAttribute("categoryCode",categoryCode);
+        } else {
+            // 모든 게시글 가져오기
+            postList = postService.findAllPosts(pageable);
+        }
+
+        PagingButtonInfo paging = ArticlePage.getPagingButtonInfo(postList);
+
+        model.addAttribute("paging",paging);
         model.addAttribute("postList",postList);
 
         return "post/postDetails";
+    }
+
+    // 내 게시글 조회
+    @GetMapping("/myPost")
+    public String myPost(@AuthenticationPrincipal UserDetails userDetails, Model model, @PageableDefault Pageable pageable){
+
+        // UserDetails를 AuthPrincipal로 캐스팅
+        AuthPrincipal authPrincipal = (AuthPrincipal) userDetails;
+
+        User user = authPrincipal.getUser();
+
+        Page<PostDTO> myPostList = postService.findPostsByUser(user,pageable);
+
+        PagingButtonInfo paging = ArticlePage.getPagingButtonInfo(myPostList);
+
+        model.addAttribute("postList",myPostList);
+        model.addAttribute("paging",paging);
+
+        return "post/myPost";
     }
 
     // 게시글 단일 조회 기능
     @GetMapping("/{postNo}")
     public String findMenuByCode(@PathVariable("postNo") int postNo, Model model) {
 
-        log.info("menuCode = {}", postNo);
+        log.info("postNo = {}", postNo);
 
         Post post = postService.findByPostNo(postNo);
 
@@ -81,23 +115,38 @@ public class PostController {
 
         postService.create(postDTO, user);
 
-        return "redirect:/";
+        return "redirect:/post/myPost";
     }
 
-    // 내 게시글
-    @GetMapping("/myPost")
-    public String myPost(@AuthenticationPrincipal UserDetails userDetails, Model model){
+    // 게시글 수정 페이지로 이동
+    @GetMapping("/edit/{postNo}")
+    public String editPost(@PathVariable int postNo, Model model) {
+        Post post = postService.findByPostNo(postNo);
+        model.addAttribute("post", post);
+        return "post/edit";
+    }
 
-        // UserDetails를 AuthPrincipal로 캐스팅
-        AuthPrincipal authPrincipal = (AuthPrincipal) userDetails;
+    // 게시글 수정 처리
+    @PostMapping("/update/{postNo}")
+    public String updatePost(@PathVariable int postNo,
+                             @RequestParam String postTitle,
+                             @RequestParam String postContent) {
+        postService.updatePost(postNo, postTitle, postContent);
 
-        User user = authPrincipal.getUser();
+        log.info("게시글 내용 변경 완료!");
 
-        List<Post> myPostList = postService.findPostsByUser(user);
+        return "redirect:/post/" + postNo; // 수정 후 게시글 조회 페이지로 리다이렉트
+    }
 
-        model.addAttribute("postList",myPostList);
-
-        return "post/myPost";
+    // 게시글 삭제
+    @DeleteMapping("/delete/{postNo}")
+    public ResponseEntity<String> deletePost(@PathVariable int postNo) {
+        try {
+            postService.deletePost(postNo); // 서비스 메서드 호출
+            return ResponseEntity.ok("게시글이 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("게시글 삭제에 실패했습니다.");
+        }
     }
 
 
