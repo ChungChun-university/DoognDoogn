@@ -120,28 +120,26 @@ public class UserController {
     @GetMapping("/search")
     public String queryIdPage() {
         log.info("log찍힘");
-        return "user/queryId";
+        return "user/search";
     }
 
     @PostMapping("/search")
-    public String findUserByUserPhone(@RequestParam String userPhone, Model model) {
+    public String findUserByUserPhone(@RequestParam String userName, @RequestParam String userPhone, Model model) {
+        log.info("userName =============== {}", userName);
         log.info("userPhone =============== {}", userPhone);
-        String userId=userService.findUserByUserPhone(userPhone);
 
-        model.addAttribute("userId", userId );
-        return "user/searchResult";
-//        log.info("userName = {}, userPhone = {}", userName, userPhone);
+        // 사용자 ID 찾기
+        String userId = userService.findIdByNameAndPhone(userName, userPhone);
 
-//        String userId = userService.findIdByNameAndPhone(userName, userPhone);
-//        Map<String, Object> response = new HashMap<>();
-//
-//        if (userId != null) {
-//            response.put("userId", userId);
-//            return ResponseEntity.ok(response); // ID를 찾았을 경우
-//        } else {
-//            response.put("error", "일치하는 ID를 찾을 수 없습니다.");
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response); // ID를 찾지 못했을 경우
-//        }
+        // 결과를 모델에 추가
+        model.addAttribute("userId", userId);
+
+        // 사용자 ID를 찾지 못했을 경우
+        if (userId == null) {
+            model.addAttribute("errorMessage", "일치하는 ID를 찾을 수 없습니다.");
+        }
+
+        return "user/queryId"; // 결과를 보여줄 뷰로 이동
     }
 
     // 아이디 중복 확인

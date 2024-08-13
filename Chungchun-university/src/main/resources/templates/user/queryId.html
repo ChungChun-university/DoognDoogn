@@ -105,9 +105,49 @@
             align-items: center; /* 수직 중앙 정렬 */
         }
 
-        label{
+        label {
             font-family: Dongle;
             font-size: 32px;
+        }
+
+        .modal {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed; /* 화면에 고정 */
+            z-index: 1; /* 다른 요소 위에 표시 */
+            left: 0;
+            top: 0;
+            width: 100%; /* 전체 너비 */
+            height: 100%; /* 전체 높이 */
+            overflow: hidden; /* 필요시 스크롤 */
+            background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+        }
+
+        .modal-content {
+            background-color: #ff99cc;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 중앙 정렬 */
+            /*margin: 15% auto; !* 중앙 정렬 *!*/
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* 너비 설정 */
+            text-align: center; /* 텍스트 중앙 정렬 */
+
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -128,11 +168,95 @@
                     <label>phone : </label>
                     <input type="text" name="userPhone">
                 </div>
-                <div>
-                    <input type="submit" class="small-button" value="찾기">
+                <div id="findButton">
+                    <div>
+                        <input type="submit" class="small-button" value="찾기">
+                    </div>
+                </div>
+            </div>
+
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p id="modal-message">찾으시는 ID는 [[${userId}]] 입니다.</p>
                 </div>
             </div>
         </div>
+
+        <script>
+            // 모달 요소와 메시지 요소 선택
+            var modal = document.getElementById("myModal");
+            var modalMessage = document.getElementById("modal-message");
+
+            // 폼 제출 이벤트 리스너 추가
+            document.querySelector("form").addEventListener("submit", function (event) {
+                event.preventDefault(); // 기본 제출 방지
+
+                // 입력된 이름과 전화번호 가져오기
+                var userName = document.querySelector('input[name="userName"]').value;
+                var userPhone = document.querySelector('input[name="userPhone"]').value;
+
+                // 입력값 유효성 검사
+                var errorMessage = "";
+                if (!userName && !userPhone) {
+                    errorMessage = "이름과 전화번호를 입력하지 않았습니다.";
+                } else {
+                    if (!userName) {
+                        errorMessage += "이름을 입력하지 않았습니다. ";
+                    }
+                    if (!userPhone) {
+                        errorMessage += "전화번호를 입력하지 않았습니다. ";
+                    }
+                }
+
+                // 유효성 검사 결과에 따라 메시지 표시
+                if (errorMessage) {
+                    modalMessage.innerHTML = errorMessage;
+                    modal.style.display = "block";
+                    return; // 유효성 검사 실패 시 이후 코드 실행 방지
+                }
+
+                // 여기에 AJAX 요청 추가 (서버와 통신하여 ID 찾기)
+                fetch('/user/findId', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userName: userName,
+                        userPhone: userPhone
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // 서버에서 받은 데이터에 따라 메시지 설정
+                        if (data.userId) {
+                            modalMessage.innerHTML = "찾으시는 ID는 " + data.userId + " 입니다.";
+                        } else {
+                            modalMessage.innerHTML = "회원을 찾을 수 없습니다.";
+                        }
+                        // 모달 표시
+                        modal.style.display = "block";
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        modalMessage.innerHTML = "오류가 발생했습니다. 다시 시도해 주세요.";
+                        modal.style.display = "block";
+                    });
+            });
+
+            // 모달 닫기 버튼 클릭 시
+            document.querySelector(".close").onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // 모달 외부 클릭 시 닫기
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
     </div>
 </form>
 </body>
