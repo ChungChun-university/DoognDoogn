@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -39,6 +40,18 @@ public class CourseController {
 
 //    // 강의 검색
 //    @GetMapping("/search")
+//    public String searchCourse(@RequestParam(name = "clsName", required = false, defaultValue = "") String clsName, Model model) {
+//
+//        Iterable<Course> courses = courseService.findCourseByName(clsName);
+//        model.addAttribute("courses", courses);
+//        return "/course/search2";
+//    }
+
+
+
+
+//    // 강의 검색
+//    @GetMapping("/search")
 //    public String search(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 //        String clsName = userDetails.getUsername();
 //        log.info("clsName : {}", clsName);
@@ -51,11 +64,12 @@ public class CourseController {
 
 //    }
 
-    // 수강신청
-    @GetMapping("/apply")
-    public String apply() {
+//    // 수강신청
+//    @GetMapping("/apply")
+//    public String apply() {
+//
+//
+//        return "course/courseMain/courseApply";
+//    }
 
-
-        return "course/courseMain/courseApply";
-    }
 }

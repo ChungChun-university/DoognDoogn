@@ -26,6 +26,12 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
+//    // 강의 검색
+//    public Iterable<Course> findCourseByName(String clsName) {
+//        return courseRepository.findByCourse(clsName);
+//    }
+
+
 //    private final CourseRepository courseRepository;
 //    private final ModelMapper modelMapper;
 //
@@ -38,10 +44,12 @@ public class CourseService {
 
 //    // 수강신청
 //    @Transactional
-//    public void saveCourseApply(MyClassDTO myClassDTO){
+//    public void saveCourseApply(){
 //
 //        MyClass myClass = MyClass.builder()
-//                .
+//                .user()
+//                .course(1)
+//                .build();
 //    }
 
 

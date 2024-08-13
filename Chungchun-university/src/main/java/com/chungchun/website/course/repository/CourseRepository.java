@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface CourseRepository extends JpaRepository<Course,Integer> {
 
 //    Optional<Course> findCourseByClsNameContains(String clsName);
+
+//    Iterable<Course> findByCourse(String clsName);
 }
