@@ -109,6 +109,14 @@
             height: auto; /* 비율 유지 */
         }
 
+        .like-image {
+            transition: opacity 0.3s; /* 부드러운 전환 효과 */
+        }
+
+        .liked {
+            filter: brightness(0) saturate(100%) invert(30%) sepia(100%) saturate(1000%) hue-rotate(0deg) brightness(100%) contrast(100%); /* 빨간색으로 변환 */
+        }
+
         /*  댓글 부분  */
 
         #comments {
@@ -182,10 +190,20 @@
                     </a>
                 </div>
                 <div class="iconBox">
-                    <a class="likes" href="#">
-                        <img src="/image/좋아요.png" alt="좋아요">
+                    <a class="likes" href="#" onclick="toggleLike(this)">
+                        <img src="/image/좋아요.png" alt="좋아요" class="like-image">
                     </a>
                 </div>
+                <script>
+                    function toggleLike(element) {
+                        const img = element.querySelector('.like-image');
+                        if (img.src.includes('좋아요.png')) {
+                            img.src = '/image/filledHeart.png'; // 좋아요2 이미지로 변경
+                        } else {
+                            img.src = '/image/좋아요.png'; // 원래 이미지로 돌아감
+                        }
+                    }
+                </script>
             </div>
         </div>
         <!-- 댓글 부분 -->
